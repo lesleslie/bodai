@@ -1,0 +1,66 @@
+"""IPython admin shell for Bodai ecosystem management."""
+
+from rich import print
+
+from bodai.core.config import load_ecosystem, load_portmap, load_storage_map
+from bodai.core.health import check_all, check_component
+from bodai.models.ecosystem import Component, Ecosystem
+
+
+def launch_shell() -> None:
+    """Launch IPython with Bodai context pre-loaded."""
+    # Load configuration
+    ecosystem = load_ecosystem()
+    portmap = load_portmap()
+    storage_map = load_storage_map()
+
+    # Welcome banner
+    print("[bold cyan]═══════════════════════════════════════[/bold cyan]")
+    print("[bold cyan]       Bodai Admin Shell[/bold cyan]")
+    print("[bold cyan]═══════════════════════════════════════[/bold cyan]")
+    print()
+    print(f"  [green]Ecosystem:[/green] {len(ecosystem.components)} components")
+    print(f"  [green]Port Range:[/green] {portmap.mcp_range[0]}-{portmap.mcp_range[1]}")
+    print()
+
+    # Pre-loaded namespace
+    user_ns = {
+        # Config objects
+        "ecosystem": ecosystem,
+        "portmap": portmap,
+        "storage_map": storage_map,
+        # Config functions
+        "load_ecosystem": load_ecosystem,
+        "load_portmap": load_portmap,
+        "load_storage_map": load_storage_map,
+        # Health functions
+        "check_all": check_all,
+        "check_component": check_component,
+        # Models
+        "Component": Component,
+        "Ecosystem": Ecosystem,
+        # Quick access to components
+        **{name: comp for name, comp in ecosystem.components.items()},
+    }
+
+    # Print available variables
+    print("[yellow]Pre-loaded:[/yellow]")
+    print("  ecosystem, portmap, storage_map")
+    print("  check_all(), check_component(comp)")
+    print()
+    print("[dim]Components available as variables:[/dim]")
+    comp_names = ", ".join(ecosystem.components.keys())
+    print(f"  {comp_names}")
+    print()
+
+    # Launch IPython
+    from IPython import start_ipython
+    from IPython.terminal.interactiveshell import TerminalInteractiveShell
+
+    TerminalInteractiveShell.autoindent = True
+
+    start_ipython(argv=[], user_ns=user_ns)
+
+
+if __name__ == "__main__":
+    launch_shell()
