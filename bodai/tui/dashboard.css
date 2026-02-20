@@ -1,0 +1,35 @@
+Screen {
+    background: $surface;
+}
+
+ComponentList {
+    layout: vertical;
+    padding: 1 2;
+    overflow-y: auto;
+}
+
+ComponentWidget {
+    layout: vertical;
+    margin: 1 0;
+    padding: 1;
+    background: $panel;
+    border: solid $primary;
+}
+
+.component-name {
+    text-style: bold;
+}
+
+.component-details {
+    color: $text-muted;
+    margin-left: 2;
+}
+
+Header {
+    background: $primary;
+    color: $text-on-primary;
+}
+
+Footer {
+    background: $panel;
+}
