@@ -1,0 +1,35 @@
+# Bodai Ecosystem Storage Map
+# Databases, caches, and persistent storage allocations
+
+databases:
+  session_buddy:
+    path: ~/data/session-buddy/session_buddy.db
+    type: duckdb
+    description: Session memories and knowledge graph
+
+  akosha_hot:
+    path: ~/data/akosha/hot.db
+    type: duckdb
+    description: Hot tier for recent data (0-7 days)
+
+  akosha_warm:
+    path: ~/data/akosha/warm.db
+    type: duckdb
+    description: Warm tier for historical data (7-90 days)
+
+  dhruva:
+    path: ~/data/dhruva/dhruva.db
+    type: dhruva
+    description: Persistent object storage
+
+caches:
+  redis:
+    host: localhost
+    port: 6379
+    description: Shared cache layer
+
+storage:
+  akosha_cold:
+    backend: s3
+    bucket: akosha-cold-data
+    description: Cold tier for archival (90+ days)

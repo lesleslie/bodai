@@ -1,0 +1,17 @@
+# Bodai Ecosystem Port Allocation
+# MCP servers: 8676-8699
+
+mcp_range:
+  start: 8676
+  end: 8699
+
+allocations:
+  8676: crackerjack    # Inspector
+  8678: session-buddy  # Builder
+  8680: mahavishnu     # Orchestrator
+  8681: available      # (Oneiric MCP absorbed into Dhruva)
+  8682: akosha         # Seer
+  8683: dhruva         # Curator
+
+reserved:
+  8684-8699: future expansion

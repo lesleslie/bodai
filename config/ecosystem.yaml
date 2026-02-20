@@ -1,0 +1,43 @@
+# Bodai Ecosystem Component Registry
+# The Orb contains all components of the ecosystem
+
+components:
+  mahavishnu:
+    name: mahavishnu
+    role: orchestrator
+    port: 8680
+    repo: ~/Projects/mahavishnu
+    status: production
+    description: Multi-engine workflow orchestration and pool management
+
+  akosha:
+    name: akosha
+    role: seer
+    port: 8682
+    repo: ~/Projects/akosha
+    status: production
+    description: Cross-system intelligence and memory aggregation
+
+  dhruva:
+    name: dhruva
+    role: curator
+    port: 8683
+    repo: ~/Projects/dhruva
+    status: production
+    description: Persistent object storage with ACID properties
+
+  session-buddy:
+    name: session-buddy
+    role: builder
+    port: 8678
+    repo: ~/Projects/session-buddy
+    status: production
+    description: Session lifecycle management and knowledge graphs
+
+  crackerjack:
+    name: crackerjack
+    role: inspector
+    port: 8676
+    repo: ~/Projects/crackerjack
+    status: production
+    description: Quality gates, testing, and CI/CD validation
