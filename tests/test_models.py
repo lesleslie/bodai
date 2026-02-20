@@ -177,3 +177,33 @@ def test_component_status_values():
     assert ComponentStatus.PRODUCTION.value == "production"
     assert ComponentStatus.DEVELOPMENT.value == "development"
     assert ComponentStatus.DISABLED.value == "disabled"
+
+
+# Config model tests
+
+from bodai.models.config import PortmapConfig, StorageMapConfig
+
+
+def test_portmap_config():
+    """Test portmap configuration."""
+    portmap = PortmapConfig(
+        mcp_range=(8676, 8699),
+        reserved={8681: "available"},
+    )
+    assert portmap.mcp_range == (8676, 8699)
+    assert 8681 in portmap.reserved
+
+
+def test_storage_map_config():
+    """Test storage map configuration."""
+    storage = StorageMapConfig(
+        databases={
+            "session_buddy": "~/data/session-buddy/session_buddy.db",
+            "akosha_hot": "~/data/akosha/hot.db",
+        },
+        caches={
+            "redis": "localhost:6379",
+        },
+    )
+    assert "session_buddy" in storage.databases
+    assert "redis" in storage.caches
