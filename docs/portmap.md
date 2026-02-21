@@ -35,16 +35,17 @@ The 8676-8699 range was chosen for several reasons:
 
 1. **Unallocated Range**: This range falls within the dynamic/private port range (49152-65535) but is not commonly used by well-known services, reducing collision risk.
 
-2. **Memorable Pattern**: The 86xx pattern is easy to remember and type:
+1. **Memorable Pattern**: The 86xx pattern is easy to remember and type:
+
    - 8676 = Crackerjack (starts with 6 for "Crackerjack" alphabet position)
    - 8678 = Session-Buddy (8 for "Buddy")
    - 8680 = Mahavishnu (0 for "Orchestrator" - central hub)
    - 8682 = Akosha (2 for "Seer" - second eye)
    - 8683 = Dhruva (3 for "Curator" - third pillar)
 
-3. **Grouped Allocation**: All Bodai services are in one contiguous range, making firewall rules and network configuration simpler.
+1. **Grouped Allocation**: All Bodai services are in one contiguous range, making firewall rules and network configuration simpler.
 
-4. **Future Growth**: 24 ports (8676-8699) provide ample room for expansion.
+1. **Future Growth**: 24 ports (8676-8699) provide ample room for expansion.
 
 ### Port Assignment Strategy
 
@@ -230,16 +231,19 @@ All services return a consistent health check response:
 If a port is already in use:
 
 1. **Check what's using the port**:
+
    ```bash
    lsof -i :8676
    ```
 
-2. **Kill the conflicting process** (if appropriate):
+1. **Kill the conflicting process** (if appropriate):
+
    ```bash
    kill -9 <PID>
    ```
 
-3. **Or reconfigure the service** (not recommended - breaks ecosystem consistency):
+1. **Or reconfigure the service** (not recommended - breaks ecosystem consistency):
+
    ```yaml
    # Only as a last resort
    services:
@@ -252,11 +256,11 @@ If a port is already in use:
 When adding new services to the ecosystem:
 
 1. **Use 867x for infrastructure tools** (testing, monitoring, etc.)
-2. **Use 868x for core services** (storage, intelligence, orchestration)
-3. **Use 869x for extensions** (plugins, external integrations)
-4. **Always check this document first** to avoid conflicts
-5. **Update this document** when allocating a new port
-6. **Reserve adjacent ports** if a service might need multiple ports
+1. **Use 868x for core services** (storage, intelligence, orchestration)
+1. **Use 869x for extensions** (plugins, external integrations)
+1. **Always check this document first** to avoid conflicts
+1. **Update this document** when allocating a new port
+1. **Reserve adjacent ports** if a service might need multiple ports
 
 ## Related Documentation
 

@@ -102,9 +102,9 @@ Mahavishnu (8680) --+---> Dhruva (8683)
 Mahavishnu serves as the central orchestrator, routing tasks to appropriate components based on:
 
 1. **Akosha**: For intelligence operations requiring vector search or pattern analysis
-2. **Dhruva**: For persistent storage of workflow state and results
-3. **Session-Buddy**: For session context and conversation tracking
-4. **Crackerjack**: For quality validation of workflow outputs
+1. **Dhruva**: For persistent storage of workflow state and results
+1. **Session-Buddy**: For session context and conversation tracking
+1. **Crackerjack**: For quality validation of workflow outputs
 
 ### Crackerjack to All Components
 
@@ -125,9 +125,9 @@ Crackerjack (8676) --+---> Akosha (8682)
 Crackerjack enforces quality across the ecosystem by:
 
 1. Validating workflow definitions before Mahavishnu executes them
-2. Generating code analysis embeddings in Akosha for pattern detection
-3. Storing quality reports and metrics in Dhruva for historical tracking
-4. Recording quality metrics per session in Session-Buddy
+1. Generating code analysis embeddings in Akosha for pattern detection
+1. Storing quality reports and metrics in Dhruva for historical tracking
+1. Recording quality metrics per session in Session-Buddy
 
 ### Dhruva to All Components
 
@@ -148,15 +148,16 @@ Dhruva (8683) -------+---> Akosha (8682)
 Dhruva provides persistent storage services to all components:
 
 1. **Mahavishnu**: Workflow state recovery for resumable operations
-2. **Akosha**: Historical data for pattern recognition and trend analysis
-3. **Session-Buddy**: Session backup and disaster recovery
-4. **Crackerjack**: Quality trend data for longitudinal analysis
+1. **Akosha**: Historical data for pattern recognition and trend analysis
+1. **Session-Buddy**: Session backup and disaster recovery
+1. **Crackerjack**: Quality trend data for longitudinal analysis
 
 ## Architecture Principles
 
 ### Separation of Concerns
 
 Each component has a distinct responsibility:
+
 - **Orchestration** (Mahavishnu) vs **Intelligence** (Akosha) vs **Storage** (Dhruva)
 - **Session Management** (Session-Buddy) vs **Quality Enforcement** (Crackerjack)
 - **Libraries** (Oneiric) provide shared utilities without network overhead

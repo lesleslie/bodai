@@ -68,16 +68,19 @@ python -m bodai.cli shell
 The Bodai project is organized into three primary layers:
 
 ### 1. Config Layer
+
 - Configuration management for ecosystem components
 - YAML-based configuration files for each component
 - Environment-specific settings management
 
 ### 2. Models Layer
+
 - Pydantic models for data validation and serialization
 - Component status and health check models
 - Ecosystem topology representations
 
 ### 3. Operations Layer
+
 - CLI commands using Typer framework
 - Interactive TUI using Textual
 - Concurrent operations using ThreadPoolExecutor
@@ -85,15 +88,19 @@ The Bodai project is organized into three primary layers:
 ## Key Patterns
 
 ### Pydantic Models
+
 All data models use Pydantic v2 for validation, serialization, and settings management. Models are defined with strict type hints and comprehensive validation rules.
 
 ### Typer CLI Framework
+
 The CLI is built using Typer for intuitive command-line interfaces with automatic help generation and rich formatting via Rich integration.
 
 ### Textual TUI
+
 Interactive dashboards and shells use Textual for terminal-based user interfaces with reactive components and event-driven architecture.
 
 ### ThreadPoolExecutor
+
 Concurrent health checks and operations across ecosystem components use ThreadPoolExecutor for parallel execution with configurable thread pools.
 
 ## Configuration Files
@@ -101,5 +108,5 @@ Concurrent health checks and operations across ecosystem components use ThreadPo
 The ecosystem configuration is managed through three YAML files:
 
 1. `config/components.yaml` - Component definitions and connection settings
-2. `config/monitoring.yaml` - Health check intervals and thresholds
-3. `config/operations.yaml` - Operational procedures and automation rules
+1. `config/monitoring.yaml` - Health check intervals and thresholds
+1. `config/operations.yaml` - Operational procedures and automation rules

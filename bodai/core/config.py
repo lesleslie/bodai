@@ -13,7 +13,7 @@ CONFIG_DIR = Path(__file__).parent.parent.parent / "config"
 def load_ecosystem() -> Ecosystem:
     """Load ecosystem configuration from YAML."""
     config_path = CONFIG_DIR / "ecosystem.yaml"
-    with open(config_path) as f:
+    with config_path.open() as f:
         data = yaml.safe_load(f)
 
     components = {}
@@ -26,7 +26,7 @@ def load_ecosystem() -> Ecosystem:
 def load_portmap() -> PortmapConfig:
     """Load portmap configuration from YAML."""
     config_path = CONFIG_DIR / "portmap.yaml"
-    with open(config_path) as f:
+    with config_path.open() as f:
         data = yaml.safe_load(f)
 
     mcp_range = (
@@ -57,7 +57,7 @@ def load_portmap() -> PortmapConfig:
 def load_storage_map() -> StorageMapConfig:
     """Load storage map configuration from YAML."""
     config_path = CONFIG_DIR / "storage-map.yaml"
-    with open(config_path) as f:
+    with config_path.open() as f:
         data = yaml.safe_load(f)
 
     databases = {

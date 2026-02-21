@@ -6,7 +6,7 @@ This document describes how the components in the Bodai ecosystem work together,
 
 The Bodai ecosystem is designed around the principle of symbiosis - components are not merely connected, but actively enhance each other's capabilities through well-defined interactions.
 
----
+______________________________________________________________________
 
 ## Session-Buddy to Akosha
 
@@ -32,10 +32,10 @@ Session-Buddy captures the ephemeral (sessions, conversations) and feeds them to
 ### Data Flow Details
 
 1. **Session Creation**: When a new session starts in Session-Buddy
-2. **Context Capture**: Conversation and context are captured
-3. **Embedding Generation**: Akosha generates vector embeddings
-4. **Pattern Detection**: Cross-session patterns are identified
-5. **Intelligence Retrieval**: Future sessions can query related context
+1. **Context Capture**: Conversation and context are captured
+1. **Embedding Generation**: Akosha generates vector embeddings
+1. **Pattern Detection**: Cross-session patterns are identified
+1. **Intelligence Retrieval**: Future sessions can query related context
 
 ### Symbiotic Benefits
 
@@ -46,7 +46,7 @@ Session-Buddy captures the ephemeral (sessions, conversations) and feeds them to
 | Context windows | Intelligent retrieval |
 | Knowledge graph nodes | Cross-session intelligence |
 
----
+______________________________________________________________________
 
 ## Mahavishnu to All Components
 
@@ -136,7 +136,7 @@ Used for quality gate enforcement.
 | Session-Buddy | Context requests | Session awareness |
 | Crackerjack | Artifacts to validate | Quality assurance |
 
----
+______________________________________________________________________
 
 ## Crackerjack to All Components
 
@@ -215,7 +215,7 @@ Crackerjack enforces quality across the entire ecosystem, ensuring that all comp
 | Session-Buddy | Quality metrics | Session context |
 | Oneiric | Library validation | Resolution logic |
 
----
+______________________________________________________________________
 
 ## Dhruva to All Components
 
@@ -310,7 +310,7 @@ Crackerjack                     Dhruva
 | Crackerjack | Trend analysis | Reports to store |
 | Oneiric | Merge resolution data | Resolution algorithms |
 
----
+______________________________________________________________________
 
 ## Oneiric to All Components
 
@@ -392,7 +392,7 @@ unified_context = merge_contexts(
 | Crackerjack | Rule conflict resolution | Consistent quality rules |
 | Akosha | Pattern conflict resolution | Accurate pattern matching |
 
----
+______________________________________________________________________
 
 ## The Complete Symbiosis
 

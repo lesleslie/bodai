@@ -3,6 +3,7 @@
 import pytest
 from pydantic import ValidationError
 
+from bodai.models.config import PortmapConfig, StorageMapConfig
 from bodai.models.ecosystem import Component, ComponentRole, ComponentStatus, Ecosystem
 
 
@@ -177,11 +178,6 @@ def test_component_status_values():
     assert ComponentStatus.PRODUCTION.value == "production"
     assert ComponentStatus.DEVELOPMENT.value == "development"
     assert ComponentStatus.DISABLED.value == "disabled"
-
-
-# Config model tests
-
-from bodai.models.config import PortmapConfig, StorageMapConfig
 
 
 def test_portmap_config():

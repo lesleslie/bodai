@@ -1,6 +1,6 @@
 """Tests for health check functionality."""
 
-from bodai.core.health import check_port, check_component, check_all, HealthStatus
+from bodai.core.health import HealthStatus, check_all, check_component, check_port
 
 
 def test_health_status_enum():
@@ -18,7 +18,7 @@ def test_check_port_localhost():
 
 def test_check_component_returns_dict():
     """Test check_component returns proper structure."""
-    from bodai.core.config import load_ecosystem
+    from bodai.core.config import load_ecosystem  # noqa: PLC0415
 
     ecosystem = load_ecosystem()
     component = ecosystem.components["mahavishnu"]

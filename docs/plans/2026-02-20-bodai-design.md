@@ -114,9 +114,9 @@ class BodaiConfig(OneiricConfig):
 ### Precedence (Oneiric 4-tier)
 
 1. Explicit overrides (`BODAI_<FIELD>` env vars)
-2. `config/local.yaml` (gitignored, local dev)
-3. `config/ecosystem.yaml` (committed, shared)
-4. Pydantic model defaults
+1. `config/local.yaml` (gitignored, local dev)
+1. `config/ecosystem.yaml` (committed, shared)
+1. Pydantic model defaults
 
 ### ecosystem.yaml Structure
 
@@ -408,8 +408,8 @@ dev = [
 ## Success Criteria
 
 1. **Config**: Can load and validate ecosystem config via Oneiric
-2. **Health**: Can check health of all components in <5 seconds
-3. **Operations**: Can start/stop all components from single command
-4. **Dashboard**: TUI displays real-time health with auto-refresh
-5. **Shell**: IPython shell has pre-loaded ecosystem context
-6. **Docs**: Documentation explains ecosystem architecture clearly
+1. **Health**: Can check health of all components in \<5 seconds
+1. **Operations**: Can start/stop all components from single command
+1. **Dashboard**: TUI displays real-time health with auto-refresh
+1. **Shell**: IPython shell has pre-loaded ecosystem context
+1. **Docs**: Documentation explains ecosystem architecture clearly

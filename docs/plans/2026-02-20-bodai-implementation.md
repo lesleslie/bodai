@@ -8,13 +8,14 @@
 
 **Tech Stack:** Python 3.13+, Oneiric, Typer, Rich, Textual, IPython, Pydantic, httpx, pytest
 
----
+______________________________________________________________________
 
 ## Phase 1: Project Setup & Models
 
 ### Task 1: Update pyproject.toml
 
 **Files:**
+
 - Modify: `pyproject.toml`
 
 **Step 1: Update project configuration**
@@ -65,11 +66,12 @@ git add pyproject.toml
 git commit -m "chore: configure project dependencies and entry point"
 ```
 
----
+______________________________________________________________________
 
 ### Task 2: Create package structure
 
 **Files:**
+
 - Create: `bodai/__init__.py`
 - Create: `bodai/core/__init__.py`
 - Create: `bodai/models/__init__.py`
@@ -86,6 +88,7 @@ mkdir -p bodai/core bodai/models bodai/tui bodai/admin config tests
 **Step 2: Create __init__.py files**
 
 `bodai/__init__.py`:
+
 ```python
 """Bodai - The Orb. Ecosystem meta-project."""
 
@@ -93,26 +96,31 @@ __version__ = "0.1.0"
 ```
 
 `bodai/core/__init__.py`:
+
 ```python
 """Core functionality: config, health, operations."""
 ```
 
 `bodai/models/__init__.py`:
+
 ```python
 """Pydantic models for ecosystem configuration."""
 ```
 
 `bodai/tui/__init__.py`:
+
 ```python
 """TUI components for dashboard."""
 ```
 
 `bodai/admin/__init__.py`:
+
 ```python
 """Admin tools: IPython shell."""
 ```
 
 `tests/__init__.py`:
+
 ```python
 """Tests for Bodai."""
 ```
@@ -129,17 +137,19 @@ git add bodai/ tests/
 git commit -m "chore: create package structure"
 ```
 
----
+______________________________________________________________________
 
 ### Task 3: Create ecosystem Pydantic models
 
 **Files:**
+
 - Create: `bodai/models/ecosystem.py`
 - Create: `tests/test_models.py`
 
 **Step 1: Write the failing test**
 
 `tests/test_models.py`:
+
 ```python
 """Tests for ecosystem models."""
 
@@ -209,6 +219,7 @@ Expected: FAIL with "ModuleNotFoundError: No module named 'bodai.models.ecosyste
 **Step 3: Write the implementation**
 
 `bodai/models/ecosystem.py`:
+
 ```python
 """Pydantic models for ecosystem configuration."""
 
@@ -284,17 +295,19 @@ git add bodai/models/ecosystem.py tests/test_models.py
 git commit -m "feat: add ecosystem Pydantic models"
 ```
 
----
+______________________________________________________________________
 
 ### Task 4: Create config models
 
 **Files:**
+
 - Create: `bodai/models/config.py`
 - Modify: `tests/test_models.py`
 
 **Step 1: Write the failing test**
 
 Add to `tests/test_models.py`:
+
 ```python
 from bodai.models.config import PortmapConfig, StorageMapConfig
 
@@ -332,6 +345,7 @@ Expected: FAIL with "ModuleNotFoundError: No module named 'bodai.models.config'"
 **Step 3: Write the implementation**
 
 `bodai/models/config.py`:
+
 ```python
 """Configuration models for Bodai."""
 
@@ -365,13 +379,14 @@ git add bodai/models/config.py tests/test_models.py
 git commit -m "feat: add config models for portmap and storage"
 ```
 
----
+______________________________________________________________________
 
 ## Phase 2: Config Layer
 
 ### Task 5: Create config YAML files
 
 **Files:**
+
 - Create: `config/ecosystem.yaml`
 - Create: `config/portmap.yaml`
 - Create: `config/storage-map.yaml`
@@ -493,17 +508,19 @@ git add config/
 git commit -m "feat: add ecosystem config files (YAML)"
 ```
 
----
+______________________________________________________________________
 
 ### Task 6: Create config loader
 
 **Files:**
+
 - Create: `bodai/core/config.py`
 - Create: `tests/test_config.py`
 
 **Step 1: Write the failing test**
 
 `tests/test_config.py`:
+
 ```python
 """Tests for config loading."""
 
@@ -544,6 +561,7 @@ Expected: FAIL with "ModuleNotFoundError: No module named 'bodai.core.config'"
 **Step 3: Write the implementation**
 
 `bodai/core/config.py`:
+
 ```python
 """Configuration loading for Bodai."""
 
@@ -630,19 +648,21 @@ git add bodai/core/config.py tests/test_config.py
 git commit -m "feat: add config loader for YAML files"
 ```
 
----
+______________________________________________________________________
 
 ## Phase 3: Health Check Layer
 
 ### Task 7: Create health check module
 
 **Files:**
+
 - Create: `bodai/core/health.py`
 - Create: `tests/test_health.py`
 
 **Step 1: Write the failing test**
 
 `tests/test_health.py`:
+
 ```python
 """Tests for health check functionality."""
 
@@ -694,6 +714,7 @@ Expected: FAIL with "ModuleNotFoundError: No module named 'bodai.core.health'"
 **Step 3: Write the implementation**
 
 `bodai/core/health.py`:
+
 ```python
 """Health check functionality for ecosystem components."""
 
@@ -766,19 +787,21 @@ git add bodai/core/health.py tests/test_health.py
 git commit -m "feat: add health check module with parallel checking"
 ```
 
----
+______________________________________________________________________
 
 ## Phase 4: CLI Layer
 
 ### Task 8: Create Typer CLI
 
 **Files:**
+
 - Create: `bodai/cli.py`
 - Create: `tests/test_cli.py`
 
 **Step 1: Write the failing test**
 
 `tests/test_cli.py`:
+
 ```python
 """Tests for CLI commands."""
 
@@ -818,6 +841,7 @@ Expected: FAIL with "ModuleNotFoundError: No module named 'bodai.cli'"
 **Step 3: Write the implementation**
 
 `bodai/cli.py`:
+
 ```python
 """Typer CLI for Bodai."""
 
@@ -1006,19 +1030,21 @@ git add bodai/cli.py tests/test_cli.py
 git commit -m "feat: add Typer CLI with health, start, stop, config commands"
 ```
 
----
+______________________________________________________________________
 
 ## Phase 5: TUI Dashboard
 
 ### Task 9: Create Textual TUI dashboard
 
 **Files:**
+
 - Create: `bodai/tui/dashboard.py`
 - Create: `bodai/tui/dashboard.css`
 
 **Step 1: Create dashboard implementation**
 
 `bodai/tui/dashboard.py`:
+
 ```python
 """Textual TUI dashboard for Bodai ecosystem health."""
 
@@ -1115,6 +1141,7 @@ if __name__ == "__main__":
 **Step 2: Create dashboard CSS**
 
 `bodai/tui/dashboard.css`:
+
 ```css
 Screen {
     background: $surface;
@@ -1165,18 +1192,20 @@ git add bodai/tui/
 git commit -m "feat: add Textual TUI health dashboard"
 ```
 
----
+______________________________________________________________________
 
 ## Phase 6: IPython Admin Shell
 
 ### Task 10: Create IPython admin shell
 
 **Files:**
+
 - Create: `bodai/admin/shell.py`
 
 **Step 1: Create shell implementation**
 
 `bodai/admin/shell.py`:
+
 ```python
 """IPython admin shell for Bodai ecosystem management."""
 
@@ -1259,18 +1288,19 @@ git add bodai/admin/shell.py
 git commit -m "feat: add IPython admin shell with pre-loaded context"
 ```
 
----
+______________________________________________________________________
 
 ## Phase 7: Documentation
 
 ### Task 11: Create README.md
 
 **Files:**
+
 - Modify: `README.md`
 
 **Step 1: Write README**
 
-```markdown
+````markdown
 # Bodai - The Orb
 
 Meta-project for the Bodai ecosystem. Central hub for understanding and managing the interconnected components of the AI-assisted development environment.
@@ -1289,7 +1319,7 @@ Meta-project for the Bodai ecosystem. Central hub for understanding and managing
 
 ```bash
 uv sync
-```
+````
 
 ## Commands
 
@@ -1326,25 +1356,27 @@ pytest
 # Run all quality checks
 crackerjack run
 ```
-```
+
+````
 
 **Step 2: Commit**
 
 ```bash
 git add README.md
 git commit -m "docs: add comprehensive README"
-```
+````
 
----
+______________________________________________________________________
 
 ### Task 12: Create CLAUDE.md
 
 **Files:**
+
 - Create: `CLAUDE.md`
 
 **Step 1: Write CLAUDE.md**
 
-```markdown
+````markdown
 # CLAUDE.md
 
 This file provides guidance to Claude Code when working with code in this repository.
@@ -1369,7 +1401,7 @@ Bodai (The Orb) is the meta-project for the Bodai ecosystem. It provides configu
 
 ```bash
 uv sync --group dev
-```
+````
 
 ### Testing
 
@@ -1398,9 +1430,10 @@ python -m bodai.cli shell
 ## Architecture
 
 Three layers:
+
 1. **Config** (`bodai/core/config.py`) - Load YAML configs via Oneiric pattern
-2. **Models** (`bodai/models/`) - Pydantic models for ecosystem, portmap, storage
-3. **Operations** (`bodai/cli.py`, `bodai/core/health.py`) - CLI, health checks, TUI
+1. **Models** (`bodai/models/`) - Pydantic models for ecosystem, portmap, storage
+1. **Operations** (`bodai/cli.py`, `bodai/core/health.py`) - CLI, health checks, TUI
 
 ## Key Patterns
 
@@ -1414,20 +1447,22 @@ Three layers:
 - `config/ecosystem.yaml` - Component registry
 - `config/portmap.yaml` - Port allocations
 - `config/storage-map.yaml` - DB and cache mappings
-```
+
+````
 
 **Step 2: Commit**
 
 ```bash
 git add CLAUDE.md
 git commit -m "docs: add CLAUDE.md for development guidance"
-```
+````
 
----
+______________________________________________________________________
 
 ### Task 13: Create documentation files
 
 **Files:**
+
 - Create: `docs/architecture.md`
 - Create: `docs/roles.md`
 - Create: `docs/symbiosis.md`
@@ -1435,7 +1470,7 @@ git commit -m "docs: add CLAUDE.md for development guidance"
 
 **Step 1: Create architecture.md**
 
-```markdown
+````markdown
 # Bodai Ecosystem Architecture
 
 ## System Overview
@@ -1470,7 +1505,7 @@ graph TB
     CJ --> |validates| A
     Dh --> |stores for| M
     Dh --> |stores for| A
-```
+````
 
 ## Component Boundaries
 
@@ -1487,10 +1522,11 @@ Each component owns its domain:
 ## Data Flow
 
 1. **Session → Akosha**: Session-Buddy uploads memories to cloud; Akosha ingests
-2. **Mahavishnu → All**: Orchestrates workflows across components
-3. **Crackerjack → All**: Validates quality on all code changes
-4. **Dhruva → All**: Provides persistent storage backends
-```
+1. **Mahavishnu → All**: Orchestrates workflows across components
+1. **Crackerjack → All**: Validates quality on all code changes
+1. **Dhruva → All**: Provides persistent storage backends
+
+````
 
 **Step 2: Create roles.md**
 
@@ -1557,7 +1593,7 @@ Each component has a distinct role in the ecosystem.
 - Universal component resolution
 - Hot-swapping with health checks
 - Multi-domain support (adapters, services, tasks)
-```
+````
 
 **Step 3: Create symbiosis.md**
 
@@ -1571,7 +1607,9 @@ How components work together.
 Session-Buddy collects session memories locally, then uploads to cloud storage. Akosha pulls from cloud and aggregates across all systems.
 
 ```
+
 Session-Buddy → S3://session-buddy-memories/ → Akosha Worker → Hot Store
+
 ```
 
 ## Mahavishnu → All
@@ -1641,7 +1679,7 @@ git add docs/
 git commit -m "docs: add architecture, roles, symbiosis, and portmap documentation"
 ```
 
----
+______________________________________________________________________
 
 ## Phase 8: Final Verification
 
@@ -1667,17 +1705,17 @@ git add -A
 git commit -m "chore: final verification and cleanup"
 ```
 
----
+______________________________________________________________________
 
 ## Summary
 
 **14 tasks** organized into 8 phases:
 
 1. **Project Setup** - pyproject.toml, package structure, models
-2. **Config Layer** - YAML files, config loader
-3. **Health Check** - Port checking, component health
-4. **CLI Layer** - Typer commands, Rich output
-5. **TUI Dashboard** - Textual interface
-6. **IPython Shell** - Admin shell with context
-7. **Documentation** - README, CLAUDE.md, docs
-8. **Verification** - Full test suite
+1. **Config Layer** - YAML files, config loader
+1. **Health Check** - Port checking, component health
+1. **CLI Layer** - Typer commands, Rich output
+1. **TUI Dashboard** - Textual interface
+1. **IPython Shell** - Admin shell with context
+1. **Documentation** - README, CLAUDE.md, docs
+1. **Verification** - Full test suite

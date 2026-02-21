@@ -1,6 +1,6 @@
 """IPython admin shell for Bodai ecosystem management."""
 
-from rich import print as rprint
+from rich import print
 
 from bodai.core.config import load_ecosystem, load_portmap, load_storage_map
 from bodai.core.health import check_all, check_component
@@ -15,15 +15,13 @@ def launch_shell() -> None:
     storage_map = load_storage_map()
 
     # Welcome banner
-    rprint("[bold cyan]═══════════════════════════════════════[/bold cyan]")
-    rprint("[bold cyan]       Bodai Admin Shell[/bold cyan]")
-    rprint("[bold cyan]═══════════════════════════════════════[/bold cyan]")
-    rprint()
-    rprint(f"  [green]Ecosystem:[/green] {len(ecosystem.components)} components")
-    rprint(
-        f"  [green]Port Range:[/green] {portmap.mcp_range[0]}-{portmap.mcp_range[1]}"
-    )
-    rprint()
+    print("[bold cyan]═══════════════════════════════════════[/bold cyan]")
+    print("[bold cyan]       Bodai Admin Shell[/bold cyan]")
+    print("[bold cyan]═══════════════════════════════════════[/bold cyan]")
+    print()
+    print(f"  [green]Ecosystem:[/green] {len(ecosystem.components)} components")
+    print(f"  [green]Port Range:[/green] {portmap.mcp_range[0]}-{portmap.mcp_range[1]}")
+    print()
 
     # Pre-loaded namespace
     user_ns = {
@@ -46,20 +44,20 @@ def launch_shell() -> None:
     }
 
     # Print available variables
-    rprint("[yellow]Pre-loaded:[/yellow]")
-    rprint("  ecosystem, portmap, storage_map")
-    rprint("  check_all(), check_component(comp)")
-    rprint()
-    rprint("[dim]Components available as variables:[/dim]")
+    print("[yellow]Pre-loaded:[/yellow]")
+    print("  ecosystem, portmap, storage_map")
+    print("  check_all(), check_component(comp)")
+    print()
+    print("[dim]Components available as variables:[/dim]")
     comp_names = ", ".join(ecosystem.components.keys())
-    rprint(f"  {comp_names}")
-    rprint()
+    print(f"  {comp_names}")
+    print()
 
     # Launch IPython
     from IPython import start_ipython
     from IPython.terminal.interactiveshell import TerminalInteractiveShell
 
-    TerminalInteractiveShell.autoindent = True  # type: ignore[assignment]
+    TerminalInteractiveShell.autoindent = True
 
     start_ipython(argv=[], user_ns=user_ns)
 

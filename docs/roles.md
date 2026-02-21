@@ -6,7 +6,7 @@ This document provides detailed descriptions of each component in the Bodai ecos
 
 The Bodai ecosystem consists of six components, each with a distinct role derived from Sanskrit terminology representing their function in the system.
 
----
+______________________________________________________________________
 
 ## Mahavishnu - The Orchestrator
 
@@ -14,7 +14,7 @@ The Bodai ecosystem consists of six components, each with a distinct role derive
 |-----------|-------|
 | **Port** | 8680 |
 | **Role** | Multi-engine workflow orchestration |
-| **Sanskrit Meaning** | "Great Vishnu" - the preserver and orchestrator of cosmic order |
+| **Etymology** | Sanskrit *maha* (great) + *Vishnu* (the preserver in Hindu trinity) |
 
 ### Responsibilities
 
@@ -34,7 +34,7 @@ The Bodai ecosystem consists of six components, each with a distinct role derive
 - Tracks context in **Session-Buddy**
 - Validates with **Crackerjack** before execution
 
----
+______________________________________________________________________
 
 ## Akosha - The Seer
 
@@ -42,7 +42,7 @@ The Bodai ecosystem consists of six components, each with a distinct role derive
 |-----------|-------|
 | **Port** | 8682 |
 | **Role** | Cross-system intelligence, vector embeddings |
-| **Sanskrit Meaning** | "The Seer" - one who perceives and understands |
+| **Etymology** | Sanskrit *akasha* (sky, ether, space) - the fifth element, medium of consciousness |
 
 ### Responsibilities
 
@@ -62,7 +62,7 @@ The Bodai ecosystem consists of six components, each with a distinct role derive
 - Provides intelligence to **Mahavishnu**
 - Receives code analysis from **Crackerjack**
 
----
+______________________________________________________________________
 
 ## Dhruva - The Curator
 
@@ -70,7 +70,7 @@ The Bodai ecosystem consists of six components, each with a distinct role derive
 |-----------|-------|
 | **Port** | 8683 |
 | **Role** | Persistent object storage with ACID |
-| **Sanskrit Meaning** | "The Pole Star" - constant, unwavering, reliable |
+| **Etymology** | Sanskrit *dhruva* (firm, constant, unchanging) - also the Pole Star |
 
 ### Responsibilities
 
@@ -90,7 +90,7 @@ The Bodai ecosystem consists of six components, each with a distinct role derive
 - Backs up sessions for **Session-Buddy**
 - Stores quality reports for **Crackerjack**
 
----
+______________________________________________________________________
 
 ## Session-Buddy - The Builder
 
@@ -118,7 +118,7 @@ The Bodai ecosystem consists of six components, each with a distinct role derive
 - Provides context to **Mahavishnu**
 - Receives quality metrics from **Crackerjack**
 
----
+______________________________________________________________________
 
 ## Crackerjack - The Inspector
 
@@ -146,7 +146,7 @@ The Bodai ecosystem consists of six components, each with a distinct role derive
 - Stores reports in **Dhruva**
 - Records metrics in **Session-Buddy**
 
----
+______________________________________________________________________
 
 ## Oneiric - The Resolver
 
@@ -154,7 +154,7 @@ The Bodai ecosystem consists of six components, each with a distinct role derive
 |-----------|-------|
 | **Port** | N/A (Library only) |
 | **Role** | Conflict resolution, dependency analysis |
-| **Sanskrit Meaning** | "Relating to dreams" - resolving the abstract and complex |
+| **Etymology** | Greek *oneiros* (dream) - relating to dreams, the abstract and complex |
 
 ### Responsibilities
 
@@ -180,7 +180,7 @@ The Bodai ecosystem consists of six components, each with a distinct role derive
 - Used by **Dhruva** for data merge operations
 - Used by **Session-Buddy** for context merging
 
----
+______________________________________________________________________
 
 ## Role Summary Table
 

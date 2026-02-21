@@ -1,0 +1,175 @@
+{
+  "functions": [
+    {
+      "complexity": 0,
+      "file_name": "shell.py",
+      "function_name": "launch_shell",
+      "path": "bodai/admin/shell.py"
+    },
+    {
+      "complexity": 0,
+      "file_name": "cli.py",
+      "function_name": "health",
+      "path": "bodai/cli.py"
+    },
+    {
+      "complexity": 0,
+      "file_name": "cli.py",
+      "function_name": "status",
+      "path": "bodai/cli.py"
+    },
+    {
+      "complexity": 1,
+      "file_name": "cli.py",
+      "function_name": "_display_health_table",
+      "path": "bodai/cli.py"
+    },
+    {
+      "complexity": 1,
+      "file_name": "cli.py",
+      "function_name": "config_show",
+      "path": "bodai/cli.py"
+    },
+    {
+      "complexity": 1,
+      "file_name": "cli.py",
+      "function_name": "dashboard",
+      "path": "bodai/cli.py"
+    },
+    {
+      "complexity": 1,
+      "file_name": "cli.py",
+      "function_name": "shell",
+      "path": "bodai/cli.py"
+    },
+    {
+      "complexity": 2,
+      "file_name": "cli.py",
+      "function_name": "restart",
+      "path": "bodai/cli.py"
+    },
+    {
+      "complexity": 2,
+      "file_name": "cli.py",
+      "function_name": "start",
+      "path": "bodai/cli.py"
+    },
+    {
+      "complexity": 2,
+      "file_name": "cli.py",
+      "function_name": "stop",
+      "path": "bodai/cli.py"
+    },
+    {
+      "complexity": 3,
+      "file_name": "cli.py",
+      "function_name": "config_validate",
+      "path": "bodai/cli.py"
+    },
+    {
+      "complexity": 0,
+      "file_name": "config.py",
+      "function_name": "load_storage_map",
+      "path": "bodai/core/config.py"
+    },
+    {
+      "complexity": 1,
+      "file_name": "config.py",
+      "function_name": "load_ecosystem",
+      "path": "bodai/core/config.py"
+    },
+    {
+      "complexity": 10,
+      "file_name": "config.py",
+      "function_name": "load_portmap",
+      "path": "bodai/core/config.py"
+    },
+    {
+      "complexity": 0,
+      "file_name": "health.py",
+      "function_name": "check_component",
+      "path": "bodai/core/health.py"
+    },
+    {
+      "complexity": 2,
+      "file_name": "health.py",
+      "function_name": "check_all",
+      "path": "bodai/core/health.py"
+    },
+    {
+      "complexity": 4,
+      "file_name": "health.py",
+      "function_name": "check_port",
+      "path": "bodai/core/health.py"
+    },
+    {
+      "complexity": 0,
+      "file_name": "ecosystem.py",
+      "function_name": "Component::role_display",
+      "path": "bodai/models/ecosystem.py"
+    },
+    {
+      "complexity": 3,
+      "file_name": "ecosystem.py",
+      "function_name": "Ecosystem::get_by_port",
+      "path": "bodai/models/ecosystem.py"
+    },
+    {
+      "complexity": 3,
+      "file_name": "ecosystem.py",
+      "function_name": "Ecosystem::get_by_role",
+      "path": "bodai/models/ecosystem.py"
+    },
+    {
+      "complexity": 0,
+      "file_name": "dashboard.py",
+      "function_name": "BodaiDashboard::action_refresh",
+      "path": "bodai/tui/dashboard.py"
+    },
+    {
+      "complexity": 0,
+      "file_name": "dashboard.py",
+      "function_name": "BodaiDashboard::compose",
+      "path": "bodai/tui/dashboard.py"
+    },
+    {
+      "complexity": 0,
+      "file_name": "dashboard.py",
+      "function_name": "ComponentList::__init__",
+      "path": "bodai/tui/dashboard.py"
+    },
+    {
+      "complexity": 0,
+      "file_name": "dashboard.py",
+      "function_name": "ComponentList::_load_components",
+      "path": "bodai/tui/dashboard.py"
+    },
+    {
+      "complexity": 0,
+      "file_name": "dashboard.py",
+      "function_name": "ComponentWidget::__init__",
+      "path": "bodai/tui/dashboard.py"
+    },
+    {
+      "complexity": 1,
+      "file_name": "dashboard.py",
+      "function_name": "ComponentList::compose",
+      "path": "bodai/tui/dashboard.py"
+    },
+    {
+      "complexity": 1,
+      "file_name": "dashboard.py",
+      "function_name": "ComponentWidget::compose",
+      "path": "bodai/tui/dashboard.py"
+    },
+    {
+      "complexity": 2,
+      "file_name": "dashboard.py",
+      "function_name": "ComponentList::refresh_health",
+      "path": "bodai/tui/dashboard.py"
+    }
+  ],
+  "targets": [
+    "/Users/les/Projects/bodai/bodai"
+  ]
+}

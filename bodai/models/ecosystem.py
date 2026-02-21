@@ -1,11 +1,11 @@
 """Pydantic models for ecosystem configuration."""
 
-from enum import Enum
+from enum import StrEnum
 
 from pydantic import BaseModel, Field
 
 
-class ComponentRole(str, Enum):
+class ComponentRole(StrEnum):
     """Role of a component in the ecosystem."""
 
     ORCHESTRATOR = "orchestrator"
@@ -16,7 +16,7 @@ class ComponentRole(str, Enum):
     INSPECTOR = "inspector"
 
 
-class ComponentStatus(str, Enum):
+class ComponentStatus(StrEnum):
     """Status of a component."""
 
     PRODUCTION = "production"

@@ -2,13 +2,13 @@
 
 import socket
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from enum import Enum
+from enum import StrEnum
 
 from bodai.core.config import load_ecosystem
 from bodai.models.ecosystem import Component
 
 
-class HealthStatus(str, Enum):
+class HealthStatus(StrEnum):
     """Health status of a component."""
 
     HEALTHY = "healthy"
@@ -16,7 +16,9 @@ class HealthStatus(str, Enum):
     UNKNOWN = "unknown"
 
 
-def check_port(port: int, host: str = "localhost", timeout: float = 1.0) -> HealthStatus:
+def check_port(
+    port: int, host: str = "localhost", timeout: float = 1.0
+) -> HealthStatus:
     """Check if a port is accepting connections.
 
     Args:
@@ -26,13 +28,14 @@ def check_port(port: int, host: str = "localhost", timeout: float = 1.0) -> Heal
 
     Returns:
         HealthStatus indicating if the port is accepting connections.
+
     """
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.settimeout(timeout)
             result = sock.connect_ex((host, port))
             return HealthStatus.HEALTHY if result == 0 else HealthStatus.UNHEALTHY
-    except (socket.error, OSError):
+    except OSError:
         return HealthStatus.UNHEALTHY
 
 
@@ -44,6 +47,7 @@ def check_component(component: Component) -> dict:
 
     Returns:
         Dictionary with component health information.
+
     """
     status = check_port(component.port)
     return {
@@ -60,6 +64,7 @@ def check_all() -> dict[str, dict]:
 
     Returns:
         Dictionary mapping component names to their health information.
+
     """
     ecosystem = load_ecosystem()
     results = {}

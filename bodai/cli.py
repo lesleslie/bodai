@@ -56,13 +56,18 @@ def _display_health_table(results: dict) -> None:
     # Summary
     healthy = sum(1 for r in results.values() if r["status"] == HealthStatus.HEALTHY)
     total = len(results)
-    console.print(f"\n  [green]*[/green] healthy   [red]o[/red] unhealthy   [yellow]+[/yellow] unknown")
+    console.print(
+        "\n  [green]*[/green] healthy   [red]o[/red] unhealthy   "
+        "[yellow]+[/yellow] unknown"
+    )
     console.print(f"  Summary: {healthy}/{total} healthy")
 
 
 @app.command()
 def start(
-    components: list[str] = typer.Argument(None, help="Components to start (default: all)"),
+    components: list[str] = typer.Argument(
+        None, help="Components to start (default: all)"
+    ),
 ) -> None:
     """Start ecosystem components."""
     # Placeholder - actual implementation requires subprocess management
@@ -70,24 +75,32 @@ def start(
         console.print(f"[yellow]Starting:[/yellow] {', '.join(components)}")
     else:
         console.print("[yellow]Starting all components...[/yellow]")
-    console.print("[dim]Implementation pending - use individual component start scripts[/dim]")
+    console.print(
+        "[dim]Implementation pending - use individual component start scripts[/dim]"
+    )
 
 
 @app.command()
 def stop(
-    components: list[str] = typer.Argument(None, help="Components to stop (default: all)"),
+    components: list[str] = typer.Argument(
+        None, help="Components to stop (default: all)"
+    ),
 ) -> None:
     """Stop ecosystem components."""
     if components:
         console.print(f"[red]Stopping:[/red] {', '.join(components)}")
     else:
         console.print("[red]Stopping all components...[/red]")
-    console.print("[dim]Implementation pending - use individual component stop scripts[/dim]")
+    console.print(
+        "[dim]Implementation pending - use individual component stop scripts[/dim]"
+    )
 
 
 @app.command()
 def restart(
-    components: list[str] = typer.Argument(None, help="Components to restart (default: all)"),
+    components: list[str] = typer.Argument(
+        None, help="Components to restart (default: all)"
+    ),
 ) -> None:
     """Restart ecosystem components."""
     if components:
@@ -101,7 +114,7 @@ def restart(
 def status() -> None:
     """Show cached status of ecosystem."""
     console.print("[cyan]Bodai Ecosystem Status[/cyan]")
-    health(None)
+    health(watch=False)
 
 
 @app.command()
@@ -154,7 +167,9 @@ def config_validate() -> None:
 
     try:
         ecosystem = load_ecosystem()
-        console.print(f"[green]+[/green] ecosystem.yaml: {len(ecosystem.components)} components")
+        console.print(
+            f"[green]+[/green] ecosystem.yaml: {len(ecosystem.components)} components"
+        )
     except Exception as e:
         console.print(f"[red]-[/red] ecosystem.yaml: {e}")
 
@@ -166,7 +181,9 @@ def config_validate() -> None:
 
     try:
         storage = load_storage_map()
-        console.print(f"[green]+[/green] storage-map.yaml: {len(storage.databases)} databases")
+        console.print(
+            f"[green]+[/green] storage-map.yaml: {len(storage.databases)} databases"
+        )
     except Exception as e:
         console.print(f"[red]-[/red] storage-map.yaml: {e}")
 
