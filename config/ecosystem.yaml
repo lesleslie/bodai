@@ -41,3 +41,60 @@ components:
     repo: ~/Projects/crackerjack
     status: production
     description: Quality gates, testing, and CI/CD validation
+
+  # MCP Integration Servers
+  graphics-mcp:
+    name: graphics-mcp
+    role: tool
+    port: 3040
+    repo: ~/Projects/graphics-mcp
+    status: development
+    description: Image manipulation via Pillow/pilkit MCP server
+
+  porkbun-dns-mcp:
+    name: porkbun-dns-mcp
+    role: tool
+    port: 3042
+    repo: ~/Projects/porkbun-dns-mcp
+    status: development
+    description: Porkbun DNS record management via MCP
+
+  porkbun-domain-mcp:
+    name: porkbun-domain-mcp
+    role: tool
+    port: 3043
+    repo: ~/Projects/porkbun-domain-mcp
+    status: development
+    description: Porkbun domain management via MCP
+
+  n8n-mcp:
+    name: n8n-mcp
+    role: tool
+    port: 3044
+    repo: ~/Projects/n8n-mcp
+    status: development
+    description: n8n workflow automation via MCP
+
+  neo4j-mcp:
+    name: neo4j-mcp
+    role: tool
+    port: 3045
+    repo: ~/Projects/neo4j-mcp
+    status: development
+    description: Neo4j graph database via MCP
+
+  synxis-crs-mcp:
+    name: synxis-crs-mcp
+    role: tool
+    port: 3046
+    repo: ~/Projects/synxis-crs-mcp
+    status: development
+    description: SynXis Central Reservation System via MCP
+
+  synxis-pms-mcp:
+    name: synxis-pms-mcp
+    role: tool
+    port: 3047
+    repo: ~/Projects/synxis-pms-mcp
+    status: development
+    description: SynXis Property Management System via MCP
