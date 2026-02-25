@@ -98,3 +98,60 @@ components:
     repo: ~/Projects/synxis-pms-mcp
     status: development
     description: SynXis Property Management System via MCP
+
+  # Additional MCP Integration Servers
+  excalidraw-mcp:
+    name: excalidraw-mcp
+    role: tool
+    port: 3031
+    repo: ~/Projects/excalidraw-mcp
+    status: production
+    description: Excalidraw diagram collaboration via MCP
+
+  raindropio-mcp:
+    name: raindropio-mcp
+    role: tool
+    port: 3034
+    repo: ~/Projects/raindropio-mcp
+    status: production
+    description: Raindrop.io bookmark management via MCP
+
+  opera-cloud-mcp:
+    name: opera-cloud-mcp
+    role: tool
+    port: 3037
+    repo: ~/Projects/opera-cloud-mcp
+    status: development
+    description: Oracle OPERA Cloud API integration via MCP
+
+  unifi-mcp:
+    name: unifi-mcp
+    role: tool
+    port: 3038
+    repo: ~/Projects/unifi-mcp
+    status: production
+    description: UniFi network management via MCP
+
+  mailgun-mcp:
+    name: mailgun-mcp
+    role: tool
+    port: 3039
+    repo: ~/Projects/mailgun-mcp
+    status: production
+    description: Mailgun email service via MCP
+
+  langsmith-mcp:
+    name: langsmith-mcp
+    role: tool
+    port: 3048
+    repo: ~/Projects/langsmith-mcp
+    status: development
+    description: LangSmith tracing and observability via MCP
+
+  css-mcp:
+    name: css-mcp
+    role: tool
+    port: 3049
+    repo: ~/Projects/css-mcp
+    status: development
+    description: CSS analysis and documentation via MCP

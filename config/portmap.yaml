@@ -1,12 +1,12 @@
 # Bodai Ecosystem Port Allocation
-# MCP servers: 8676-8699 (core), 3040-3049 (MCP integrations)
+# MCP servers: 8676-8699 (core), 3030-3049 (MCP integrations)
 
 mcp_core_range:
   start: 8676
   end: 8699
 
 mcp_integration_range:
-  start: 3040
+  start: 3030
   end: 3049
 
 allocations:
@@ -18,7 +18,17 @@ allocations:
   8682: akosha         # Seer
   8683: dhruva         # Curator
 
-  # MCP Integration servers (3040-3049)
+  # MCP Integration servers (3030-3049)
+  3030: grafana-mcp        # Grafana dashboards (external plugin)
+  3031: excalidraw-mcp     # Excalidraw diagram collaboration
+  3032: available          # Reserved
+  3033: mermaid-mcp        # Mermaid diagrams (external)
+  3034: raindropio-mcp     # Raindrop.io bookmark management
+  3035: grafana            # Grafana server (main instance)
+  3036: chart-antv         # Chart visualization (external)
+  3037: opera-cloud-mcp    # Oracle OPERA Cloud API
+  3038: unifi-mcp          # UniFi network management
+  3039: mailgun-mcp        # Mailgun email service
   3040: graphics-mcp       # Graphics manipulation (Pillow/pilkit)
   3041: available          # Reserved
   3042: porkbun-dns-mcp    # Porkbun DNS management
@@ -27,7 +37,9 @@ allocations:
   3045: neo4j-mcp          # Neo4j graph database
   3046: synxis-crs-mcp     # SynXis Central Reservation System
   3047: synxis-pms-mcp     # SynXis Property Management System
+  3048: langsmith-mcp      # LangSmith tracing/observability
+  3049: css-mcp            # CSS analysis and documentation
 
 reserved:
   8684-8699: future expansion (core)
-  3048-3049: future expansion (integrations)
+  3050-3059: future expansion (integrations)
