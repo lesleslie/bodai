@@ -22,6 +22,17 @@ databases:
     type: dhruva
     description: Persistent object storage
 
+  # MCP Integration server storage
+  neo4j:
+    path: ~/data/neo4j
+    type: neo4j
+    description: Neo4j graph database storage
+
+  n8n:
+    path: ~/data/n8n
+    type: sqlite
+    description: n8n workflow data and executions
+
 caches:
   redis:
     host: localhost
@@ -33,3 +44,24 @@ storage:
     backend: s3
     bucket: akosha-cold-data
     description: Cold tier for archival (90+ days)
+
+  # MCP server working directories
+  mcp_graphics:
+    path: ~/data/graphics-mcp
+    description: Graphics MCP temporary file storage
+
+  mcp_porkbun_dns:
+    path: ~/data/porkbun-dns-mcp
+    description: Porkbun DNS MCP cache
+
+  mcp_porkbun_domain:
+    path: ~/data/porkbun-domain-mcp
+    description: Porkbun Domain MCP cache
+
+  mcp_synxis_crs:
+    path: ~/data/synxis-crs-mcp
+    description: SynXis CRS MCP cache and mock data
+
+  mcp_synxis_pms:
+    path: ~/data/synxis-pms-mcp
+    description: SynXis PMS MCP cache and mock data

@@ -1,11 +1,16 @@
 # Bodai Ecosystem Port Allocation
-# MCP servers: 8676-8699
+# MCP servers: 8676-8699 (core), 3040-3049 (MCP integrations)
 
-mcp_range:
+mcp_core_range:
   start: 8676
   end: 8699
 
+mcp_integration_range:
+  start: 3040
+  end: 3049
+
 allocations:
+  # Core MCP servers (8676-8699)
   8676: crackerjack    # Inspector
   8678: session-buddy  # Builder
   8680: mahavishnu     # Orchestrator
@@ -13,5 +18,16 @@ allocations:
   8682: akosha         # Seer
   8683: dhruva         # Curator
 
+  # MCP Integration servers (3040-3049)
+  3040: graphics-mcp       # Graphics manipulation (Pillow/pilkit)
+  3041: available          # Reserved
+  3042: porkbun-dns-mcp    # Porkbun DNS management
+  3043: porkbun-domain-mcp # Porkbun domain management
+  3044: n8n-mcp            # n8n workflow automation
+  3045: neo4j-mcp          # Neo4j graph database
+  3046: synxis-crs-mcp     # SynXis Central Reservation System
+  3047: synxis-pms-mcp     # SynXis Property Management System
+
 reserved:
-  8684-8699: future expansion
+  8684-8699: future expansion (core)
+  3048-3049: future expansion (integrations)
