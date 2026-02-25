@@ -69,3 +69,8 @@ logs/
 # ============================================================================
 .envrc
 .envrc.local
+
+# Config files with local paths or potential secrets
+# (templates with .example extension are committed)
+config/ecosystem.yaml
+config/storage-map.yaml

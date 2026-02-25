@@ -1,0 +1,73 @@
+# Bodai Ecosystem Storage Map
+# Databases, caches, and persistent storage allocations
+#
+# Copy this file to storage-map.yaml and update paths for your environment:
+#   cp config/storage-map.yaml.example config/storage-map.yaml
+#
+# Environment Variables:
+#   - BODAI_DATA_DIR: Base data directory (default: ~/data)
+
+databases:
+  session_buddy:
+    path: ${BODAI_DATA_DIR:-~/data}/session-buddy/session_buddy.db
+    type: duckdb
+    description: Session memories and knowledge graph
+
+  akosha_hot:
+    path: ${BODAI_DATA_DIR:-~/data}/akosha/hot.db
+    type: duckdb
+    description: Hot tier for recent data (0-7 days)
+
+  akosha_warm:
+    path: ${BODAI_DATA_DIR:-~/data}/akosha/warm.db
+    type: duckdb
+    description: Warm tier for historical data (7-90 days)
+
+  druva:
+    path: ${BODAI_DATA_DIR:-~/data}/druva/druva.db
+    type: druva
+    description: Persistent object storage
+
+  # MCP Integration server storage
+  neo4j:
+    path: ${BODAI_DATA_DIR:-~/data}/neo4j
+    type: neo4j
+    description: Neo4j graph database storage
+
+  n8n:
+    path: ${BODAI_DATA_DIR:-~/data}/n8n
+    type: sqlite
+    description: n8n workflow data and executions
+
+caches:
+  redis:
+    host: ${REDIS_HOST:-localhost}
+    port: ${REDIS_PORT:-6379}
+    description: Shared cache layer
+
+storage:
+  akosha_cold:
+    backend: s3
+    bucket: ${AKOSHA_COLD_BUCKET:-akosha-cold-data}
+    description: Cold tier for archival (90+ days)
+
+  # MCP server working directories
+  mcp_graphics:
+    path: ${BODAI_DATA_DIR:-~/data}/graphics-mcp
+    description: Graphics MCP temporary file storage
+
+  mcp_porkbun_dns:
+    path: ${BODAI_DATA_DIR:-~/data}/porkbun-dns-mcp
+    description: Porkbun DNS MCP cache
+
+  mcp_porkbun_domain:
+    path: ${BODAI_DATA_DIR:-~/data}/porkbun-domain-mcp
+    description: Porkbun Domain MCP cache
+
+  mcp_synxis_crs:
+    path: ${BODAI_DATA_DIR:-~/data}/synxis-crs-mcp
+    description: SynXis CRS MCP cache and mock data
+
+  mcp_synxis_pms:
+    path: ${BODAI_DATA_DIR:-~/data}/synxis-pms-mcp
+    description: SynXis PMS MCP cache and mock data

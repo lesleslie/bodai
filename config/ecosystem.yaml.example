@@ -1,0 +1,164 @@
+# Bodai Ecosystem Component Registry
+# The Orb contains all components of the ecosystem
+#
+# Copy this file to ecosystem.yaml and update paths for your environment:
+#   cp config/ecosystem.yaml.example config/ecosystem.yaml
+#
+# Environment Variables:
+#   - BODAI_PROJECTS_DIR: Base directory for projects (default: ~/Projects)
+#   - BODAI_DATA_DIR: Data directory (default: ~/.local/share/bodai)
+
+components:
+  mahavishnu:
+    name: mahavishnu
+    role: orchestrator
+    port: 8680
+    repo: ${BODAI_PROJECTS_DIR:-~/Projects}/mahavishnu
+    status: production
+    description: Multi-engine workflow orchestration and pool management
+
+  akosha:
+    name: akosha
+    role: seer
+    port: 8682
+    repo: ${BODAI_PROJECTS_DIR:-~/Projects}/akosha
+    status: production
+    description: Cross-system intelligence and memory aggregation
+
+  druva:
+    name: druva
+    role: curator
+    port: 8683
+    repo: ${BODAI_PROJECTS_DIR:-~/Projects}/druva
+    status: production
+    description: Persistent object storage with ACID properties
+
+  session-buddy:
+    name: session-buddy
+    role: builder
+    port: 8678
+    repo: ${BODAI_PROJECTS_DIR:-~/Projects}/session-buddy
+    status: production
+    description: Session lifecycle management and knowledge graphs
+
+  crackerjack:
+    name: crackerjack
+    role: inspector
+    port: 8676
+    repo: ${BODAI_PROJECTS_DIR:-~/Projects}/crackerjack
+    status: production
+    description: Quality gates, testing, and CI/CD validation
+
+  # MCP Integration Servers
+  graphics-mcp:
+    name: graphics-mcp
+    role: tool
+    port: 3040
+    repo: ${BODAI_PROJECTS_DIR:-~/Projects}/graphics-mcp
+    status: development
+    description: Image manipulation via Pillow/pilkit MCP server
+
+  porkbun-dns-mcp:
+    name: porkbun-dns-mcp
+    role: tool
+    port: 3042
+    repo: ${BODAI_PROJECTS_DIR:-~/Projects}/porkbun-dns-mcp
+    status: development
+    description: Porkbun DNS record management via MCP
+
+  porkbun-domain-mcp:
+    name: porkbun-domain-mcp
+    role: tool
+    port: 3043
+    repo: ${BODAI_PROJECTS_DIR:-~/Projects}/porkbun-domain-mcp
+    status: development
+    description: Porkbun domain management via MCP
+
+  n8n-mcp:
+    name: n8n-mcp
+    role: tool
+    port: 3044
+    repo: ${BODAI_PROJECTS_DIR:-~/Projects}/n8n-mcp
+    status: development
+    description: n8n workflow automation via MCP
+
+  neo4j-mcp:
+    name: neo4j-mcp
+    role: tool
+    port: 3045
+    repo: ${BODAI_PROJECTS_DIR:-~/Projects}/neo4j-mcp
+    status: development
+    description: Neo4j graph database via MCP
+
+  synxis-crs-mcp:
+    name: synxis-crs-mcp
+    role: tool
+    port: 3046
+    repo: ${BODAI_PROJECTS_DIR:-~/Projects}/synxis-crs-mcp
+    status: development
+    description: SynXis Central Reservation System via MCP
+
+  synxis-pms-mcp:
+    name: synxis-pms-mcp
+    role: tool
+    port: 3047
+    repo: ${BODAI_PROJECTS_DIR:-~/Projects}/synxis-pms-mcp
+    status: development
+    description: SynXis Property Management System via MCP
+
+  # Additional MCP Integration Servers
+  excalidraw-mcp:
+    name: excalidraw-mcp
+    role: tool
+    port: 3031
+    repo: ${BODAI_PROJECTS_DIR:-~/Projects}/excalidraw-mcp
+    status: production
+    description: Excalidraw diagram collaboration via MCP
+
+  raindropio-mcp:
+    name: raindropio-mcp
+    role: tool
+    port: 3034
+    repo: ${BODAI_PROJECTS_DIR:-~/Projects}/raindropio-mcp
+    status: production
+    description: Raindrop.io bookmark management via MCP
+
+  opera-cloud-mcp:
+    name: opera-cloud-mcp
+    role: tool
+    port: 3037
+    repo: ${BODAI_PROJECTS_DIR:-~/Projects}/opera-cloud-mcp
+    status: development
+    description: Oracle OPERA Cloud API integration via MCP
+
+  unifi-mcp:
+    name: unifi-mcp
+    role: tool
+    port: 3038
+    repo: ${BODAI_PROJECTS_DIR:-~/Projects}/unifi-mcp
+    status: production
+    description: UniFi network management via MCP
+
+  mailgun-mcp:
+    name: mailgun-mcp
+    role: tool
+    port: 3039
+    repo: ${BODAI_PROJECTS_DIR:-~/Projects}/mailgun-mcp
+    status: production
+    description: Mailgun email service via MCP
+
+  langsmith-mcp:
+    name: langsmith-mcp
+    role: tool
+    port: 3048
+    repo: ${BODAI_PROJECTS_DIR:-~/Projects}/langsmith-mcp
+    status: development
+    description: LangSmith tracing and observability via MCP
+
+  css-mcp:
+    name: css-mcp
+    role: tool
+    port: 3049
+    repo: ${BODAI_PROJECTS_DIR:-~/Projects}/css-mcp
+    status: development
+    description: CSS analysis and documentation via MCP
