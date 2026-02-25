@@ -10,7 +10,9 @@ Central meta-project for the Bodai ecosystem, providing configuration, documenta
 
 ## Ecosystem Components
 
-The Bodai ecosystem consists of six interconnected components, each with a distinct role. Five are network services with MCP servers, while Oneiric serves as a shared library.
+The Bodai ecosystem consists of nine interconnected components, each with a distinct role. Seven are network services with MCP servers, while Oneiric and SplashStand serve as shared libraries.
+
+> **Note:** SplashStand and MDInject are proprietary components. All other components are open source (MIT license).
 
 | Component | Role | Port | GitHub | Description |
 |-----------|------|------|--------|-------------|
@@ -19,6 +21,9 @@ The Bodai ecosystem consists of six interconnected components, each with a disti
 | [Druva](#druva---the-curator) | Curator | 8683 | [lesleslie/druva](https://github.com/lesleslie/druva) | Persistent object storage with ACID |
 | [Session-Buddy](#session-buddy---the-builder) | Builder | 8678 | [lesleslie/session-buddy](https://github.com/lesleslie/session-buddy) | Session lifecycle & knowledge graphs |
 | [Crackerjack](#crackerjack---the-inspector) | Inspector | 8676 | [lesleslie/crackerjack](https://github.com/lesleslie/crackerjack) | Quality gates & CI/CD validation |
+| [FastBlocks](#fastblocks---the-composer) | Composer | 8684 | [lesleslie/fastblocks](https://github.com/lesleslie/fastblocks) | Block-based web framework |
+| [SplashStand](#splashstand---the-presenter) | Presenter | N/A | Private | PWA & mini-CMS built on FastBlocks |
+| [MDInject](#mdinject---the-doctor) | Doctor | 8685 | Private | Markdown injection & healing |
 | [Oneiric](#oneiric---the-resolver) | Resolver | N/A | [lesleslie/oneiric](https://github.com/lesleslie/oneiric) | Conflict resolution library |
 
 ---
@@ -73,6 +78,39 @@ The quality enforcer that runs automated test suites, manages CI/CD pipelines, p
 - Sends code analysis to Akosha
 - Stores reports in Druva
 - Records metrics in Session-Buddy
+
+### FastBlocks - The Composer
+
+> A composer arranges musical notes into harmonious compositions
+
+A block-based web framework that composes pages from reusable blocks, manages template inheritance, and provides a style adapter system for multiple frameworks (Kelp, WebAwesome, etc.).
+
+- Sends rendered output to SplashStand for presentation
+- Requests content validation from MDInject
+- Stores templates in Druva
+- Tracks composition metrics in Session-Buddy
+
+### SplashStand - The Presenter
+
+> A presenter displays content on a stand for viewing
+
+A high-level progressive web application and mini-CMS built on FastBlocks. Manages content, responsive layouts, themes, and ensures accessibility compliance.
+
+- Built on FastBlocks for composition
+- Applies styles from FastBlocks adapters
+- Logs presentation metrics to Session-Buddy
+- Uses Oneiric for style conflict resolution
+
+### MDInject - The Doctor
+
+> A doctor diagnoses ailments and administers treatments
+
+The markdown health service that injects dynamic content, diagnoses issues, heals malformed content, and validates syntax.
+
+- Validates content from FastBlocks
+- Sends diagnostics to Crackerjack for quality gates
+- Stores healed content in Druva
+- Logs health metrics to Session-Buddy
 
 ### Oneiric - The Resolver
 

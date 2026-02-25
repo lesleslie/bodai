@@ -17,9 +17,12 @@ Bodai (The Orb) is the meta-project that documents, configures, and operates the
 | **Druva** | The Curator | 8683 | Persistent object storage with ACID properties |
 | **Session-Buddy** | The Builder | 8678 | Session lifecycle management, knowledge graph construction |
 | **Crackerjack** | The Inspector | 8676 | Quality gates, testing, CI/CD validation |
+| **FastBlocks** | The Composer | 8684 | Block-based web framework and template composition |
+| **SplashStand** | The Presenter | - | PWA and mini-CMS built on FastBlocks (proprietary) |
+| **MDInject** | The Doctor | 8685 | Markdown injection, diagnosis, and content healing (proprietary) |
 | **Oneiric** | The Resolver | - | Universal component resolution (library, no MCP server) |
 
-**Note:** Oneiric's MCP server was absorbed into Druva. Port 8681 is available.
+**Note:** Oneiric's MCP server was absorbed into Druva. Port 8681 is available. SplashStand and MDInject are proprietary; all other components are BSD-3 licensed.
 
 ## Architecture
 

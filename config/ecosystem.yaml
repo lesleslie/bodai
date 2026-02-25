@@ -42,6 +42,32 @@ components:
     status: production
     description: Quality gates, testing, and CI/CD validation
 
+  # Application Frameworks
+  fastblocks:
+    name: fastblocks
+    role: composer
+    port: 8684
+    repo: ~/Projects/fastblocks
+    status: production
+    description: Block-based web framework and template composition
+
+  splashstand:
+    name: splashstand
+    role: presenter
+    repo: ~/Projects/splashstand
+    status: production
+    license: proprietary
+    description: Progressive web application and mini-CMS built on FastBlocks
+
+  mdinject:
+    name: mdinject
+    role: doctor
+    port: 8685
+    repo: ~/Projects/mdinject
+    status: production
+    license: proprietary
+    description: Markdown injection, diagnosis, and content healing
+
   # MCP Integration Servers
   graphics-mcp:
     name: graphics-mcp

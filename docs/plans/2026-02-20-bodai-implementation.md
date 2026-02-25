@@ -1314,6 +1314,9 @@ Meta-project for the Bodai ecosystem. Central hub for understanding and managing
 | **Druva** | The Curator | 8683 | Persistent object storage |
 | **Session-Buddy** | The Builder | 8678 | Session management |
 | **Crackerjack** | The Inspector | 8676 | Quality gates and CI/CD |
+| **FastBlocks** | The Composer | 8684 | Block-based web framework |
+| **SplashStand** | The Presenter | - | PWA and mini-CMS (proprietary) |
+| **MDInject** | The Doctor | 8685 | Markdown injection and healing (proprietary) |
 
 ## Installation
 
@@ -1387,13 +1390,16 @@ Bodai (The Orb) is the meta-project for the Bodai ecosystem. It provides configu
 
 ## Ecosystem Components
 
-| Component | Role | Port |
-|-----------|------|------|
-| Mahavishnu | Orchestrator | 8680 |
-| Akosha | Seer | 8682 |
-| Druva | Curator | 8683 |
-| Session-Buddy | Builder | 8678 |
-| Crackerjack | Inspector | 8676 |
+| Component | Role | Port | License |
+|-----------|------|------|---------|
+| Mahavishnu | Orchestrator | 8680 | BSD-3 |
+| Akosha | Seer | 8682 | BSD-3 |
+| Druva | Curator | 8683 | BSD-3 |
+| Session-Buddy | Builder | 8678 | BSD-3 |
+| Crackerjack | Inspector | 8676 | BSD-3 |
+| FastBlocks | Composer | 8684 | BSD-3 |
+| SplashStand | Presenter | - | Proprietary |
+| MDInject | Doctor | 8685 | Proprietary |
 
 ## Development Commands
 

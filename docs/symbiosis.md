@@ -312,6 +312,47 @@ Crackerjack                     Druva
 
 ______________________________________________________________________
 
+## FastBlocks to Application Frameworks
+
+### The Composer's Pipeline
+
+FastBlocks orchestrates the composition pipeline, working with SplashStand for presentation and MDInject for content health.
+
+```
++-------------------+     +-------------------+     +-------------------+
+|    FastBlocks     |     |   SplashStand     |     |     MDInject      |
+|    (Composer)     |     |   (Presenter)     |     |     (Doctor)      |
++-------------------+     +-------------------+     +-------------------+
+|                   |     |                   |     |                   |
+| Blocks    ------->+---->| Layout    ------->+     |                   |
+| Templates ------->+---->| Themes    ------->+     |                   |
+| Styles    ------->+---->| Display   ------->+     |                   |
+|                   |     |                   |     |                   |
+| Content   ------->+------------------------->---->| Validation       |
+|                   |     |                   |     | Diagnosis        |
+|                   |     |                   |     | Healing          |
++-------------------+     +-------------------+     +-------------------+
+        :8684                     N/A                     :8685
+```
+
+### Composition Pipeline
+
+1. **Block Assembly**: FastBlocks composes blocks into templates
+1. **Style Application**: Style adapters apply themes
+1. **Content Validation**: MDInject validates markdown content
+1. **Presentation**: SplashStand formats for display
+1. **Output**: Rendered content delivered to client
+
+### Symbiotic Benefits
+
+| FastBlocks Provides | SplashStand Provides | MDInject Provides |
+|---------------------|---------------------|-------------------|
+| Composed templates | Responsive layouts | Content validation |
+| Style adapters | Theme application | Syntax healing |
+| Block library | Display formatting | Diagnostics |
+
+______________________________________________________________________
+
 ## Oneiric to All Components
 
 ### The Resolver's Logic
@@ -427,6 +468,18 @@ When all components work together, the ecosystem achieves capabilities beyond wh
               |                                    |
               +------------------------------------+
                               |
+         +--------------------+--------------------+
+         |                    |                    |
+         v                    v                    v
+    +----------------+  +----------------+  +----------------+
+    |   FastBlocks   |  |  SplashStand   |  |    MDInject    |
+    |   (Composer)   |  |  (Presenter)   |  |    (Doctor)    |
+    |     :8684      |  |      N/A       |  |     :8685      |
+    +----------------+  +----------------+  +----------------+
+              ^                    ^                    ^
+              |                    |                    |
+              +--------------------+--------------------+
+                              |
                     +-------------------+
                     |      Oneiric      |
                     | (Resolver Library)|
@@ -442,6 +495,9 @@ When all components work together, the ecosystem achieves capabilities beyond wh
 | Resilient Sessions | Session-Buddy + Druva + Oneiric |
 | Self-Improving Quality | Crackerjack + Akosha + Druva |
 | Cross-Component Recovery | Druva + Oneiric + All |
+| Composed Presentations | FastBlocks + SplashStand + MDInject |
+| Healthy Content Pipeline | MDInject + Crackerjack + FastBlocks |
+| Adaptive Styling | FastBlocks + Oneiric + SplashStand |
 
 ## Related Documentation
 

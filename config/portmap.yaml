@@ -17,6 +17,8 @@ allocations:
   8681: available      # (Oneiric MCP absorbed into Druva)
   8682: akosha         # Seer
   8683: druva         # Curator
+  8684: fastblocks    # Composer
+  8685: mdinject      # Doctor
 
   # MCP Integration servers (3030-3049)
   3030: grafana-mcp        # Grafana dashboards (external plugin)
