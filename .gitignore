@@ -74,3 +74,9 @@ logs/
 # (templates with .example extension are committed)
 config/ecosystem.yaml
 config/storage-map.yaml
+
+# Archive directories
+.archive/
+.archives/
+.backup/
+.backups/
