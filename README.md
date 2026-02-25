@@ -2,6 +2,10 @@
 
 Central meta-project for the Bodai ecosystem, providing configuration, documentation, and operations for all components.
 
+> **ORB**: *Orchestrated Reasoning Brain*
+>
+> *Perceive. Reason. Orchestrate.*
+
 > **Etymology**: From Sanskrit *bodhi* (awakening, enlightenment) - the state of supreme understanding.
 
 ## Ecosystem Components

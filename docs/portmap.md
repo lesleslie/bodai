@@ -18,6 +18,29 @@ The Bodai ecosystem uses ports in the 8676-8699 range, providing a dedicated nam
 | 8683 | Dhruva | Curator | Active |
 | 8684-8699 | - | Reserved | Available |
 
+## MCP Server Ports (3032-3047)
+
+External MCP servers integrated with the Bodai ecosystem use the 3032-3047 range.
+
+| Port | Server | Description | Status |
+|------|--------|-------------|--------|
+| 3032 | Excalidraw | Diagram collaboration | Active |
+| 3033 | Mermaid | Mermaid diagram generation | Active |
+| 3034 | Raindropio | Bookmark management | Active |
+| 3035 | Grafana | Grafana integration | Active |
+| 3036 | Chart-antv | Chart visualization | Active |
+| 3037 | Opera Cloud | OPERA Cloud PMS integration | Active |
+| 3038 | Unifi | Network management | Active |
+| 3039 | Mailgun | Email service | Active |
+| 3040 | Graphics | Graphics/image processing | Active |
+| 3041 | - | Reserved | Available |
+| 3042 | Porkbun DNS | DNS record management | Active |
+| 3043 | Porkbun Domain | Domain management | Active |
+| 3044 | n8n | n8n workflow integration | Active |
+| 3045 | Neo4j | Neo4j graph database | Active |
+| 3046 | Synxis CRS | CRS reservation system | Active |
+| 3047 | Synxis PMS | PMS property management | Active |
+
 ### Port 8681 Note
 
 Port 8681 is reserved for historical consistency. Oneiric was originally planned as a network service but was absorbed into Dhruva as a library component. The port remains reserved to:
