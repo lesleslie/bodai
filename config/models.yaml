@@ -1,0 +1,234 @@
+# Bodai Ecosystem - Global LLM Model Registry
+# Generated: 2026-02-25
+# Purpose: Single source of truth for all LLM models across the ecosystem
+#
+# Component-specific overrides can be placed in:
+#   - mahavishnu/settings/models.yaml (orchestrator preferences)
+#   - session-buddy/settings/models.yaml (session context models)
+#   - etc.
+
+# =============================================================================
+# LOCAL MODELS (Ollama)
+# =============================================================================
+ollama:
+  base_url: "http://localhost:11434"
+
+  # Primary models used across all components
+  primary:
+    code: "qwen2.5-coder:7b"      # Code generation, review, debugging
+    reasoning: "llama3:8b"         # General reasoning, analysis
+    vision: "llava:7b"             # Image analysis, multimodal
+    embedding: "nomic-embed-text"  # Vector embeddings
+
+  # Alternative models available locally
+  alternatives:
+    code:
+      - "qwen2.5-coder:14b"       # Better quality, more resources
+      - "deepseek-coder:6.7b"     # Alternative code model
+    embedding:
+      - "mxbai-embed-large-v1"    # Better quality embeddings
+      - "all-minilm"              # Smaller, faster
+
+# =============================================================================
+# EMBEDDING PROVIDERS
+# =============================================================================
+embeddings:
+  # Production provider (recommended)
+  fastembed:
+    model: "BAAI/bge-small-en-v1.5"
+    dimension: 384
+    alternatives:
+      - name: "BAAI/bge-base-en-v1.5"
+        dimension: 768
+        description: "Better quality, larger model"
+      - name: "BAAI/bge-large-en-v1.5"
+        dimension: 1024
+        description: "Best quality, largest model"
+
+  # Local development provider
+  ollama:
+    model: "nomic-embed-text"
+    dimension: 768
+
+  # Cloud provider (requires API key)
+  openai:
+    model: "text-embedding-3-small"
+    dimension: 1536
+    alternative: "text-embedding-3-large"
+    env_key: "OPENAI_API_KEY"
+
+# =============================================================================
+# CLOUD MODELS (API-based)
+# =============================================================================
+cloud:
+  anthropic:
+    # Claude models via Claude Code subscription or API
+    models:
+      opus: "claude-opus-4-6"           # Most capable
+      sonnet: "claude-sonnet-4-6"       # Balanced
+      haiku: "claude-haiku-4-5-20251001" # Fast, economical
+    env_key: "ANTHROPIC_API_KEY"
+    usage: "Primary development assistant"
+
+  openai:
+    models:
+      flagship: "gpt-4o"
+      turbo: "gpt-4-turbo"
+      economic: "gpt-3.5-turbo"
+    env_key: "OPENAI_API_KEY"
+    usage: "Fallback or specific integrations"
+
+  google:
+    models:
+      gemini_pro: "gemini-1.5-pro"
+      gemini_flash: "gemini-1.5-flash"
+    env_key: "GOOGLE_API_KEY"
+    usage: "Multimodal tasks, long context"
+
+# =============================================================================
+# TASK ROUTING (Default assignments)
+# =============================================================================
+task_routing:
+  # Code tasks - use code specialist
+  CODE_GENERATION: "ollama:qwen2.5-coder:7b"
+  CODE_REVIEW: "ollama:qwen2.5-coder:7b"
+  DEBUGGING: "ollama:qwen2.5-coder:7b"
+  REFACTORING: "ollama:qwen2.5-coder:7b"
+  DOCUMENTATION: "ollama:qwen2.5-coder:7b"
+  TESTING: "ollama:qwen2.5-coder:7b"
+
+  # Reasoning tasks - use general model
+  REASONING: "ollama:llama3:8b"
+  ANALYSIS: "ollama:qwen2.5-coder:7b"
+  CREATIVE: "ollama:llava:7b"
+
+  # Multimodal tasks
+  VISION: "ollama:llava:7b"
+
+  # Embedding tasks
+  EMBEDDING: "ollama:nomic-embed-text"
+
+  # Default fallback
+  GENERAL: "ollama:qwen2.5-coder:7b"
+
+# =============================================================================
+# CAPABILITY MATRIX
+# =============================================================================
+capabilities:
+  code_generation:
+    local: "qwen2.5-coder:7b"
+    cloud: "claude-sonnet-4-6"
+    best: "claude-opus-4-6"
+
+  code_review:
+    local: "qwen2.5-coder:7b"
+    cloud: "claude-sonnet-4-6"
+    best: "claude-opus-4-6"
+
+  vision_analysis:
+    local: "llava:7b"
+    cloud: "claude-sonnet-4-6"
+    best: "gemini-1.5-pro"
+
+  embeddings:
+    local: "nomic-embed-text"
+    production: "BAAI/bge-small-en-v1.5"
+    cloud: "text-embedding-3-small"
+
+  reasoning:
+    local: "llama3:8b"
+    cloud: "claude-sonnet-4-6"
+    best: "claude-opus-4-6"
+
+  long_context:
+    local: null  # Limited by local VRAM
+    cloud: "gemini-1.5-pro"  # 1M+ tokens
+    best: "gemini-1.5-pro"
+
+# =============================================================================
+# UPCOMING MODELS (Pending Availability)
+# =============================================================================
+pending:
+  qwen3_5:
+    status: "released_on_huggingface"
+    ollama_status: "not_yet_available"
+    target_model: "qwen3.5-35b-a3b"
+
+    specs:
+      parameters: "36B total, 3B activated"
+      context_window: "262,144 tokens"
+      max_context: "1,010,000 tokens (extensible)"
+      features:
+        - "Native multimodal (text + image + video)"
+        - "Mixture-of-Experts (MoE) architecture"
+        - "Gated Delta Networks for efficiency"
+        - "Thinking mode by default"
+        - "201 languages supported"
+
+    benefits:
+      - "Consolidates code + vision into single model"
+      - "Similar resource usage to 7B model (3B activated)"
+      - "Outperforms qwen2.5 on most benchmarks"
+      - "Native vision eliminates need for llava"
+
+    migration_plan: |
+      Once available on Ollama:
+      1. Pull model: ollama pull qwen3.5-35b-a3b
+      2. Update task_routing in this file
+      3. Update component-specific configs:
+         - mahavishnu/workers/ollama.py DEFAULT_MODEL_ROUTING
+         - session-buddy if using local models
+      4. Replace qwen2.5-coder:7b AND llava:7b with qwen3.5-35b-a3b
+      5. Test with existing workflows
+      6. Update this changelog
+
+# =============================================================================
+# RESOURCE REQUIREMENTS
+# =============================================================================
+resources:
+  qwen2.5-coder:7b:
+    vram: "~6GB"
+    ram: "~8GB"
+    speed: "fast"
+
+  qwen2.5-coder:14b:
+    vram: "~12GB"
+    ram: "~16GB"
+    speed: "medium"
+
+  llama3:8b:
+    vram: "~6GB"
+    ram: "~8GB"
+    speed: "fast"
+
+  llava:7b:
+    vram: "~6GB"
+    ram: "~8GB"
+    speed: "medium"
+
+  nomic-embed-text:
+    vram: "~1GB"
+    ram: "~2GB"
+    speed: "very fast"
+
+  qwen3.5-35b-a3b:  # Pending
+    vram: "~8GB"    # Only 3B activated
+    ram: "~12GB"
+    speed: "fast"   # MoE efficiency
+    notes: "36B params but only 3B activated per inference"
+
+# =============================================================================
+# UPDATE LOG
+# =============================================================================
+changelog:
+  - date: "2026-02-25"
+    action: "Created global model registry"
+    notes: |
+      Consolidated model tracking from individual components.
+      Added pending section for Qwen 3.5 migration planning.
+
+  - date: "2026-02-25"
+    action: "Researched Qwen 3.5 release"
+    notes: |
+      Qwen3.5-35B-A3B identified as target for local use.
+      3B activated params = similar resources to 7B but better quality.
