@@ -15,7 +15,7 @@ The Bodai ecosystem uses ports in the 8676-8699 range, providing a dedicated nam
 | 8680 | Mahavishnu | Orchestrator | Active |
 | 8681 | - | Reserved (Oneiric) | See Note |
 | 8682 | Akosha | Seer | Active |
-| 8683 | Dhruva | Curator | Active |
+| 8683 | Druva | Curator | Active |
 | 8684-8699 | - | Reserved | Available |
 
 ## MCP Server Ports (3032-3047)
@@ -43,7 +43,7 @@ External MCP servers integrated with the Bodai ecosystem use the 3032-3047 range
 
 ### Port 8681 Note
 
-Port 8681 is reserved for historical consistency. Oneiric was originally planned as a network service but was absorbed into Dhruva as a library component. The port remains reserved to:
+Port 8681 is reserved for historical consistency. Oneiric was originally planned as a network service but was absorbed into Druva as a library component. The port remains reserved to:
 
 - Prevent accidental allocation
 - Maintain consistent port spacing
@@ -64,7 +64,7 @@ The 8676-8699 range was chosen for several reasons:
    - 8678 = Session-Buddy (8 for "Buddy")
    - 8680 = Mahavishnu (0 for "Orchestrator" - central hub)
    - 8682 = Akosha (2 for "Seer" - second eye)
-   - 8683 = Dhruva (3 for "Curator" - third pillar)
+   - 8683 = Druva (3 for "Curator" - third pillar)
 
 1. **Grouped Allocation**: All Bodai services are in one contiguous range, making firewall rules and network configuration simpler.
 
@@ -77,7 +77,7 @@ Within the range, ports are assigned based on:
 | Component Type | Port Pattern | Examples |
 |----------------|--------------|----------|
 | Infrastructure | 867x | Crackerjack (8676), Session-Buddy (8678) |
-| Core Services | 868x | Mahavishnu (8680), Akosha (8682), Dhruva (8683) |
+| Core Services | 868x | Mahavishnu (8680), Akosha (8682), Druva (8683) |
 | Future Expansion | 869x | Available |
 
 ## Current Allocation Detail
@@ -134,11 +134,11 @@ Endpoints:
   - /patterns - Pattern detection
 ```
 
-### Dhruva (8683)
+### Druva (8683)
 
 ```
 Port: 8683
-Service: Dhruva Curator
+Service: Druva Curator
 Protocol: HTTP/WebSocket
 Endpoints:
   - /health - Health check
@@ -172,7 +172,7 @@ services:
     host: localhost
     port: 8682
 
-  dhruva:
+  druva:
     host: localhost
     port: 8683
 ```
@@ -200,7 +200,7 @@ services:
     ports:
       - "8682:8682"
 
-  dhruva:
+  druva:
     ports:
       - "8683:8683"
 ```
@@ -218,7 +218,7 @@ sudo ufw allow 8676/tcp comment 'Crackerjack'
 sudo ufw allow 8678/tcp comment 'Session-Buddy'
 sudo ufw allow 8680/tcp comment 'Mahavishnu'
 sudo ufw allow 8682/tcp comment 'Akosha'
-sudo ufw allow 8683/tcp comment 'Dhruva'
+sudo ufw allow 8683/tcp comment 'Druva'
 ```
 
 ## Health Check Endpoints
@@ -231,7 +231,7 @@ All services provide a `/health` endpoint on their assigned port:
 | Session-Buddy | 8678 | `http://localhost:8678/health` |
 | Mahavishnu | 8680 | `http://localhost:8680/health` |
 | Akosha | 8682 | `http://localhost:8682/health` |
-| Dhruva | 8683 | `http://localhost:8683/health` |
+| Druva | 8683 | `http://localhost:8683/health` |
 
 ### Health Check Response Format
 

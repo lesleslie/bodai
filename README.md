@@ -16,7 +16,7 @@ The Bodai ecosystem consists of six interconnected components, each with a disti
 |-----------|------|------|--------|-------------|
 | [Mahavishnu](#mahavishnu---the-orchestrator) | Orchestrator | 8680 | [lesleslie/mahavishnu](https://github.com/lesleslie/mahavishnu) | Multi-engine workflow orchestration |
 | [Akosha](#akosha---the-seer) | Seer | 8682 | [lesleslie/akosha](https://github.com/lesleslie/akosha) | Cross-system intelligence & vector embeddings |
-| [Dhruva](#dhruva---the-curator) | Curator | 8683 | [lesleslie/dhruva](https://github.com/lesleslie/dhruva) | Persistent object storage with ACID |
+| [Druva](#druva---the-curator) | Curator | 8683 | [lesleslie/druva](https://github.com/lesleslie/druva) | Persistent object storage with ACID |
 | [Session-Buddy](#session-buddy---the-builder) | Builder | 8678 | [lesleslie/session-buddy](https://github.com/lesleslie/session-buddy) | Session lifecycle & knowledge graphs |
 | [Crackerjack](#crackerjack---the-inspector) | Inspector | 8676 | [lesleslie/crackerjack](https://github.com/lesleslie/crackerjack) | Quality gates & CI/CD validation |
 | [Oneiric](#oneiric---the-resolver) | Resolver | N/A | [lesleslie/oneiric](https://github.com/lesleslie/oneiric) | Conflict resolution library |
@@ -30,7 +30,7 @@ The Bodai ecosystem consists of six interconnected components, each with a disti
 The central workflow engine that routes tasks to appropriate execution engines, coordinates multi-step processes across components, and manages workflow definitions and templates.
 
 - Routes tasks to Akosha for intelligence operations
-- Persists state to Dhruva for recovery
+- Persists state to Druva for recovery
 - Tracks context in Session-Buddy
 - Validates with Crackerjack before execution
 
@@ -41,13 +41,13 @@ The central workflow engine that routes tasks to appropriate execution engines, 
 Provides cross-system intelligence through vector embeddings, semantic search, pattern detection, and knowledge graphs. Enables predictive analysis and recommendations across all sessions.
 
 - Receives session data from Session-Buddy for embedding
-- Stores patterns in Dhruva
+- Stores patterns in Druva
 - Provides intelligence to Mahavishnu
 - Receives code analysis from Crackerjack
 
-### Dhruva - The Curator
+### Druva - The Curator
 
-> From Sanskrit *dhruva* (firm, constant, unchanging) - also the Pole Star
+> From Sanskrit *druva* (firm, constant, unchanging) - also the Pole Star
 
 The single source of truth for persistent data. Provides ACID transaction guarantees, data versioning, backup/recovery, and efficient querying.
 
@@ -61,7 +61,7 @@ The single source of truth for persistent data. Provides ACID transaction guaran
 The session lifecycle manager that tracks conversation history, builds knowledge graphs, and enables context switching between sessions.
 
 - Sends data to Akosha for embedding
-- Stores backups in Dhruva
+- Stores backups in Druva
 - Provides context to Mahavishnu
 - Receives quality metrics from Crackerjack
 
@@ -71,7 +71,7 @@ The quality enforcer that runs automated test suites, manages CI/CD pipelines, p
 
 - Validates workflows for Mahavishnu
 - Sends code analysis to Akosha
-- Stores reports in Dhruva
+- Stores reports in Druva
 - Records metrics in Session-Buddy
 
 ### Oneiric - The Resolver
@@ -81,7 +81,7 @@ The quality enforcer that runs automated test suites, manages CI/CD pipelines, p
 A shared library (no MCP server) that provides conflict resolution algorithms, dependency graph analysis, version conflict detection, and merge strategies. Embedded directly by other components.
 
 - Used by Mahavishnu for workflow conflict resolution
-- Used by Dhruva for data merge operations
+- Used by Druva for data merge operations
 - Used by Session-Buddy for context merging
 
 ---

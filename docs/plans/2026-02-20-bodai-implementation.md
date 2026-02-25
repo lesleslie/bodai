@@ -414,11 +414,11 @@ components:
     status: production
     description: Cross-system intelligence and memory aggregation
 
-  dhruva:
-    name: dhruva
+  druva:
+    name: druva
     role: curator
     port: 8683
-    repo: ~/Projects/dhruva
+    repo: ~/Projects/druva
     status: production
     description: Persistent object storage with ACID properties
 
@@ -453,9 +453,9 @@ allocations:
   8676: crackerjack    # Inspector
   8678: session-buddy  # Builder
   8680: mahavishnu     # Orchestrator
-  8681: available      # (Oneiric MCP absorbed into Dhruva)
+  8681: available      # (Oneiric MCP absorbed into Druva)
   8682: akosha         # Seer
-  8683: dhruva         # Curator
+  8683: druva         # Curator
 
 reserved:
   8684-8699: future expansion
@@ -483,9 +483,9 @@ databases:
     type: duckdb
     description: Warm tier for historical data (7-90 days)
 
-  dhruva:
-    path: ~/data/dhruva/dhruva.db
-    type: dhruva
+  druva:
+    path: ~/data/druva/druva.db
+    type: druva
     description: Persistent object storage
 
 caches:
@@ -1311,7 +1311,7 @@ Meta-project for the Bodai ecosystem. Central hub for understanding and managing
 |-----------|------|------|-------------|
 | **Mahavishnu** | The Orchestrator | 8680 | Multi-engine workflow orchestration |
 | **Akosha** | The Seer | 8682 | Cross-system intelligence |
-| **Dhruva** | The Curator | 8683 | Persistent object storage |
+| **Druva** | The Curator | 8683 | Persistent object storage |
 | **Session-Buddy** | The Builder | 8678 | Session management |
 | **Crackerjack** | The Inspector | 8676 | Quality gates and CI/CD |
 
@@ -1391,7 +1391,7 @@ Bodai (The Orb) is the meta-project for the Bodai ecosystem. It provides configu
 |-----------|------|------|
 | Mahavishnu | Orchestrator | 8680 |
 | Akosha | Seer | 8682 |
-| Dhruva | Curator | 8683 |
+| Druva | Curator | 8683 |
 | Session-Buddy | Builder | 8678 |
 | Crackerjack | Inspector | 8676 |
 
@@ -1487,7 +1487,7 @@ graph TB
     subgraph "Ecosystem Components"
         M[Mahavishnu<br/>Orchestrator:8680]
         A[Akosha<br/>Seer:8682]
-        Dh[Dhruva<br/>Curator:8683]
+        Dh[Druva<br/>Curator:8683]
         SB[Session-Buddy<br/>Builder:8678]
         CJ[Crackerjack<br/>Inspector:8676]
     end
@@ -1515,7 +1515,7 @@ Each component owns its domain:
 |-----------|------|
 | **Mahavishnu** | Workflow definitions, pool management, scheduling |
 | **Akosha** | Cross-system memory, embeddings, knowledge graphs |
-| **Dhruva** | Object persistence, ACID transactions, caching |
+| **Druva** | Object persistence, ACID transactions, caching |
 | **Session-Buddy** | Session lifecycle, local memory, reflections |
 | **Crackerjack** | Quality rules, test execution, linting |
 
@@ -1524,7 +1524,7 @@ Each component owns its domain:
 1. **Session → Akosha**: Session-Buddy uploads memories to cloud; Akosha ingests
 1. **Mahavishnu → All**: Orchestrates workflows across components
 1. **Crackerjack → All**: Validates quality on all code changes
-1. **Dhruva → All**: Provides persistent storage backends
+1. **Druva → All**: Provides persistent storage backends
 
 ````
 
@@ -1555,7 +1555,7 @@ Each component has a distinct role in the ecosystem.
 - Pattern recognition across 100-10,000 systems
 - Three-tier storage: Hot (0-7d), Warm (7-90d), Cold (90+d)
 
-## The Curator (Dhruva)
+## The Curator (Druva)
 
 **Port:** 8683
 
@@ -1619,7 +1619,7 @@ Mahavishnu orchestrates workflows across the ecosystem:
 - Schedules Akosha ingestion jobs
 - Coordinates Session-Buddy sync
 - Triggers Crackerjack quality gates
-- Manages Dhruva backup schedules
+- Manages Druva backup schedules
 
 ## Crackerjack → All
 
@@ -1630,7 +1630,7 @@ Quality validation for all components:
 - Security scanning for vulnerabilities
 - Coverage enforcement (85%+)
 
-## Dhruva → All
+## Druva → All
 
 Storage backbone:
 
@@ -1660,9 +1660,9 @@ Configuration resolution:
 | 8676 | Crackerjack | Inspector |
 | 8678 | Session-Buddy | Builder |
 | 8680 | Mahavishnu | Orchestrator |
-| 8681 | *Available* | (Oneiric absorbed into Dhruva) |
+| 8681 | *Available* | (Oneiric absorbed into Druva) |
 | 8682 | Akosha | Seer |
-| 8683 | Dhruva | Curator |
+| 8683 | Druva | Curator |
 | 8684-8699 | *Reserved* | Future expansion |
 
 ## Rationale

@@ -17,9 +17,9 @@ databases:
     type: duckdb
     description: Warm tier for historical data (7-90 days)
 
-  dhruva:
-    path: ~/data/dhruva/dhruva.db
-    type: dhruva
+  druva:
+    path: ~/data/druva/druva.db
+    type: druva
     description: Persistent object storage
 
   # MCP Integration server storage

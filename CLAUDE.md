@@ -12,7 +12,7 @@ Bodai (The Orb) is a meta-project for the Bodai ecosystem. It provides configura
 |-----------|------|------|
 | Mahavishnu | Orchestrator | 8680 |
 | Akosha | Seer | 8682 |
-| Dhruva | Curator | 8683 |
+| Druva | Curator | 8683 |
 | Session-Buddy | Builder | 8678 |
 | Crackerjack | Inspector | 8676 |
 

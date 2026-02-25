@@ -18,11 +18,11 @@ components:
     status: production
     description: Cross-system intelligence and memory aggregation
 
-  dhruva:
-    name: dhruva
+  druva:
+    name: druva
     role: curator
     port: 8683
-    repo: ~/Projects/dhruva
+    repo: ~/Projects/druva
     status: production
     description: Persistent object storage with ACID properties
 

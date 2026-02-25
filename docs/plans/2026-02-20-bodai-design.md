@@ -14,12 +14,12 @@ Bodai (The Orb) is the meta-project that documents, configures, and operates the
 |-----------|------|------|-------------|
 | **Mahavishnu** | The Orchestrator | 8680 | Multi-engine workflow orchestration, pool management |
 | **Akosha** | The Seer | 8682 | Cross-system intelligence, memory aggregation, pattern recognition |
-| **Dhruva** | The Curator | 8683 | Persistent object storage with ACID properties |
+| **Druva** | The Curator | 8683 | Persistent object storage with ACID properties |
 | **Session-Buddy** | The Builder | 8678 | Session lifecycle management, knowledge graph construction |
 | **Crackerjack** | The Inspector | 8676 | Quality gates, testing, CI/CD validation |
 | **Oneiric** | The Resolver | - | Universal component resolution (library, no MCP server) |
 
-**Note:** Oneiric's MCP server was absorbed into Dhruva. Port 8681 is available.
+**Note:** Oneiric's MCP server was absorbed into Druva. Port 8681 is available.
 
 ## Architecture
 
@@ -136,10 +136,10 @@ components:
     status: production
     description: Cross-system intelligence
 
-  dhruva:
+  druva:
     role: curator
     port: 8683
-    repo: ~/Projects/dhruva
+    repo: ~/Projects/druva
     status: production
     description: Persistent object storage with ACID
 
@@ -192,7 +192,7 @@ bodai config validate           # Validate all config files
 ┡━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━┩
 │ mahavishnu   │ 8680   │ ●       │ Orchestrator│
 │ akosha       │ 8682   │ ●       │ Seer       │
-│ dhruva       │ 8683   │ ●       │ Curator    │
+│ druva       │ 8683   │ ●       │ Curator    │
 │ session-buddy│ 8678   │ ●       │ Builder    │
 │ crackerjack  │ 8676   │ ●       │ Inspector  │
 └──────────────┴────────┴─────────┴────────────┘
@@ -256,7 +256,7 @@ Textual (Python async TUI framework)
 │  ● Akosha        [Seer]           Port 8682   5h 30m   │
 │    └─ 847 systems indexed, 12M embeddings               │
 │                                                          │
-│  ● Dhruva        [Curator]        Port 8683   1d 2h    │
+│  ● Druva        [Curator]        Port 8683   1d 2h    │
 │    └─ Storage: 2.3TB objects, 99.9% cache hit           │
 │                                                          │
 │  ● Session-Buddy [Builder]        Port 8678   4h 45m   │
@@ -348,7 +348,7 @@ Out[1]:
  ...}
 
 In [2]: check_all()
-Out[2]: {'mahavishnu': True, 'akosha': True, 'dhruva': True, ...}
+Out[2]: {'mahavishnu': True, 'akosha': True, 'druva': True, ...}
 
 In [3]: stop_component('crackerjack')
 Stopping crackerjack on port 8676...
@@ -380,7 +380,7 @@ Quick reference with component table, commands, and architecture link.
 - **Session-Buddy → Akosha**: Memory aggregation pipeline
 - **Mahavishnu → All**: Orchestration and workflow scheduling
 - **Oneiric → All**: Config resolution and hot-swapping
-- **Dhruva → All**: Persistent storage backends
+- **Druva → All**: Persistent storage backends
 - **Crackerjack → All**: Quality gates and validation
 
 ## Dependencies

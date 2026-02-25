@@ -12,7 +12,7 @@ graph TB
         subgraph "Core Services"
             MAHA[Mahavishnu<br/>Orchestrator<br/>:8680]
             AKOS[Akosha<br/>Seer<br/>:8682]
-            DHRU[Dhruva<br/>Curator<br/>:8683]
+            DHRU[Druva<br/>Curator<br/>:8683]
         end
 
         subgraph "Infrastructure Services"
@@ -54,7 +54,7 @@ Each component in the Bodai ecosystem has well-defined ownership and responsibil
 | **Bodai** | Meta-Project | Configuration registry, documentation hub, operational tools | Direct service implementation, runtime orchestration |
 | **Mahavishnu** | Orchestrator | Workflow definitions, engine selection, task routing | Data persistence, session state, quality enforcement |
 | **Akosha** | Seer | Vector embeddings, cross-system intelligence, pattern recognition | Workflow execution, object storage, CI/CD pipelines |
-| **Dhruva** | Curator | Persistent object storage, ACID transactions, data versioning | Session management, workflow orchestration, quality gates |
+| **Druva** | Curator | Persistent object storage, ACID transactions, data versioning | Session management, workflow orchestration, quality gates |
 | **Session-Buddy** | Builder | Session lifecycle, knowledge graphs, conversation history | Workflow execution, quality enforcement, long-term storage |
 | **Crackerjack** | Inspector | Quality gates, testing frameworks, CI/CD pipelines | Session management, workflow routing, vector search |
 | **Oneiric** | Resolver | Conflict resolution algorithms, dependency analysis | MCP server, network endpoints, state management |
@@ -89,7 +89,7 @@ Session-Buddy captures session lifecycle data and conversation context, which fl
                     +---> Akosha (8682)
                     |     [Intelligence queries]
                     |
-Mahavishnu (8680) --+---> Dhruva (8683)
+Mahavishnu (8680) --+---> Druva (8683)
 [Orchestrator]      |     [State persistence]
                     |
                     +---> Session-Buddy (8678)
@@ -102,7 +102,7 @@ Mahavishnu (8680) --+---> Dhruva (8683)
 Mahavishnu serves as the central orchestrator, routing tasks to appropriate components based on:
 
 1. **Akosha**: For intelligence operations requiring vector search or pattern analysis
-1. **Dhruva**: For persistent storage of workflow state and results
+1. **Druva**: For persistent storage of workflow state and results
 1. **Session-Buddy**: For session context and conversation tracking
 1. **Crackerjack**: For quality validation of workflow outputs
 
@@ -115,7 +115,7 @@ Mahavishnu serves as the central orchestrator, routing tasks to appropriate comp
 Crackerjack (8676) --+---> Akosha (8682)
 [Inspector]          |     [Code analysis embeddings]
                     |
-                    +---> Dhruva (8683)
+                    +---> Druva (8683)
                     |     [Quality reports storage]
                     |
                     +---> Session-Buddy (8678)
@@ -126,16 +126,16 @@ Crackerjack enforces quality across the ecosystem by:
 
 1. Validating workflow definitions before Mahavishnu executes them
 1. Generating code analysis embeddings in Akosha for pattern detection
-1. Storing quality reports and metrics in Dhruva for historical tracking
+1. Storing quality reports and metrics in Druva for historical tracking
 1. Recording quality metrics per session in Session-Buddy
 
-### Dhruva to All Components
+### Druva to All Components
 
 ```
                     +---> Mahavishnu (8680)
                     |     [Workflow state recovery]
                     |
-Dhruva (8683) -------+---> Akosha (8682)
+Druva (8683) -------+---> Akosha (8682)
 [Curator]            |     [Historical data for patterns]
                     |
                     +---> Session-Buddy (8678)
@@ -145,7 +145,7 @@ Dhruva (8683) -------+---> Akosha (8682)
                           [Quality trend data]
 ```
 
-Dhruva provides persistent storage services to all components:
+Druva provides persistent storage services to all components:
 
 1. **Mahavishnu**: Workflow state recovery for resumable operations
 1. **Akosha**: Historical data for pattern recognition and trend analysis
@@ -158,20 +158,20 @@ Dhruva provides persistent storage services to all components:
 
 Each component has a distinct responsibility:
 
-- **Orchestration** (Mahavishnu) vs **Intelligence** (Akosha) vs **Storage** (Dhruva)
+- **Orchestration** (Mahavishnu) vs **Intelligence** (Akosha) vs **Storage** (Druva)
 - **Session Management** (Session-Buddy) vs **Quality Enforcement** (Crackerjack)
 - **Libraries** (Oneiric) provide shared utilities without network overhead
 
 ### Single Source of Truth
 
-- **Dhruva** is the single source of truth for persistent data
+- **Druva** is the single source of truth for persistent data
 - **Session-Buddy** is the single source of truth for session state
 - **Bodai** is the single source of truth for configuration
 
 ### Fail-Safe Design
 
 - Components can operate independently if others are unavailable
-- Dhruva provides ACID guarantees for critical data
+- Druva provides ACID guarantees for critical data
 - Crackerjack enforces quality gates before changes propagate
 
 ## Related Documentation

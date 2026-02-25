@@ -30,7 +30,7 @@ ______________________________________________________________________
 ### Key Interactions
 
 - Sends tasks to **Akosha** for intelligence operations
-- Persists state to **Dhruva** for recovery
+- Persists state to **Druva** for recovery
 - Tracks context in **Session-Buddy**
 - Validates with **Crackerjack** before execution
 
@@ -58,19 +58,19 @@ ______________________________________________________________________
 ### Key Interactions
 
 - Receives session data from **Session-Buddy**
-- Stores patterns in **Dhruva**
+- Stores patterns in **Druva**
 - Provides intelligence to **Mahavishnu**
 - Receives code analysis from **Crackerjack**
 
 ______________________________________________________________________
 
-## Dhruva - The Curator
+## Druva - The Curator
 
 | Attribute | Value |
 |-----------|-------|
 | **Port** | 8683 |
 | **Role** | Persistent object storage with ACID |
-| **Etymology** | Sanskrit *dhruva* (firm, constant, unchanging) - also the Pole Star |
+| **Etymology** | Sanskrit *druva* (firm, constant, unchanging) - also the Pole Star |
 
 ### Responsibilities
 
@@ -114,7 +114,7 @@ ______________________________________________________________________
 ### Key Interactions
 
 - Sends data to **Akosha** for embedding
-- Stores backups in **Dhruva**
+- Stores backups in **Druva**
 - Provides context to **Mahavishnu**
 - Receives quality metrics from **Crackerjack**
 
@@ -143,7 +143,7 @@ ______________________________________________________________________
 
 - Validates workflows for **Mahavishnu**
 - Sends code analysis to **Akosha**
-- Stores reports in **Dhruva**
+- Stores reports in **Druva**
 - Records metrics in **Session-Buddy**
 
 ______________________________________________________________________
@@ -169,7 +169,7 @@ ______________________________________________________________________
 
 ### Key Characteristics
 
-- **No MCP Server**: Absorbed into Dhruva for persistence operations
+- **No MCP Server**: Absorbed into Druva for persistence operations
 - **Library Only**: Functions as a shared library, not a network service
 - **Stateless**: Does not maintain runtime state
 - **Embedded**: Used directly by other components
@@ -177,7 +177,7 @@ ______________________________________________________________________
 ### Key Interactions
 
 - Used by **Mahavishnu** for workflow conflict resolution
-- Used by **Dhruva** for data merge operations
+- Used by **Druva** for data merge operations
 - Used by **Session-Buddy** for context merging
 
 ______________________________________________________________________
@@ -188,7 +188,7 @@ ______________________________________________________________________
 |-----------|------|-----------|----------|-----------------|
 | Mahavishnu | 8680 | Orchestrator | No | Yes |
 | Akosha | 8682 | Intelligence | Yes | Yes |
-| Dhruva | 8683 | Storage | Yes | Yes |
+| Druva | 8683 | Storage | Yes | Yes |
 | Session-Buddy | 8678 | Session Manager | Yes | Yes |
 | Crackerjack | 8676 | Quality Enforcer | No | Yes |
 | Oneiric | N/A | Resolver Library | No | No |

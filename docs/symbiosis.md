@@ -70,7 +70,7 @@ Mahavishnu orchestrates workflows across all components, acting as the central n
           |                        |                        |
           v                        v                        v
     +-----------+           +-----------+           +-----------+
-    |   Akosha  |           |   Dhruva  |           | Session-  |
+    |   Akosha  |           |   Druva  |           | Session-  |
     |  (Seer)   |           | (Curator) |           |  Buddy    |
     +-----------+           +-----------+           +-----------+
     | Intelligence|         | Persistence|         | Sessions  |
@@ -106,7 +106,7 @@ Used when a workflow needs semantic search or pattern matching.
 #### State Persistence Pattern
 
 ```
-Mahavishnu --[state]--> Dhruva --[confirm]--> Mahavishnu
+Mahavishnu --[state]--> Druva --[confirm]--> Mahavishnu
 ```
 
 Used for checkpointing workflow progress.
@@ -132,7 +132,7 @@ Used for quality gate enforcement.
 | To Component | Mahavishnu Provides | Component Provides |
 |--------------|---------------------|-------------------|
 | Akosha | Query orchestration | Intelligence results |
-| Dhruva | State to persist | Recovery capability |
+| Druva | State to persist | Recovery capability |
 | Session-Buddy | Context requests | Session awareness |
 | Crackerjack | Artifacts to validate | Quality assurance |
 
@@ -161,7 +161,7 @@ Crackerjack enforces quality across the entire ecosystem, ensuring that all comp
           |             |            |            |         |
           v             v            v            v         v
     +---------+   +---------+  +---------+  +---------+  +---------+
-    |Mahavishnu|  | Akosha  |  | Dhruva  |  |Session- |  | Oneiric |
+    |Mahavishnu|  | Akosha  |  | Druva  |  |Session- |  | Oneiric |
     |          |  |         |  |         |  | Buddy   |  | (lib)   |
     +---------+   +---------+  +---------+  +---------+  +---------+
          :8680        :8682        :8683        :8678       N/A
@@ -187,11 +187,11 @@ Crackerjack enforces quality across the entire ecosystem, ensuring that all comp
 +-------------+     +-------------+     +-------------+
 ```
 
-#### Quality Report Storage (Dhruva)
+#### Quality Report Storage (Druva)
 
 ```
 +-------------+     +-------------+     +-------------+
-| Quality Run |---->| Crackerjack |---->| Dhruva      |
+| Quality Run |---->| Crackerjack |---->| Druva      |
 |             |     | Report Gen  |     | Storage     |
 +-------------+     +-------------+     +-------------+
 ```
@@ -211,21 +211,21 @@ Crackerjack enforces quality across the entire ecosystem, ensuring that all comp
 |--------------|---------------------|-------------------|
 | Mahavishnu | Workflow validation | Workflows to validate |
 | Akosha | Code embeddings | Search capability |
-| Dhruva | Quality reports | Persistent storage |
+| Druva | Quality reports | Persistent storage |
 | Session-Buddy | Quality metrics | Session context |
 | Oneiric | Library validation | Resolution logic |
 
 ______________________________________________________________________
 
-## Dhruva to All Components
+## Druva to All Components
 
 ### The Curator's Archive
 
-Dhruva provides the persistent foundation for the entire ecosystem, ensuring data survives across sessions, restarts, and failures.
+Druva provides the persistent foundation for the entire ecosystem, ensuring data survives across sessions, restarts, and failures.
 
 ```
                          +-------------------+
-                         |      Dhruva       |
+                         |      Druva       |
                          |     (Curator)     |
                          +-------------------+
                          |                   |
@@ -251,7 +251,7 @@ Dhruva provides the persistent foundation for the entire ecosystem, ensuring dat
 #### Workflow State Recovery (Mahavishnu)
 
 ```
-Mahavishnu                      Dhruva
+Mahavishnu                      Druva
     |                              |
     +--[checkpoint state]--------->|
     |                              |
@@ -265,7 +265,7 @@ Mahavishnu                      Dhruva
 #### Historical Pattern Data (Akosha)
 
 ```
-Akosha                          Dhruva
+Akosha                          Druva
     |                              |
     +--[new pattern found]-------->|
     |                              |
@@ -277,7 +277,7 @@ Akosha                          Dhruva
 #### Session Backup (Session-Buddy)
 
 ```
-Session-Buddy                   Dhruva
+Session-Buddy                   Druva
     |                              |
     +--[session data]------------->|
     |                              |
@@ -291,7 +291,7 @@ Session-Buddy                   Dhruva
 #### Quality Trend Data (Crackerjack)
 
 ```
-Crackerjack                     Dhruva
+Crackerjack                     Druva
     |                              |
     +--[quality report]----------->|
     |                              |
@@ -302,7 +302,7 @@ Crackerjack                     Dhruva
 
 ### Symbiotic Benefits
 
-| To Component | Dhruva Provides | Component Provides |
+| To Component | Druva Provides | Component Provides |
 |--------------|-----------------|-------------------|
 | Mahavishnu | State recovery | Checkpoint data |
 | Akosha | Historical data | Patterns to store |
@@ -357,10 +357,10 @@ result = resolve_workflow_conflict(
 )
 ```
 
-#### Data Merge Operations (Dhruva)
+#### Data Merge Operations (Druva)
 
 ```python
-# Dhruva uses Oneiric for data merges
+# Druva uses Oneiric for data merges
 from oneiric import merge_objects
 
 merged = merge_objects(
@@ -387,7 +387,7 @@ unified_context = merge_contexts(
 | Component | Uses Oneiric For | Benefit |
 |-----------|------------------|---------|
 | Mahavishnu | Workflow conflict resolution | No workflow data loss |
-| Dhruva | Data merge operations | ACID-safe merges |
+| Druva | Data merge operations | ACID-safe merges |
 | Session-Buddy | Context merging | Unified session view |
 | Crackerjack | Rule conflict resolution | Consistent quality rules |
 | Akosha | Pattern conflict resolution | Accurate pattern matching |
@@ -419,7 +419,7 @@ When all components work together, the ecosystem achieves capabilities beyond wh
          |    |                                   |    |
          v    v                                   v    v
     +----------------+                   +----------------+
-    |     Dhruva     |<----------------->|     Akosha     |
+    |     Druva     |<----------------->|     Akosha     |
     |    (Curator)   |                   |     (Seer)     |
     |      :8683     |                   |      :8682     |
     +----------------+                   +----------------+
@@ -438,10 +438,10 @@ When all components work together, the ecosystem achieves capabilities beyond wh
 | Capability | Components Involved |
 |------------|-------------------|
 | Intelligent Workflows | Mahavishnu + Akosha + Session-Buddy |
-| Quality-Assured Intelligence | Crackerjack + Akosha + Dhruva |
-| Resilient Sessions | Session-Buddy + Dhruva + Oneiric |
-| Self-Improving Quality | Crackerjack + Akosha + Dhruva |
-| Cross-Component Recovery | Dhruva + Oneiric + All |
+| Quality-Assured Intelligence | Crackerjack + Akosha + Druva |
+| Resilient Sessions | Session-Buddy + Druva + Oneiric |
+| Self-Improving Quality | Crackerjack + Akosha + Druva |
+| Cross-Component Recovery | Druva + Oneiric + All |
 
 ## Related Documentation
 
