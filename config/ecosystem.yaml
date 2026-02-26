@@ -83,7 +83,7 @@ components:
     port: 3042
     repo: ~/Projects/porkbun-dns-mcp
     status: development
-    description: Porkbun DNS record management via MCP
+    description: Unofficial Porkbun DNS record management via MCP
 
   porkbun-domain-mcp:
     name: porkbun-domain-mcp
@@ -91,7 +91,7 @@ components:
     port: 3043
     repo: ~/Projects/porkbun-domain-mcp
     status: development
-    description: Porkbun domain management via MCP
+    description: Unofficial Porkbun domain management via MCP
 
   n8n-mcp:
     name: n8n-mcp
@@ -107,7 +107,15 @@ components:
     port: 3045
     repo: ~/Projects/neo4j-mcp
     status: development
-    description: Neo4j graph database via MCP
+    description: Unofficial Neo4j graph database via MCP
+
+  spline-mcp:
+    name: spline-mcp
+    role: tool
+    port: 3050
+    repo: ~/Projects/spline-mcp
+    status: development
+    description: Unofficial Spline.design 3D scene orchestration via MCP
 
   synxis-crs-mcp:
     name: synxis-crs-mcp
@@ -115,7 +123,7 @@ components:
     port: 3046
     repo: ~/Projects/synxis-crs-mcp
     status: development
-    description: SynXis Central Reservation System via MCP
+    description: Unofficial SynXis Central Reservation System via MCP
 
   synxis-pms-mcp:
     name: synxis-pms-mcp
@@ -123,7 +131,7 @@ components:
     port: 3047
     repo: ~/Projects/synxis-pms-mcp
     status: development
-    description: SynXis Property Management System via MCP
+    description: Unofficial SynXis Property Management System via MCP
 
   # Additional MCP Integration Servers
   excalidraw-mcp:
