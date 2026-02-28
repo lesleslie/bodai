@@ -80,3 +80,6 @@ config/storage-map.yaml
 .archives/
 .backup/
 .backups/
+
+# Claude Code local config
+.claude/
