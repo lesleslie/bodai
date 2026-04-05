@@ -83,3 +83,4 @@ config/storage-map.yaml
 
 # Claude Code local config
 .claude/
+coverage.json
