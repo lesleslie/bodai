@@ -19,6 +19,7 @@ import signal
 import time
 from dataclasses import dataclass, field
 from datetime import datetime
+import shlex
 from pathlib import Path
 from typing import Any
 
@@ -169,7 +170,7 @@ class EcosystemOperations:
         Returns:
             Component if found, None otherwise.
         """
-        return self._ecosystem.components.get(name)
+        return self._ecosystem.get_component(name)
 
     def _component_to_start_command(self, component: Component) -> list[str] | None:
         """Convert component to start command.
@@ -183,6 +184,10 @@ class EcosystemOperations:
         repo_path = Path(component.repo).expanduser()
         if not repo_path.exists():
             return None
+
+        # Prefer explicit component-level launch command when provided.
+        if component.start_command:
+            return [os.path.expandvars(part) for part in component.start_command]
 
         # Determine start command based on repo structure
         # Check for pyproject.toml (Python project)
@@ -266,8 +271,12 @@ class EcosystemOperations:
         if component.status == ComponentStatus.DISABLED:
             return False
 
+        # Non-network components are not lifecycle-managed here.
+        if component.port is None:
+            return False
+
         # Check if already running
-        if check_port(component.port) == HealthStatus.HEALTHY:
+        if check_port(component.port, host=component.host) == HealthStatus.HEALTHY:
             return True
 
         # Get start command
@@ -278,6 +287,13 @@ class EcosystemOperations:
         repo_path = Path(component.repo).expanduser()
 
         try:
+            # Backward compatibility: if start_command is provided as a single
+            # tokenized string item, normalize it here.
+            if len(cmd) == 1 and " " in cmd[0]:
+                cmd = shlex.split(cmd[0])
+
+            child_env = {**os.environ, **component.env}
+
             # Start the process
             proc = await asyncio.create_subprocess_exec(
                 *cmd,
@@ -285,6 +301,7 @@ class EcosystemOperations:
                 stdout=asyncio.subprocess.DEVNULL,
                 stderr=asyncio.subprocess.DEVNULL,
                 start_new_session=True,
+                env=child_env,
             )
 
             # Track the process
@@ -335,7 +352,7 @@ class EcosystemOperations:
             # Wait for process to stop
             start = time.monotonic()
             while time.monotonic() - start < timeout:
-                if check_port(component.port) == HealthStatus.UNHEALTHY:
+                if check_port(component.port, host=component.host) == HealthStatus.UNHEALTHY:
                     self._managed_processes.pop(name, None)
                     return True
                 await asyncio.sleep(0.5)
@@ -420,7 +437,7 @@ class EcosystemOperations:
         components = [
             name
             for name, comp in self.components.items()
-            if check_port(comp.port) == HealthStatus.HEALTHY
+            if check_port(comp.port, host=comp.host) == HealthStatus.HEALTHY
         ]
 
         # Stop all concurrently
@@ -450,7 +467,10 @@ class EcosystemOperations:
         Returns:
             ComponentHealth with check results.
         """
-        url = f"http://localhost:{component.port}/health"
+        path = component.health_path if component.health_path.startswith("/") else f"/{component.health_path}"
+        scheme = component.health_scheme
+        host = component.host
+        url = f"{scheme}://{host}:{component.port}{path}"
         start_time = time.monotonic()
 
         try:
@@ -485,6 +505,7 @@ class EcosystemOperations:
                 name=component.name,
                 port=component.port,
                 status=HealthStatus.UNHEALTHY,
+                details={"url": url},
                 error="Timeout",
             )
         except httpx.ConnectError:
@@ -492,6 +513,7 @@ class EcosystemOperations:
                 name=component.name,
                 port=component.port,
                 status=HealthStatus.UNHEALTHY,
+                details={"url": url},
                 error="Connection refused",
             )
         except Exception as e:
@@ -499,6 +521,7 @@ class EcosystemOperations:
                 name=component.name,
                 port=component.port,
                 status=HealthStatus.UNKNOWN,
+                details={"url": url},
                 error=str(e),
             )
 
@@ -529,7 +552,8 @@ class EcosystemOperations:
                         name=name,
                         port=comp.port,
                         status=HealthStatus.UNKNOWN,
-                        error=str(e),
+                details={"url": url},
+                error=str(e),
                     )
                 )
 

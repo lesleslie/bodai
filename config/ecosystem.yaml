@@ -7,6 +7,8 @@ components:
     role: orchestrator
     port: 8680
     repo: ~/Projects/mahavishnu
+    nicknames: [vishnu, vish]
+    start_command: ["python", "-m", "mahavishnu.mcp.server"]
     status: production
     description: Multi-engine workflow orchestration and pool management
 
@@ -15,6 +17,7 @@ components:
     role: seer
     port: 8682
     repo: ~/Projects/akosha
+    start_command: ["python", "-m", "akosha.mcp.server"]
     status: production
     description: Cross-system intelligence and memory aggregation
 
@@ -23,6 +26,7 @@ components:
     role: curator
     port: 8683
     repo: ~/Projects/druva
+    start_command: ["python", "-m", "druva.mcp.server"]
     status: production
     description: Persistent object storage with ACID properties
 
@@ -31,6 +35,7 @@ components:
     role: builder
     port: 8678
     repo: ~/Projects/session-buddy
+    start_command: ["python", "-m", "session_buddy.mcp.server"]
     status: production
     description: Session lifecycle management and knowledge graphs
 
@@ -39,6 +44,7 @@ components:
     role: inspector
     port: 8676
     repo: ~/Projects/crackerjack
+    start_command: ["python", "-m", "crackerjack.mcp.server"]
     status: production
     description: Quality gates, testing, and CI/CD validation
 
@@ -48,6 +54,7 @@ components:
     role: composer
     port: 8684
     repo: ~/Projects/fastblocks
+    start_command: ["python", "-m", "fastblocks.mcp.server"]
     status: production
     description: Block-based web framework and template composition
 
@@ -64,6 +71,7 @@ components:
     role: doctor
     port: 8685
     repo: ~/Projects/mdinject
+    start_command: ["python", "-m", "mdinject.mcp.server"]
     status: production
     license: proprietary
     description: Markdown injection, diagnosis, and content healing
@@ -74,6 +82,7 @@ components:
     role: tool
     port: 3040
     repo: ~/Projects/graphics-mcp
+    start_command: ["python", "-m", "graphics_mcp.mcp.server"]
     status: development
     description: Image manipulation via Pillow/pilkit MCP server
 
@@ -82,6 +91,7 @@ components:
     role: tool
     port: 3042
     repo: ~/Projects/porkbun-dns-mcp
+    start_command: ["python", "-m", "porkbun_dns_mcp.mcp.server"]
     status: development
     description: Unofficial Porkbun DNS record management via MCP
 
@@ -90,6 +100,7 @@ components:
     role: tool
     port: 3043
     repo: ~/Projects/porkbun-domain-mcp
+    start_command: ["python", "-m", "porkbun_domain_mcp.mcp.server"]
     status: development
     description: Unofficial Porkbun domain management via MCP
 
@@ -98,6 +109,7 @@ components:
     role: tool
     port: 3044
     repo: ~/Projects/n8n-mcp
+    start_command: ["python", "-m", "n8n_mcp.mcp.server"]
     status: development
     description: n8n workflow automation via MCP
 
@@ -106,6 +118,7 @@ components:
     role: tool
     port: 3045
     repo: ~/Projects/neo4j-mcp
+    start_command: ["python", "-m", "neo4j_mcp.mcp.server"]
     status: development
     description: Unofficial Neo4j graph database via MCP
 
@@ -114,6 +127,7 @@ components:
     role: tool
     port: 3050
     repo: ~/Projects/spline-mcp
+    start_command: ["python", "-m", "spline_mcp.mcp.server"]
     status: development
     description: Unofficial Spline.design 3D scene orchestration via MCP
 
@@ -122,6 +136,7 @@ components:
     role: tool
     port: 3046
     repo: ~/Projects/synxis-crs-mcp
+    start_command: ["python", "-m", "synxis_crs_mcp.mcp.server"]
     status: development
     description: Unofficial SynXis Central Reservation System via MCP
 
@@ -130,6 +145,7 @@ components:
     role: tool
     port: 3047
     repo: ~/Projects/synxis-pms-mcp
+    start_command: ["python", "-m", "synxis_pms_mcp.mcp.server"]
     status: development
     description: Unofficial SynXis Property Management System via MCP
 
@@ -139,6 +155,7 @@ components:
     role: tool
     port: 3031
     repo: ~/Projects/excalidraw-mcp
+    start_command: ["python", "-m", "excalidraw_mcp.mcp.server"]
     status: production
     description: Excalidraw diagram collaboration via MCP
 
@@ -147,6 +164,7 @@ components:
     role: tool
     port: 3034
     repo: ~/Projects/raindropio-mcp
+    start_command: ["python", "-m", "raindropio_mcp.mcp.server"]
     status: production
     description: Raindrop.io bookmark management via MCP
 
@@ -155,6 +173,7 @@ components:
     role: tool
     port: 3037
     repo: ~/Projects/opera-cloud-mcp
+    start_command: ["python", "-m", "opera_cloud_mcp.mcp.server"]
     status: development
     description: Oracle OPERA Cloud API integration via MCP
 
@@ -163,6 +182,7 @@ components:
     role: tool
     port: 3038
     repo: ~/Projects/unifi-mcp
+    start_command: ["python", "-m", "unifi_mcp.mcp.server"]
     status: production
     description: UniFi network management via MCP
 
@@ -171,6 +191,7 @@ components:
     role: tool
     port: 3039
     repo: ~/Projects/mailgun-mcp
+    start_command: ["python", "-m", "mailgun_mcp.mcp.server"]
     status: production
     description: Mailgun email service via MCP
 
@@ -179,6 +200,7 @@ components:
     role: tool
     port: 3048
     repo: ~/Projects/langsmith-mcp
+    start_command: ["python", "-m", "langsmith_mcp.mcp.server"]
     status: development
     description: LangSmith tracing and observability via MCP
 
@@ -187,5 +209,6 @@ components:
     role: tool
     port: 3049
     repo: ~/Projects/css-mcp
+    start_command: ["python", "-m", "css_mcp.mcp.server"]
     status: development
     description: CSS analysis and documentation via MCP

@@ -2,6 +2,8 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+For a shorter, tool-neutral bootstrap document, start with `AGENTS.md`.
+
 ## Project Overview
 
 Bodai (The Orb) is a meta-project for the Bodai ecosystem. It provides configuration, documentation, and operational tooling for managing interconnected components. The project serves as a central hub for ecosystem-wide operations, health monitoring, and configuration management.
@@ -12,7 +14,7 @@ Bodai (The Orb) is a meta-project for the Bodai ecosystem. It provides configura
 |-----------|------|------|
 | Mahavishnu | Orchestrator | 8680 |
 | Akosha | Seer | 8682 |
-| Druva | Curator | 8683 |
+| Dhara | Curator | 8683 |
 | Session-Buddy | Builder | 8678 |
 | Crackerjack | Inspector | 8676 |
 

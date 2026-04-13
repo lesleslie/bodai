@@ -29,9 +29,11 @@ def load_portmap() -> PortmapConfig:
     with config_path.open() as f:
         data = yaml.safe_load(f)
 
+    core_range = data.get("mcp_core_range", {})
+    legacy_range = data.get("mcp_range", {})
     mcp_range = (
-        data.get("mcp_range", {}).get("start", 8676),
-        data.get("mcp_range", {}).get("end", 8699),
+        core_range.get("start", legacy_range.get("start", 8676)),
+        core_range.get("end", legacy_range.get("end", 8699)),
     )
 
     reserved = {}

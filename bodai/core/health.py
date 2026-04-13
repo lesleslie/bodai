@@ -17,7 +17,7 @@ class HealthStatus(StrEnum):
 
 
 def check_port(
-    port: int, host: str = "localhost", timeout: float = 1.0
+    port: int | None, host: str = "localhost", timeout: float = 1.0
 ) -> HealthStatus:
     """Check if a port is accepting connections.
 
@@ -30,6 +30,9 @@ def check_port(
         HealthStatus indicating if the port is accepting connections.
 
     """
+    if port is None:
+        return HealthStatus.UNKNOWN
+
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.settimeout(timeout)
@@ -49,11 +52,12 @@ def check_component(component: Component) -> dict:
         Dictionary with component health information.
 
     """
-    status = check_port(component.port)
+    status = check_port(component.port, host=component.host)
     return {
         "name": component.name,
         "port": component.port,
         "status": status,
+        "host": component.host,
         "role": component.role_display,
         "description": component.description,
     }

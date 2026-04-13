@@ -1,11 +1,15 @@
 """Typer CLI for Bodai."""
 
+import asyncio
+import time
+
 import typer
 from rich.console import Console
 from rich.table import Table
 
 from bodai.core.config import load_ecosystem, load_portmap, load_storage_map
 from bodai.core.health import HealthStatus, check_all
+from bodai.core.operations import EcosystemOperations
 
 app = typer.Typer(
     name="bodai",
@@ -18,19 +22,11 @@ config_app = typer.Typer(help="Configuration commands")
 app.add_typer(config_app, name="config")
 
 
-@app.command()
-def health(
-    watch: bool = typer.Option(False, "--watch", "-w", help="Continuous monitoring"),
-) -> None:
-    """Check health of all ecosystem components."""
-    results = check_all()
-    _display_health_table(results)
-
-
-def _display_health_table(results: dict) -> None:
-    """Display health results in a Rich table."""
+def _health_table(results: dict) -> Table:
+    """Build health table."""
     table = Table(title="Bodai Ecosystem Health")
     table.add_column("Component", style="cyan")
+    table.add_column("Host")
     table.add_column("Port", justify="right")
     table.add_column("Status", justify="center")
     table.add_column("Role")
@@ -46,14 +42,19 @@ def _display_health_table(results: dict) -> None:
         symbol = status_symbols.get(status, "+")
         table.add_row(
             name,
+            str(result.get("host", "localhost")),
             str(result["port"]),
             symbol,
             result["role"],
         )
 
-    console.print(table)
+    return table
 
-    # Summary
+
+def _display_health_table(results: dict) -> None:
+    """Display health results in a Rich table."""
+    console.print(_health_table(results))
+
     healthy = sum(1 for r in results.values() if r["status"] == HealthStatus.HEALTHY)
     total = len(results)
     console.print(
@@ -64,57 +65,81 @@ def _display_health_table(results: dict) -> None:
 
 
 @app.command()
+def health(
+    watch: bool = typer.Option(False, "--watch", "-w", help="Continuous monitoring"),
+    interval: float = typer.Option(2.0, "--interval", min=0.5, help="Refresh interval (s)"),
+) -> None:
+    """Check health of all ecosystem components."""
+    if not watch:
+        _display_health_table(check_all())
+        return
+
+    while True:
+        console.clear()
+        _display_health_table(check_all())
+        console.print("\n[dim]Press Ctrl+C to stop watching[/dim]")
+        time.sleep(interval)
+
+
+@app.command()
 def start(
-    components: list[str] = typer.Argument(
-        None, help="Components to start (default: all)"
-    ),
+    components: list[str] = typer.Argument(None, help="Components to start (default: all)"),
 ) -> None:
     """Start ecosystem components."""
-    # Placeholder - actual implementation requires subprocess management
-    if components:
-        console.print(f"[yellow]Starting:[/yellow] {', '.join(components)}")
-    else:
-        console.print("[yellow]Starting all components...[/yellow]")
-    console.print(
-        "[dim]Implementation pending - use individual component start scripts[/dim]"
-    )
+
+    async def _run() -> dict[str, bool]:
+        ops = EcosystemOperations()
+        if components:
+            return {name: await ops.start_component(name) for name in components}
+        return await ops.start_all()
+
+    results = asyncio.run(_run())
+    for name, ok in results.items():
+        marker = "[green]+[/green]" if ok else "[red]-[/red]"
+        console.print(f"{marker} {name}")
 
 
 @app.command()
 def stop(
-    components: list[str] = typer.Argument(
-        None, help="Components to stop (default: all)"
-    ),
+    components: list[str] = typer.Argument(None, help="Components to stop (default: all)"),
+    timeout: float = typer.Option(30.0, "--timeout", min=1.0, help="Shutdown timeout (s)"),
 ) -> None:
     """Stop ecosystem components."""
-    if components:
-        console.print(f"[red]Stopping:[/red] {', '.join(components)}")
-    else:
-        console.print("[red]Stopping all components...[/red]")
-    console.print(
-        "[dim]Implementation pending - use individual component stop scripts[/dim]"
-    )
+
+    async def _run() -> dict[str, bool]:
+        ops = EcosystemOperations()
+        if components:
+            return {name: await ops.stop_component(name, timeout=timeout) for name in components}
+        return await ops.stop_all(timeout=timeout)
+
+    results = asyncio.run(_run())
+    for name, ok in results.items():
+        marker = "[green]+[/green]" if ok else "[red]-[/red]"
+        console.print(f"{marker} {name}")
 
 
 @app.command()
 def restart(
-    components: list[str] = typer.Argument(
-        None, help="Components to restart (default: all)"
-    ),
+    components: list[str] = typer.Argument(None, help="Components to restart (default: all)"),
+    timeout: float = typer.Option(30.0, "--timeout", min=1.0, help="Shutdown timeout (s)"),
 ) -> None:
     """Restart ecosystem components."""
-    if components:
-        console.print(f"[yellow]Restarting:[/yellow] {', '.join(components)}")
-    else:
-        console.print("[yellow]Restarting all components...[/yellow]")
-    console.print("[dim]Implementation pending[/dim]")
+
+    async def _run() -> dict[str, bool]:
+        ops = EcosystemOperations()
+        targets = components or list(ops.components.keys())
+        return {name: await ops.restart_component(name, timeout=timeout) for name in targets}
+
+    results = asyncio.run(_run())
+    for name, ok in results.items():
+        marker = "[green]+[/green]" if ok else "[red]-[/red]"
+        console.print(f"{marker} {name}")
 
 
 @app.command()
 def status() -> None:
-    """Show cached status of ecosystem."""
-    console.print("[cyan]Bodai Ecosystem Status[/cyan]")
-    health(watch=False)
+    """Show current ecosystem health status."""
+    _display_health_table(check_all())
 
 
 @app.command()

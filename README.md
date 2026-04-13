@@ -1,5 +1,10 @@
 # Bodai
 
+[![Code style: crackerjack](https://img.shields.io/badge/code%20style-crackerjack-000042)](https://github.com/lesleslie/crackerjack)
+[![Runtime: oneiric](https://img.shields.io/badge/runtime-oneiric-6e5494)](https://github.com/lesleslie/oneiric)
+[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
+[![Python: 3.13+](https://img.shields.io/badge/python-3.13%2B-green)](https://www.python.org/downloads/)
+
 Central meta-project for the Bodai ecosystem, providing configuration, documentation, and operations for all components.
 
 > **ORB**: *Orchestrated Reasoning Brain*
@@ -7,6 +12,18 @@ Central meta-project for the Bodai ecosystem, providing configuration, documenta
 > *Perceive. Reason. Orchestrate.*
 
 > **Etymology**: From Sanskrit *bodhi* (awakening, enlightenment) - the state of supreme understanding.
+
+## Quick Links
+
+- [Ecosystem Components](#ecosystem-components)
+- [Mahavishnu - The Orchestrator](#mahavishnu---the-orchestrator)
+- [Akosha - The Seer](#akosha---the-seer)
+- [Dhara - The Curator](#dhara---the-curator)
+- [Crackerjack - The Inspector](#crackerjack---the-inspector)
+
+## Quality & CI
+
+Crackerjack is the Bodai ecosystem's standard quality-control and CI/CD runner. Repo-level quality gates should align with Crackerjack workflows unless a repo documents an exception.
 
 ## Ecosystem Components
 
@@ -18,13 +35,13 @@ The Bodai ecosystem consists of nine interconnected components, each with a dist
 |-----------|------|------|--------|-------------|
 | [Mahavishnu](#mahavishnu---the-orchestrator) | Orchestrator | 8680 | [lesleslie/mahavishnu](https://github.com/lesleslie/mahavishnu) | Multi-engine workflow orchestration |
 | [Akosha](#akosha---the-seer) | Seer | 8682 | [lesleslie/akosha](https://github.com/lesleslie/akosha) | Cross-system intelligence & vector embeddings |
-| [Druva](#druva---the-curator) | Curator | 8683 | [lesleslie/druva](https://github.com/lesleslie/druva) | Persistent object storage with ACID |
+| [Dhara](#dhara---the-curator) | Curator | 8683 | [lesleslie/dhara](https://github.com/lesleslie/dhara) | Persistent object storage with ACID |
 | [Session-Buddy](#session-buddy---the-builder) | Builder | 8678 | [lesleslie/session-buddy](https://github.com/lesleslie/session-buddy) | Session lifecycle & knowledge graphs |
 | [Crackerjack](#crackerjack---the-inspector) | Inspector | 8676 | [lesleslie/crackerjack](https://github.com/lesleslie/crackerjack) | Quality gates & CI/CD validation |
 | [FastBlocks](#fastblocks---the-composer) | Composer | 8684 | [lesleslie/fastblocks](https://github.com/lesleslie/fastblocks) | Block-based web framework |
 | [SplashStand](#splashstand---the-presenter) | Presenter | N/A | Private | PWA & mini-CMS built on FastBlocks |
 | [MDInject](#mdinject---the-doctor) | Doctor | 8685 | Private | Markdown injection & healing |
-| [Oneiric](#oneiric---the-resolver) | Resolver | N/A | [lesleslie/oneiric](https://github.com/lesleslie/oneiric) | Conflict resolution library |
+| [Oneiric](#oneiric---the-foundation) | Foundation | N/A | [lesleslie/oneiric](https://github.com/lesleslie/oneiric) | Component resolution, lifecycle management, adapter system, action kits, domain bridges, runtime orchestration, remote delivery |
 
 ---
 
@@ -35,7 +52,7 @@ The Bodai ecosystem consists of nine interconnected components, each with a dist
 The central workflow engine that routes tasks to appropriate execution engines, coordinates multi-step processes across components, and manages workflow definitions and templates.
 
 - Routes tasks to Akosha for intelligence operations
-- Persists state to Druva for recovery
+- Persists state to Dhara for recovery
 - Tracks context in Session-Buddy
 - Validates with Crackerjack before execution
 
@@ -46,13 +63,13 @@ The central workflow engine that routes tasks to appropriate execution engines, 
 Provides cross-system intelligence through vector embeddings, semantic search, pattern detection, and knowledge graphs. Enables predictive analysis and recommendations across all sessions.
 
 - Receives session data from Session-Buddy for embedding
-- Stores patterns in Druva
+- Stores patterns in Dhara
 - Provides intelligence to Mahavishnu
 - Receives code analysis from Crackerjack
 
-### Druva - The Curator
+### Dhara - The Curator
 
-> From Sanskrit *druva* (firm, constant, unchanging) - also the Pole Star
+> From Sanskrit *dhara* (firm, constant, unchanging) - also the Pole Star
 
 The single source of truth for persistent data. Provides ACID transaction guarantees, data versioning, backup/recovery, and efficient querying.
 
@@ -66,7 +83,7 @@ The single source of truth for persistent data. Provides ACID transaction guaran
 The session lifecycle manager that tracks conversation history, builds knowledge graphs, and enables context switching between sessions.
 
 - Sends data to Akosha for embedding
-- Stores backups in Druva
+- Stores backups in Dhara
 - Provides context to Mahavishnu
 - Receives quality metrics from Crackerjack
 
@@ -76,7 +93,7 @@ The quality enforcer that runs automated test suites, manages CI/CD pipelines, p
 
 - Validates workflows for Mahavishnu
 - Sends code analysis to Akosha
-- Stores reports in Druva
+- Stores reports in Dhara
 - Records metrics in Session-Buddy
 
 ### FastBlocks - The Composer
@@ -87,7 +104,7 @@ A block-based web framework that composes pages from reusable blocks, manages te
 
 - Sends rendered output to SplashStand for presentation
 - Requests content validation from MDInject
-- Stores templates in Druva
+- Stores templates in Dhara
 - Tracks composition metrics in Session-Buddy
 
 ### SplashStand - The Presenter
@@ -109,18 +126,21 @@ The markdown health service that injects dynamic content, diagnoses issues, heal
 
 - Validates content from FastBlocks
 - Sends diagnostics to Crackerjack for quality gates
-- Stores healed content in Druva
+- Stores healed content in Dhara
 - Logs health metrics to Session-Buddy
 
-### Oneiric - The Resolver
+### Oneiric - The Foundation
 
 > From Greek *oneiros* (dream) - relating to dreams, the abstract and complex
 
-A shared library (no MCP server) that provides conflict resolution algorithms, dependency graph analysis, version conflict detection, and merge strategies. Embedded directly by other components.
+The platform foundation library that provides explainable component resolution, lifecycle management, an adapter system spanning 18+ domains, action kits for automation, domain bridges (services/tasks/events/workflows), runtime orchestration, and remote delivery via signed manifests. Every other Bodai component builds on top of Oneiric's patterns.
 
-- Used by Mahavishnu for workflow conflict resolution
-- Used by Druva for data merge operations
-- Used by Session-Buddy for context merging
+- Used by Mahavishnu for layered configuration and lifecycle management
+- Used by mcp-common as the Oneiric-native foundation for all MCP servers
+- Used by Dhara for configuration, logging, and secrets management
+- Used by Session-Buddy for storage adapters, configuration, and lifecycle
+- Used by Crackerjack for runtime orchestration and health snapshots
+- Used by Akosha for universal storage abstraction and adapter resolution
 
 ---
 

@@ -14,12 +14,14 @@ def test_component_creation():
         role=ComponentRole.ORCHESTRATOR,
         port=8680,
         repo="~/Projects/mahavishnu",
+        nicknames=["vishnu", "vish"],
         status=ComponentStatus.PRODUCTION,
         description="Multi-engine workflow orchestration",
     )
     assert component.name == "mahavishnu"
     assert component.port == 8680
     assert component.role == ComponentRole.ORCHESTRATOR
+    assert component.matches_identifier("vish")
 
 
 def test_ecosystem_creation():
@@ -160,6 +162,32 @@ def test_ecosystem_get_by_role():
     assert found.name == "akosha"
 
     not_found = ecosystem.get_by_role(ComponentRole.CURATOR)
+    assert not_found is None
+
+
+def test_ecosystem_get_component_by_nickname():
+    """Test getting a component by nickname alias."""
+    ecosystem = Ecosystem(
+        components={
+            "mahavishnu": Component(
+                name="mahavishnu",
+                role=ComponentRole.ORCHESTRATOR,
+                port=8680,
+                repo="~/Projects/mahavishnu",
+                nicknames=["vishnu", "vish"],
+            ),
+        }
+    )
+
+    found = ecosystem.get_component("vish")
+    assert found is not None
+    assert found.name == "mahavishnu"
+
+    canonical = ecosystem.get_component("mahavishnu")
+    assert canonical is not None
+    assert canonical.name == "mahavishnu"
+
+    not_found = ecosystem.get_component("missing")
     assert not_found is None
 
 

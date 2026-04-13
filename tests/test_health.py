@@ -27,11 +27,15 @@ def test_check_component_returns_dict():
     assert "name" in result
     assert "port" in result
     assert "status" in result
+    assert "host" in result
     assert result["name"] == "mahavishnu"
 
 
 def test_check_all_returns_all_components():
-    """Test check_all returns status for all components."""
+    """Test check_all returns status for all configured components."""
+    from bodai.core.config import load_ecosystem  # noqa: PLC0415
+
+    expected_count = len(load_ecosystem().components)
     results = check_all()
-    assert len(results) == 5
+    assert len(results) == expected_count
     assert all("status" in r for r in results.values())

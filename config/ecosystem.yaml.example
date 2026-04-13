@@ -14,6 +14,7 @@ components:
     role: orchestrator
     port: 8680
     repo: ${BODAI_PROJECTS_DIR:-~/Projects}/mahavishnu
+    nicknames: [vishnu, vish]
     status: production
     description: Multi-engine workflow orchestration and pool management
 
