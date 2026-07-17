@@ -20,14 +20,8 @@ graph TB
             CRACK[Crackerjack<br/>Inspector<br/>:8676]
         end
 
-        subgraph "Application Frameworks"
-            FAST[FastBlocks<br/>Composer<br/>:8684]
-            SPLASH[SplashStand<br/>Presenter<br/>Library]
-            MDINJ[MDInject<br/>Doctor<br/>:8685]
-        end
-
         subgraph "Libraries"
-            ONEI[Oneiric<br/>Resolver<br/>No MCP Server]
+            ONEI[Oneiric<br/>Foundation<br/>No MCP Server]
         end
 
         BODAI --> MAHA
@@ -35,9 +29,6 @@ graph TB
         BODAI --> DHRU
         BODAI --> SESS
         BODAI --> CRACK
-        BODAI --> FAST
-        BODAI --> SPLASH
-        BODAI --> MDINJ
         BODAI --> ONEI
 
         MAHA --> AKOS
@@ -48,15 +39,10 @@ graph TB
         SESS --> AKOS
         CRACK --> DHRU
         DHRU --> AKOS
-
-        FAST --> SPLASH
-        FAST --> MDINJ
-        MDINJ --> CRACK
     end
 
     style BODAI fill:#f9f,stroke:#333,stroke-width:4px
     style ONEI fill:#ddd,stroke:#333,stroke-width:2px,stroke-dasharray: 5 5
-    style SPLASH fill:#ddd,stroke:#333,stroke-width:2px,stroke-dasharray: 5 5
 ```
 
 ## Component Boundaries
@@ -71,10 +57,7 @@ Each component in the Bodai ecosystem has well-defined ownership and responsibil
 | **Druva** | Curator | Persistent object storage, ACID transactions, data versioning | Session management, workflow orchestration, quality gates |
 | **Session-Buddy** | Builder | Session lifecycle, knowledge graphs, conversation history | Workflow execution, quality enforcement, long-term storage |
 | **Crackerjack** | Inspector | Quality gates, testing frameworks, CI/CD pipelines | Session management, workflow routing, vector search |
-| **FastBlocks** | Composer | Block definitions, template composition, style adapters | Content storage, session state, quality enforcement |
-| **SplashStand** | Presenter | Display formatting, responsive layouts, theme application | Content creation, data persistence, session management |
-| **MDInject** | Doctor | Markdown validation, content healing, syntax diagnostics | Template composition, session state, workflow orchestration |
-| **Oneiric** | Resolver | Conflict resolution algorithms, dependency analysis | MCP server, network endpoints, state management |
+| **Oneiric** | Foundation | Component resolution, adapter system, lifecycle management, runtime orchestration | MCP server, network endpoints, state management |
 
 ## Data Flow
 

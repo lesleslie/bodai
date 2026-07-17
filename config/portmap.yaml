@@ -35,7 +35,6 @@ allocations:
   3041: available          # Reserved
   3042: porkbun-dns-mcp    # Porkbun DNS management
   3043: porkbun-domain-mcp # Porkbun domain management
-  3044: n8n-mcp            # n8n workflow automation
   3045: neo4j-mcp          # Neo4j graph database
   3046: synxis-crs-mcp     # SynXis Central Reservation System
   3047: synxis-pms-mcp     # SynXis Property Management System
