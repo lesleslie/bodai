@@ -152,3 +152,18 @@ crackerjack run
 - [Component Roles](docs/roles.md) - Detailed descriptions of each component
 - [Symbiosis](docs/symbiosis.md) - How components work together
 - [Port Map](docs/portmap.md) - Port allocation and rationale
+
+## Claude Code marketplace
+
+The five Bodai MCP-server plugins are distributed via the `bodai-plugins` marketplace:
+
+```bash
+claude plugin marketplace add https://github.com/lesleslie/bodai-plugins
+claude plugin install mahavishnu
+claude plugin install session-buddy
+claude plugin install crackerjack
+claude plugin install akosha
+claude plugin install dhara
+```
+
+Each plugin ships its own slash commands under the `<server>:<command>` namespace (e.g. `/mahavishnu:status`, `/session-buddy:checkpoint`).
