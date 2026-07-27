@@ -13,6 +13,23 @@ Central meta-project for the Bodai ecosystem, providing configuration, documenta
 
 > **Etymology**: From Sanskrit *bodhi* (awakening, enlightenment) - the state of supreme understanding.
 
+## About the Bodai Ecosystem
+
+Bodai (Sanskrit: *bodhi*, "awakening") is the meta-project that ties together:
+
+- **[mahavishnu](https://github.com/lesleslie/mahavishnu)** — Multi-repo workflow orchestration and worker pools
+- **[akosha](https://github.com/lesleslie/akosha)** — Cross-system intelligence, embeddings, semantic search
+- **[dhara](https://github.com/lesleslie/dhara)** — Persistent object storage with ACID transactions
+- **[session-buddy](https://github.com/lesleslie/session-buddy)** — Session lifecycle and knowledge graphs
+- **[crackerjack](https://github.com/lesleslie/crackerjack)** — Quality gates and CI/CD validation
+- **[oneiric](https://github.com/lesleslie/oneiric)** — Component resolution and runtime foundation
+
+When run together, these components form the **Bodai Orb** (*Orchestrated Reasoning Brain*) — an integrated development environment for AI-native engineering. Each component is also fully usable on its own.
+
+> **ORB**: *Orchestrated Reasoning Brain*
+>
+> *Perceive. Reason. Orchestrate.*
+
 ## Quick Links
 
 - [Ecosystem Components](#ecosystem-components)
