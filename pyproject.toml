@@ -4,7 +4,7 @@ version = "0.1.2"
 description = "The Orb - Ecosystem meta-project for Bodai"
 readme = "README.md"
 authors = [{name = "Les Leslie", email = "les@wedgwoodwebworks.com"}]
-requires-python = ">=3.13"
+requires-python = ">=3.14"
 
 [project.license]
 text = "BSD-3-CLAUSE"
