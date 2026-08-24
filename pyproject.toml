@@ -42,7 +42,7 @@ dev = [
 # === Crackerjack Quality Tools ===
 
 [tool.ruff]
-target-version = "py313"
+target-version = "py314"
 line-length = 88
 src = ["bodai", "tests"]
 
@@ -135,7 +135,7 @@ exclude_lines = [
 fail_under = 80
 
 [tool.pyright]
-pythonVersion = "3.13"
+pythonVersion = "3.14"
 typeCheckingMode = "standard"
 venvPath = "."
 venv = ".venv"
