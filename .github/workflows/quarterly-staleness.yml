@@ -1,0 +1,30 @@
+name: Bodai CLI Quarterly Staleness Audit
+
+on:
+  schedule:
+    - cron: "0 9 25 */3 *"
+  workflow_dispatch:
+
+jobs:
+  staleness-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: lesleslie/mahavishnu
+          path: mahavishnu
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+      - run: pip install uv
+      - name: Run staleness audit
+        run: |
+          cd mahavishnu
+          uv pip install -e . --quiet
+          mkdir -p docs/audit-inventory
+          date_str=$(date -u +%Y-%m-%d)
+          python scripts/audit_cli_inventory.py --check-stale --all | tee docs/audit-inventory/staleness-$date_str.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: staleness-report
+          path: mahavishnu/docs/audit-inventory/staleness-*.json
