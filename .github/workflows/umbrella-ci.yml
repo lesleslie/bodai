@@ -99,6 +99,18 @@ jobs:
           echo "bodai --help matched $matches app commands (expected 6)"
           test "$matches" = "6"
 
+      - name: Bodai shell --help smoke
+        run: cd "$GITHUB_WORKSPACE/bodai" && timeout 5 bodai shell --help
+        timeout-minutes: 30
+
+      - name: Bodai dashboard --help smoke
+        run: cd "$GITHUB_WORKSPACE/bodai" && timeout 5 bodai dashboard --help
+        timeout-minutes: 30
+
+      - name: Mahavishnu monitor tui --help smoke
+        run: cd "$GITHUB_WORKSPACE/mahavishnu" && timeout 5 mahavishnu monitor tui --help
+        timeout-minutes: 30
+
       - name: Bodai version table
         run: cd "$GITHUB_WORKSPACE/bodai" && bodai version
 
