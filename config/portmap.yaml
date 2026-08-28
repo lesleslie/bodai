@@ -1,5 +1,7 @@
 # Bodai Ecosystem Port Allocation
 # MCP servers: 8676-8699 (core), 3030-3049 (MCP integrations)
+# Adjacent infrastructure (8675, 8765) is tracked here so port audits catch
+# collisions across the whole Bodai host, not just MCP servers.
 
 mcp_core_range:
   start: 8676
@@ -10,15 +12,20 @@ mcp_integration_range:
   end: 3049
 
 allocations:
-  # Core MCP servers (8676-8699)
-  8676: crackerjack    # Inspector
-  8678: session-buddy  # Builder
-  8680: mahavishnu     # Orchestrator
-  8681: available      # (Oneiric MCP absorbed into Druva)
-  8682: akosha         # Seer
-  8683: druva         # Curator
-  8684: fastblocks    # Composer
-  8685: mdinject      # Doctor
+  # Infrastructure (adjacent to MCP core range; tracked for collision audits)
+  8675: prefect             # Prefect API uvicorn (workflow backend)
+  8676: crackerjack         # Inspector
+  8678: session-buddy       # Builder (MCP server)
+  8680: mahavishnu          # Orchestrator
+  8681: reserved-oneiric    # Oneiric MCP absorbed into Dhara; port reserved
+  8682: akosha              # Seer
+  8683: dhara               # Curator (formerly "Druva" in this file)
+  8693: bodai-crow          # Browser/automation MCP bridge
+  8765: session-buddy-ws    # Session-Buddy WebSocket (real-time metrics)
+
+  # Reserved (within MCP core range)
+  8684: reserved            # (previously listed "fastblocks" — not a Bodai component)
+  8685: reserved            # (previously listed "mdinject" — not a Bodai component)
 
   # MCP Integration servers (3030-3049)
   3030: grafana-mcp        # Grafana dashboards (external plugin)
