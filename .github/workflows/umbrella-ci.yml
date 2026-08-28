@@ -87,3 +87,20 @@ jobs:
             uv run pytest --cov="$pkg" --cov-fail-under=89 -q 2>&1 | tail -20 || echo "$repo coverage gate non-zero (pre-existing tolerated)"
             cd "$GITHUB_WORKSPACE"
           done
+
+      - name: Install bodai
+        run: cd "$GITHUB_WORKSPACE/bodai" && uv pip install -e . --quiet
+
+      - name: Bodai --help smoke
+        run: |
+          set -e
+          cd "$GITHUB_WORKSPACE/bodai"
+          matches=$(bodai --help | grep -cE "^\s+(oneiric|akosha|crackerjack|dhara|session-buddy|mahavishnu)\b")
+          echo "bodai --help matched $matches app commands (expected 6)"
+          test "$matches" = "6"
+
+      - name: Bodai version table
+        run: cd "$GITHUB_WORKSPACE/bodai" && bodai version
+
+      - name: Bodai apps list
+        run: cd "$GITHUB_WORKSPACE/bodai" && bodai apps
