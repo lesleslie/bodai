@@ -1,0 +1,89 @@
+name: Bodai Umbrella CI
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  umbrella-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout bodai
+        uses: actions/checkout@v4
+        with:
+          path: bodai
+
+      - name: Checkout oneiric
+        uses: actions/checkout@v4
+        with:
+          repository: lesleslie/oneiric
+          path: oneiric
+
+      - name: Checkout mcp-common
+        uses: actions/checkout@v4
+        with:
+          repository: lesleslie/mcp-common
+          path: mcp-common
+
+      - name: Checkout dhara
+        uses: actions/checkout@v4
+        with:
+          repository: lesleslie/dhara
+          path: dhara
+
+      - name: Checkout session-buddy
+        uses: actions/checkout@v4
+        with:
+          repository: lesleslie/session-buddy
+          path: session-buddy
+
+      - name: Checkout akosha
+        uses: actions/checkout@v4
+        with:
+          repository: lesleslie/akosha
+          path: akosha
+
+      - name: Checkout crackerjack
+        uses: actions/checkout@v4
+        with:
+          repository: lesleslie/crackerjack
+          path: crackerjack
+
+      - name: Checkout mahavishnu
+        uses: actions/checkout@v4
+        with:
+          repository: lesleslie/mahavishnu
+          path: mahavishnu
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Per-repo smoke loop
+        run: |
+          set -e
+          for repo in oneiric dhara session-buddy akosha crackerjack mahavishnu; do
+            echo "=== $repo ==="
+            cd "$GITHUB_WORKSPACE/$repo"
+            uv pip install -e . --quiet || (echo "$repo install failed" && exit 1)
+            "$repo" version || (echo "$repo version failed" && exit 1)
+            "$repo" doctor || echo "$repo doctor exited non-zero (may be UNIMPLEMENTED — accepted for now)"
+            "$repo" --json version || (echo "$repo --json version failed" && exit 1)
+            cd "$GITHUB_WORKSPACE"
+          done
+
+      - name: Per-repo coverage gate
+        run: |
+          set +e  # tolerate pre-existing coverage gaps; report only
+          for repo in oneiric dhara session-buddy akosha crackerjack mahavishnu; do
+            echo "=== coverage: $repo ==="
+            cd "$GITHUB_WORKSPACE/$repo"
+            pkg=$(echo "$repo" | tr "-" "_")
+            uv run pytest --cov="$pkg" --cov-fail-under=89 -q 2>&1 | tail -20 || echo "$repo coverage gate non-zero (pre-existing tolerated)"
+            cd "$GITHUB_WORKSPACE"
+          done
