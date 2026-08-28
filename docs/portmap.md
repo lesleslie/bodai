@@ -48,6 +48,18 @@ External MCP servers integrated with the Bodai ecosystem use the 3030-3049 range
 | 3048 | LangSmith | Tracing / observability | Active |
 | 3049 | CSS | CSS analysis and documentation | Active |
 
+## Internal Bodai Observability Surfaces (WebSocket Push Channels)
+
+| Port | Channel | Purpose | Component |
+|------|---------|---------|-----------|
+| 8471 | Bifrost | LLM gateway (`bifrost-http-0`) | Bifrost |
+| 8686 | Crackerjack Test WS | Test execution events | Crackerjack |
+| 8690 | Mahavishnu WS | Workflow events (`workflow:{workflow_id}`, `pool:{pool_id}`, `worker:{worker_id}`, `global`) | Mahavishnu |
+| 8691 | Mahavishnu Pool WS | Pool status events | Mahavishnu |
+| 8692 | Akosha Pattern WS | Pattern detection | Akosha |
+| 8699 | web_reader | Webpage ingestion MCP | web_reader |
+| 8765 | Session-Buddy WS | Real-time skill metrics (peer process to Session-Buddy MCP on 8678) | Session-Buddy |
+
 ### Port 8681 Note
 
 Port 8681 is reserved for historical consistency. Oneiric was originally planned as a network service but was absorbed into Druva as a library component. The port remains reserved to:

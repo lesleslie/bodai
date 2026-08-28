@@ -48,6 +48,15 @@ allocations:
   3048: langsmith-mcp      # LangSmith tracing/observability
   3049: css-mcp            # CSS analysis and documentation
 
+  # Internal Bodai observability surfaces (WebSocket push channels)
+  8471: bifrost            # Bifrost LLM gateway (bifrost-http-0)
+  8686: crackerjack-ws     # Crackerjack Test Execution WebSocket
+  8690: mahavishnu-ws      # Mahavishnu workflow events WebSocket
+  8691: mahavishnu-pool-ws # Mahavishnu Pool status WebSocket
+  8692: akosha-ws          # Akosha pattern detection WebSocket
+  8699: web_reader         # web_reader webpage ingestion MCP
+  8765: session-buddy-ws   # Session-Buddy WebSocket (peer process; runs alongside 8678)
+
 reserved:
-  8684-8699: future expansion (core)
+  8684, 8693-8698: future expansion (core)
   3050-3059: future expansion (integrations)
