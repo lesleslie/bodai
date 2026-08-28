@@ -60,7 +60,7 @@ def _discover_apps(app: typer.Typer) -> None:
     """
     try:
         eps = _iter_bodai_entry_points()
-    except (ImportError, ModuleNotFoundError):
+    except ImportError, ModuleNotFoundError:
         console.print("[yellow]no bodai.apps registered[/yellow]")
         return
     except Exception as exc:  # narrow: metadata backend failures only
@@ -240,26 +240,20 @@ def status() -> None:
 @app.command()
 def dashboard() -> None:
     """Launch TUI health dashboard."""
-    console.print("[cyan]Launching dashboard...[/cyan]")
-    try:
-        from bodai.tui.dashboard import BodaiDashboard
+    from bodai.tui.dashboard import BodaiDashboard
 
-        tui_app = BodaiDashboard()
-        tui_app.run()
-    except ImportError:
-        console.print("[red]TUI not yet implemented[/red]")
+    console.print("[cyan]Launching dashboard...[/cyan]")
+    tui_app = BodaiDashboard()
+    tui_app.run()
 
 
 @app.command()
 def shell() -> None:
     """Launch IPython admin shell."""
-    console.print("[cyan]Launching IPython shell...[/cyan]")
-    try:
-        from bodai.admin.shell import launch_shell
+    from bodai.admin.shell import launch_shell
 
-        launch_shell()
-    except ImportError:
-        console.print("[red]Shell not yet implemented[/red]")
+    console.print("[cyan]Launching IPython shell...[/cyan]")
+    launch_shell()
 
 
 @config_app.command("show")
