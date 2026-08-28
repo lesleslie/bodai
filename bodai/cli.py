@@ -1,6 +1,8 @@
 """Typer CLI for Bodai."""
 
 import asyncio
+import importlib.metadata
+import sys
 import time
 
 import typer
@@ -20,6 +22,82 @@ console = Console()
 
 config_app = typer.Typer(help="Configuration commands")
 app.add_typer(config_app, name="config")
+
+# Entry-point group for bodai sub-apps. Spec §5.1: any package can register a
+# Typer instance via [project.entry-points."bodai.apps"] in pyproject.toml.
+_BODAI_APPS_GROUP = "bodai.apps"
+
+
+def _iter_bodai_entry_points() -> list:
+    """Return entry points in the ``bodai.apps`` group, across Python versions.
+
+    On Python 3.10+ we use the keyword argument. On older interpreters we fall
+    back to the dict form (Risk Row 22). Bodai requires Python 3.14 so the
+    fallback is purely defensive; the wider ecosystem still has a few 3.9
+    call-sites that import ``bodai.cli``.
+    """
+    if sys.version_info >= (3, 10):  # noqa: UP036 (Risk Row 22 defensive)
+        eps = importlib.metadata.entry_points(group=_BODAI_APPS_GROUP)
+    else:
+        all_eps = importlib.metadata.entry_points()
+        eps = all_eps.get(_BODAI_APPS_GROUP, [])
+    return list(eps)
+
+
+def _discover_apps(app: typer.Typer) -> None:
+    """Discover and attach ``bodai.apps`` entry points to ``app``.
+
+    Walks :func:`importlib.metadata.entry_points` for the ``bodai.apps``
+    group and attaches each registered Typer sub-app via ``app.add_typer``.
+    Per-app import failures are caught narrowly (Risk Row 7) and emit a
+    yellow warning via :data:`console`; the broken entry point is skipped so
+    a single misbehaving plugin cannot block the rest of the CLI surface.
+
+    Risk Row 21: this helper is invoked lazily from
+    ``if __name__ == "__main__":``. Importing ``bodai.cli`` does NOT trigger
+    entry-point discovery, so test environments stay fast and side-effect
+    free.
+    """
+    try:
+        eps = _iter_bodai_entry_points()
+    except (ImportError, ModuleNotFoundError):
+        console.print("[yellow]no bodai.apps registered[/yellow]")
+        return
+    except Exception as exc:  # narrow: metadata backend failures only
+        console.print(f"[yellow]entry-point lookup failed: {exc}[/yellow]")
+        return
+
+    if not eps:
+        console.print("[yellow]no bodai.apps registered[/yellow]")
+        return
+
+    for ep in eps:
+        try:
+            sub_app = ep.load()
+        except (ImportError, ModuleNotFoundError) as exc:
+            console.print(
+                f"[yellow]skipping bodai.app '{ep.name}': import error {exc}[/yellow]"
+            )
+            continue
+        except Exception as exc:
+            console.print(
+                f"[yellow]skipping bodai.app '{ep.name}': load error {exc}[/yellow]"
+            )
+            continue
+
+        if not isinstance(sub_app, typer.Typer):
+            console.print(
+                f"[yellow]skipping bodai.app '{ep.name}': "
+                f"not a Typer instance ({type(sub_app).__name__})[/yellow]"
+            )
+            continue
+
+        try:
+            app.add_typer(sub_app, name=ep.name)
+        except Exception as exc:
+            console.print(
+                f"[yellow]failed to attach bodai.app '{ep.name}': {exc}[/yellow]"
+            )
 
 
 def _health_table(results: dict) -> Table:
@@ -67,7 +145,9 @@ def _display_health_table(results: dict) -> None:
 @app.command()
 def health(
     watch: bool = typer.Option(False, "--watch", "-w", help="Continuous monitoring"),
-    interval: float = typer.Option(2.0, "--interval", min=0.5, help="Refresh interval (s)"),
+    interval: float = typer.Option(
+        2.0, "--interval", min=0.5, help="Refresh interval (s)"
+    ),
 ) -> None:
     """Check health of all ecosystem components."""
     if not watch:
@@ -83,7 +163,9 @@ def health(
 
 @app.command()
 def start(
-    components: list[str] = typer.Argument(None, help="Components to start (default: all)"),
+    components: list[str] = typer.Argument(
+        None, help="Components to start (default: all)"
+    ),
 ) -> None:
     """Start ecosystem components."""
 
@@ -101,15 +183,22 @@ def start(
 
 @app.command()
 def stop(
-    components: list[str] = typer.Argument(None, help="Components to stop (default: all)"),
-    timeout: float = typer.Option(30.0, "--timeout", min=1.0, help="Shutdown timeout (s)"),
+    components: list[str] = typer.Argument(
+        None, help="Components to stop (default: all)"
+    ),
+    timeout: float = typer.Option(
+        30.0, "--timeout", min=1.0, help="Shutdown timeout (s)"
+    ),
 ) -> None:
     """Stop ecosystem components."""
 
     async def _run() -> dict[str, bool]:
         ops = EcosystemOperations()
         if components:
-            return {name: await ops.stop_component(name, timeout=timeout) for name in components}
+            return {
+                name: await ops.stop_component(name, timeout=timeout)
+                for name in components
+            }
         return await ops.stop_all(timeout=timeout)
 
     results = asyncio.run(_run())
@@ -120,15 +209,21 @@ def stop(
 
 @app.command()
 def restart(
-    components: list[str] = typer.Argument(None, help="Components to restart (default: all)"),
-    timeout: float = typer.Option(30.0, "--timeout", min=1.0, help="Shutdown timeout (s)"),
+    components: list[str] = typer.Argument(
+        None, help="Components to restart (default: all)"
+    ),
+    timeout: float = typer.Option(
+        30.0, "--timeout", min=1.0, help="Shutdown timeout (s)"
+    ),
 ) -> None:
     """Restart ecosystem components."""
 
     async def _run() -> dict[str, bool]:
         ops = EcosystemOperations()
         targets = components or list(ops.components.keys())
-        return {name: await ops.restart_component(name, timeout=timeout) for name in targets}
+        return {
+            name: await ops.restart_component(name, timeout=timeout) for name in targets
+        }
 
     results = asyncio.run(_run())
     for name, ok in results.items():
@@ -213,5 +308,63 @@ def config_validate() -> None:
         console.print(f"[red]-[/red] storage-map.yaml: {e}")
 
 
+@app.command()
+def version() -> None:
+    """Show installed bodai.apps entry-points and their distribution versions.
+
+    Walks the ``bodai.apps`` entry-point group and prints a two-column Rich
+    table of ``{app name, distribution version}``. Distribution version is
+    resolved via :func:`importlib.metadata.version` keyed on
+    ``entry_point.dist.name``; a dash is rendered when the dist metadata is
+    unavailable so the table never crashes on partial installs.
+    """
+    eps = _iter_bodai_entry_points()
+    if not eps:
+        console.print("[yellow]no bodai.apps registered[/yellow]")
+        return
+
+    table = Table(title="Installed bodai.apps")
+    table.add_column("App", style="cyan")
+    table.add_column("Version", style="magenta")
+
+    for ep in eps:
+        dist_name = getattr(getattr(ep, "dist", None), "name", None) or ep.name
+        try:
+            ver = importlib.metadata.version(dist_name)
+        except ImportError, ModuleNotFoundError:
+            ver = "-"
+        except Exception:
+            ver = "-"
+        table.add_row(ep.name, ver)
+
+    console.print(table)
+
+
+@app.command()
+def apps() -> None:
+    """List registered bodai.apps entry-point names + their target module paths.
+
+    Each row reports the entry-point ``name`` and the dotted module path the
+    plugin's Typer instance is loaded from. Useful for operator diagnostics
+    ("which apps have I installed?") and for confirming the entry-point
+    group is wired correctly.
+    """
+    eps = _iter_bodai_entry_points()
+    if not eps:
+        console.print("[yellow]no bodai.apps registered[/yellow]")
+        return
+
+    table = Table(title="Registered bodai.apps")
+    table.add_column("App", style="cyan")
+    table.add_column("Module", style="magenta")
+
+    for ep in eps:
+        # ep.value holds the "<module>:<attr>" string set in pyproject.toml.
+        table.add_row(ep.name, str(ep.value))
+
+    console.print(table)
+
+
 if __name__ == "__main__":
+    _discover_apps(app)
     app()
