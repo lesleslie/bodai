@@ -1340,7 +1340,7 @@ bodai config validate           # Validate config files
 
 ## Architecture
 
-See [docs/architecture.md](docs/architecture.md) for detailed system design.
+See [docs/architecture.md](../architecture.md) for detailed system design.
 
 ## The Orb Metaphor
 

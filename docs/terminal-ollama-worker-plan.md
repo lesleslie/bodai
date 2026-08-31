@@ -7,9 +7,9 @@ This document outlines the implementation plan for a `terminal-ollama` worker ty
 ## Goals
 
 1. Create a self-contained Ollama worker implementation in the Bodai project
-2. Design for easy integration into Mahavishnu's worker pool system
-3. Support all standard Ollama models via HTTP API
-4. Maintain isolation from core Mahavishnu codebase during development
+1. Design for easy integration into Mahavishnu's worker pool system
+1. Support all standard Ollama models via HTTP API
+1. Maintain isolation from core Mahavishnu codebase during development
 
 ## Architecture
 
@@ -45,9 +45,9 @@ This document outlines the implementation plan for a `terminal-ollama` worker ty
 ### Key Components
 
 1. **OllamaWorker** - Main worker class implementing BaseWorker interface
-2. **OllamaClient** - Async HTTP client for Ollama API communication
-3. **OllamaConfig** - Configuration dataclass for worker settings
-4. **Worker Registry Entry** - Configuration for Mahavishnu's WORKER_REGISTRY
+1. **OllamaClient** - Async HTTP client for Ollama API communication
+1. **OllamaConfig** - Configuration dataclass for worker settings
+1. **Worker Registry Entry** - Configuration for Mahavishnu's WORKER_REGISTRY
 
 ## Implementation Details
 
@@ -942,42 +942,45 @@ async def test_real_execution():
 ### Phase 1: Core Implementation (Day 1-2)
 
 1. Create module structure in `bodai/workers/ollama/`
-2. Implement `OllamaConfig` and `OllamaWorkerConfig`
-3. Implement `OllamaClient` with basic HTTP operations
-4. Implement `OllamaWorker` with core lifecycle methods
-5. Add unit tests for all components
+1. Implement `OllamaConfig` and `OllamaWorkerConfig`
+1. Implement `OllamaClient` with basic HTTP operations
+1. Implement `OllamaWorker` with core lifecycle methods
+1. Add unit tests for all components
 
 ### Phase 2: Integration (Day 2-3)
 
 1. Test against real Ollama instance
-2. Implement Session-Buddy integration
-3. Add error handling and recovery
-4. Performance optimization
-5. Add integration tests
+1. Implement Session-Buddy integration
+1. Add error handling and recovery
+1. Performance optimization
+1. Add integration tests
 
 ### Phase 3: Documentation & Deployment (Day 3)
 
 1. Update Bodai documentation
-2. Create Mahavishnu integration guide
-3. Add configuration examples
-4. Create usage examples
-5. Document troubleshooting steps
+1. Create Mahavishnu integration guide
+1. Add configuration examples
+1. Create usage examples
+1. Document troubleshooting steps
 
 ## Success Criteria
 
 1. **Functional Requirements**
+
    - Worker can connect to Ollama HTTP API
    - Worker can execute tasks and return results
    - Worker handles timeouts gracefully
    - Worker supports multiple models
 
-2. **Non-Functional Requirements**
+1. **Non-Functional Requirements**
+
    - Response time < 5s for simple tasks
    - Memory usage < 100MB per worker
    - Zero external API dependencies
    - Complete privacy (no data leaves machine)
 
-3. **Integration Requirements**
+1. **Integration Requirements**
+
    - Compatible with Mahavishnu pool_spawn
    - Registerable in WORKER_REGISTRY
    - Health check integration
@@ -1012,9 +1015,9 @@ async def test_real_execution():
 ## References
 
 - [Ollama API Documentation](https://github.com/ollama/ollama/blob/main/docs/api.md)
-- [Mahavishnu Pool Quickstart](/Users/les/Projects/ARCHIVED/crackerjack.bak-20260217_043710/docs/MAHAVISHNU_POOL_QUICKSTART.md)
-- [Ollama Provider for Crackerjack](/Users/les/Projects/ARCHIVED/crackerjack.bak-20260217_043710/docs/features/OLLAMA_PROVIDER.md)
-- [Mahavishnu Worker Registry](/Users/les/Projects/mahavishnu/mahavishnu/workers/registry.py)
+- Mahavishnu Pool Quickstart (in `mahavishnu/docs/POOL_QUICKSTART.md`)
+- Ollama Provider for Crackerjack (in `crackerjack/docs/features/OLLAMA_PROVIDER.md`)
+- Mahavishnu Worker Registry (in `mahavishnu/mahavishnu/workers/registry.py`)
 
 ## Changelog
 

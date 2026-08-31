@@ -85,6 +85,18 @@ config/storage-map.yaml
 .claude/
 coverage.json
 
+# Crackerjack runtime caches (uv cache, scan reports, etc.)
+.crackerjack/uv/cache/
+.crackerjack/uv/cache/archive-v0/
+.crackerjack/oneiric_cache/
+
+# Crackerjack ad-hoc cache directory (betterleaks reports, scratch files)
+.cache/
+
+# Tool caches (created by hook runs)
+.lycheecache/
+.pyscn/
+
 # Backup Files (added by gitignore audit)
 # ============================================================================
 *.backup

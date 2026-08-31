@@ -9,21 +9,23 @@ Example:
     {'mahavishnu': True, 'session-buddy': True, ...}
     >>> health = await ops.health_aggregate()
     >>> print(f"Ecosystem health: {health.health_percentage:.0f}%")
+
 """
 
 from __future__ import annotations
 
 import asyncio
 import os
+import shlex
 import signal
 import time
+from contextlib import suppress
 from dataclasses import dataclass, field
 from datetime import datetime
-import shlex
 from pathlib import Path
 from typing import Any
 
-import httpx
+import httpx2 as httpx
 
 from bodai.core.config import load_ecosystem
 from bodai.core.health import HealthStatus, check_port
@@ -138,6 +140,7 @@ class EcosystemOperations:
         >>> # Check health
         >>> health = await ops.health_aggregate()
         >>> print(f"Health: {health.health_percentage:.0f}%")
+
     """
 
     def __init__(
@@ -150,6 +153,7 @@ class EcosystemOperations:
         Args:
             health_timeout: Timeout for health check requests in seconds.
             shutdown_timeout: Default timeout for graceful shutdown in seconds.
+
         """
         self._ecosystem = load_ecosystem()
         self._health_timeout = health_timeout
@@ -169,6 +173,7 @@ class EcosystemOperations:
 
         Returns:
             Component if found, None otherwise.
+
         """
         return self._ecosystem.get_component(name)
 
@@ -180,6 +185,7 @@ class EcosystemOperations:
 
         Returns:
             Command list or None if cannot determine.
+
         """
         repo_path = Path(component.repo).expanduser()
         if not repo_path.exists():
@@ -211,8 +217,9 @@ class EcosystemOperations:
 
         Returns:
             PID if found, None otherwise.
+
         """
-        try:
+        with suppress(OSError, ValueError):
             proc = await asyncio.create_subprocess_exec(
                 "lsof",
                 "-i",
@@ -227,14 +234,12 @@ class EcosystemOperations:
                 pids = stdout.decode().strip().split("\n")
                 if pids and pids[0]:
                     return int(pids[0])
-        except (OSError, ValueError):
-            pass
         return None
 
     async def _wait_for_port(
         self,
         port: int,
-        timeout: float = 30.0,
+        timeout: float = 30.0,  # noqa: ASYNC109 (public API; uses asyncio.timeout below)
         interval: float = 0.5,
     ) -> bool:
         """Wait for a port to become available.
@@ -246,13 +251,16 @@ class EcosystemOperations:
 
         Returns:
             True if port became available, False if timeout.
+
         """
-        start = time.monotonic()
-        while time.monotonic() - start < timeout:
-            if check_port(port) == HealthStatus.HEALTHY:
-                return True
-            await asyncio.sleep(interval)
-        return False
+        try:
+            async with asyncio.timeout(timeout):
+                while True:
+                    if check_port(port) == HealthStatus.HEALTHY:
+                        return True
+                    await asyncio.sleep(interval)
+        except TimeoutError:
+            return False
 
     async def start_component(self, name: str) -> bool:
         """Start a single ecosystem component.
@@ -262,29 +270,60 @@ class EcosystemOperations:
 
         Returns:
             True if started successfully, False otherwise.
+
         """
         component = self._get_component(name)
         if not component:
             return False
-
-        # Skip disabled components
         if component.status == ComponentStatus.DISABLED:
             return False
-
-        # Non-network components are not lifecycle-managed here.
         if component.port is None:
             return False
-
-        # Check if already running
         if check_port(component.port, host=component.host) == HealthStatus.HEALTHY:
             return True
 
-        # Get start command
         cmd = self._component_to_start_command(component)
         if not cmd:
             return False
 
-        repo_path = Path(component.repo).expanduser()
+        # Resolve the repo path synchronously before entering async I/O
+        # so pathlib methods are not used inside an async function.
+        repo_path = self._expand_repo_path(component.repo)
+
+        return await self._spawn_and_wait(component, cmd, repo_path)
+
+    @staticmethod
+    def _expand_repo_path(repo: str) -> Path:
+        """Expand user-prefixed repo paths in a sync context.
+
+        Args:
+            repo: Repository path string (may include ``~``).
+
+        Returns:
+            Expanded, absolute :class:`Path` to the repo directory.
+
+        """
+        return Path(repo).expanduser()
+
+    async def _spawn_and_wait(
+        self,
+        component: Component,
+        cmd: list[str],
+        repo_path: Path,
+    ) -> bool:
+        """Spawn a component process and wait for its port.
+
+        Args:
+            component: Component to spawn.
+            cmd: Command list to run.
+            repo_path: Pre-resolved repository path.
+
+        Returns:
+            True if the component started and its port became available.
+
+        """
+        if component.port is None:
+            return False
 
         try:
             # Backward compatibility: if start_command is provided as a single
@@ -305,15 +344,14 @@ class EcosystemOperations:
             )
 
             # Track the process
-            self._managed_processes[name] = ProcessInfo(
+            self._managed_processes[component.name] = ProcessInfo(
                 pid=proc.pid,
-                name=name,
+                name=component.name,
                 port=component.port,
             )
 
             # Wait for port to become available
-            started = await self._wait_for_port(component.port, timeout=30.0)
-            return started
+            return await self._wait_for_port(component.port, timeout=30.0)
 
         except OSError:
             return False
@@ -321,7 +359,7 @@ class EcosystemOperations:
     async def stop_component(
         self,
         name: str,
-        timeout: float | None = None,
+        timeout: float | None = None,  # noqa: ASYNC109 (public API; uses asyncio.timeout below)
     ) -> bool:
         """Stop a single ecosystem component.
 
@@ -331,9 +369,10 @@ class EcosystemOperations:
 
         Returns:
             True if stopped successfully, False otherwise.
+
         """
         component = self._get_component(name)
-        if not component:
+        if not component or component.port is None:
             return False
 
         timeout = timeout or self._shutdown_timeout
@@ -349,23 +388,24 @@ class EcosystemOperations:
             # Send SIGTERM for graceful shutdown
             os.kill(pid, signal.SIGTERM)
 
-            # Wait for process to stop
-            start = time.monotonic()
-            while time.monotonic() - start < timeout:
-                if check_port(component.port, host=component.host) == HealthStatus.UNHEALTHY:
-                    self._managed_processes.pop(name, None)
-                    return True
-                await asyncio.sleep(0.5)
-
-            # Force kill if still running
             try:
-                os.kill(pid, signal.SIGKILL)
-                await asyncio.sleep(1)
-            except ProcessLookupError:
-                pass
+                async with asyncio.timeout(timeout):
+                    while True:
+                        if (
+                            check_port(component.port, host=component.host)
+                            == HealthStatus.UNHEALTHY
+                        ):
+                            self._managed_processes.pop(name, None)
+                            return True
+                        await asyncio.sleep(0.5)
+            except TimeoutError:
+                # Force kill if still running after graceful timeout
+                with suppress(ProcessLookupError):
+                    os.kill(pid, signal.SIGKILL)
+                    await asyncio.sleep(1)
 
-            self._managed_processes.pop(name, None)
-            return check_port(component.port) == HealthStatus.UNHEALTHY
+                self._managed_processes.pop(name, None)
+                return check_port(component.port) == HealthStatus.UNHEALTHY
 
         except ProcessLookupError:
             # Process already gone
@@ -377,7 +417,7 @@ class EcosystemOperations:
     async def restart_component(
         self,
         name: str,
-        timeout: float | None = None,
+        timeout: float | None = None,  # noqa: ASYNC109 (public API; uses asyncio.timeout below)
     ) -> bool:
         """Restart a single ecosystem component.
 
@@ -387,23 +427,30 @@ class EcosystemOperations:
 
         Returns:
             True if restarted successfully, False otherwise.
+
         """
-        # Stop first
-        stopped = await self.stop_component(name, timeout=timeout)
-        if not stopped:
+        restart_timeout = timeout or self._shutdown_timeout
+        try:
+            async with asyncio.timeout(restart_timeout):
+                # Stop first
+                stopped = await self.stop_component(name, timeout=timeout)
+                if not stopped:
+                    return False
+
+                # Brief pause
+                await asyncio.sleep(1)
+
+                # Start again
+                return await self.start_component(name)
+        except TimeoutError:
             return False
-
-        # Brief pause
-        await asyncio.sleep(1)
-
-        # Start again
-        return await self.start_component(name)
 
     async def start_all(self) -> dict[str, bool]:
         """Start all ecosystem components concurrently.
 
         Returns:
             Dictionary mapping component names to start success status.
+
         """
         # Get all production components
         components = [
@@ -413,7 +460,9 @@ class EcosystemOperations:
         ]
 
         # Start all concurrently
-        tasks = {name: asyncio.create_task(self.start_component(name)) for name in components}
+        tasks = {
+            name: asyncio.create_task(self.start_component(name)) for name in components
+        }
 
         results = {}
         for name, task in tasks.items():
@@ -424,7 +473,10 @@ class EcosystemOperations:
 
         return results
 
-    async def stop_all(self, timeout: float | None = None) -> dict[str, bool]:
+    async def stop_all(
+        self,
+        timeout: float | None = None,  # noqa: ASYNC109 (public API; uses asyncio.timeout below)
+    ) -> dict[str, bool]:
         """Stop all ecosystem components concurrently.
 
         Args:
@@ -432,12 +484,16 @@ class EcosystemOperations:
 
         Returns:
             Dictionary mapping component names to stop success status.
+
         """
+        stop_timeout = timeout or self._shutdown_timeout
+
         # Get all running components
         components = [
             name
             for name, comp in self.components.items()
-            if check_port(comp.port, host=comp.host) == HealthStatus.HEALTHY
+            if comp.port is not None
+            and check_port(comp.port, host=comp.host) == HealthStatus.HEALTHY
         ]
 
         # Stop all concurrently
@@ -447,11 +503,19 @@ class EcosystemOperations:
         }
 
         results = {}
-        for name, task in tasks.items():
-            try:
-                results[name] = await task
-            except Exception:
-                results[name] = False
+        try:
+            async with asyncio.timeout(stop_timeout):
+                for name, task in tasks.items():
+                    try:
+                        results[name] = await task
+                    except Exception:
+                        results[name] = False
+        except TimeoutError:
+            # Cancel any remaining tasks and mark them failed
+            for name, task in tasks.items():
+                if name not in results and not task.done():
+                    task.cancel()
+                    results[name] = False
 
         return results
 
@@ -466,8 +530,21 @@ class EcosystemOperations:
 
         Returns:
             ComponentHealth with check results.
+
         """
-        path = component.health_path if component.health_path.startswith("/") else f"/{component.health_path}"
+        if component.port is None:
+            return ComponentHealth(
+                name=component.name,
+                port=0,
+                status=HealthStatus.UNKNOWN,
+                error="Component has no port",
+            )
+
+        path = (
+            component.health_path
+            if component.health_path.startswith("/")
+            else f"/{component.health_path}"
+        )
         scheme = component.health_scheme
         host = component.host
         url = f"{scheme}://{host}:{component.port}{path}"
@@ -532,6 +609,7 @@ class EcosystemOperations:
 
         Returns:
             EcosystemHealth with aggregated status.
+
         """
         # Check all components concurrently
         tasks = {
@@ -550,10 +628,9 @@ class EcosystemOperations:
                 components.append(
                     ComponentHealth(
                         name=name,
-                        port=comp.port,
+                        port=comp.port if comp.port is not None else 0,
                         status=HealthStatus.UNKNOWN,
-                details={"url": url},
-                error=str(e),
+                        error=str(e),
                     )
                 )
 
@@ -564,6 +641,7 @@ class EcosystemOperations:
 
         Returns:
             Dictionary mapping component names to ProcessInfo.
+
         """
         return self._managed_processes.copy()
 
@@ -575,10 +653,16 @@ async def start_ecosystem() -> dict[str, bool]:
     return await ops.start_all()
 
 
-async def stop_ecosystem(timeout: float = 30.0) -> dict[str, bool]:
+async def stop_ecosystem(
+    timeout: float = 30.0,  # noqa: ASYNC109 (public API; uses asyncio.timeout below)
+) -> dict[str, bool]:
     """Stop all ecosystem components."""
     ops = EcosystemOperations()
-    return await ops.stop_all(timeout=timeout)
+    try:
+        async with asyncio.timeout(timeout):
+            return await ops.stop_all(timeout=timeout)
+    except TimeoutError:
+        return {}
 
 
 async def check_ecosystem_health() -> EcosystemHealth:

@@ -5,7 +5,7 @@
 **Priority**: High
 **Estimated Effort**: Medium (2-3 sessions)
 
----
+______________________________________________________________________
 
 ## Executive Summary
 
@@ -13,7 +13,7 @@ Integrate PyCharm's IDE-level diagnostics into Crackerjack's quality checking wo
 
 **Key Insight**: Crackerjack already has a `PyCharmMCPAdapter` with circuit breaker, caching, and fallback mechanisms. The work is ~60% complete - we just need to expose it via MCP tools and integrate with the unified `ToolIssue` model.
 
----
+______________________________________________________________________
 
 ## Current State
 
@@ -55,7 +55,7 @@ class ToolIssue:
     suggestion: str | None = None
 ```
 
----
+______________________________________________________________________
 
 ## Implementation Plan
 
@@ -284,7 +284,7 @@ class PyCharmDiagnosticAdapter(BaseToolAdapter):
         return mapping.get(pycharm_severity.upper(), "warning")
 ```
 
----
+______________________________________________________________________
 
 ## MCP Tools Summary
 
@@ -295,7 +295,7 @@ class PyCharmDiagnosticAdapter(BaseToolAdapter):
 | `get_symbol_info` | Symbol lookup | `get_symbol_info` |
 | `pycharm_health` | Connection status | `health_check` |
 
----
+______________________________________________________________________
 
 ## Configuration
 
@@ -316,7 +316,7 @@ failure_threshold = 3
 recovery_timeout = 60
 ```
 
----
+______________________________________________________________________
 
 ## Testing Strategy
 
@@ -376,7 +376,7 @@ async def test_full_diagnostic_workflow():
     # Should find at least some diagnostics in a real file
 ```
 
----
+______________________________________________________________________
 
 ## Dependencies
 
@@ -390,7 +390,7 @@ async def test_full_diagnostic_workflow():
 
 - `pycharm-mcp-client` - Direct PyCharm connection (future)
 
----
+______________________________________________________________________
 
 ## Risks and Mitigations
 
@@ -400,17 +400,17 @@ async def test_full_diagnostic_workflow():
 | Performance degradation | Low | Medium | Circuit breaker + caching |
 | Version incompatibility | Low | Medium | Version check in health |
 
----
+______________________________________________________________________
 
 ## Success Criteria
 
 1. **MCP Tools Registered**: All 4 tools visible in MCP tool list
-2. **Diagnostics Retrieved**: `get_ide_diagnostics` returns issues from PyCharm
-3. **Circuit Breaker Works**: Failures don't cascade
-4. **Cache Works**: Repeated calls are fast
-5. **Fallback Works**: Works without PyCharm connection
+1. **Diagnostics Retrieved**: `get_ide_diagnostics` returns issues from PyCharm
+1. **Circuit Breaker Works**: Failures don't cascade
+1. **Cache Works**: Repeated calls are fast
+1. **Fallback Works**: Works without PyCharm connection
 
----
+______________________________________________________________________
 
 ## Timeline
 
@@ -421,19 +421,19 @@ async def test_full_diagnostic_workflow():
 | 3 | Diagnostic adapter (optional) | 2-3 |
 | 4 | Documentation and polish | 3 |
 
----
+______________________________________________________________________
 
 ## Next Steps
 
 1. **Review this plan** - Confirm approach and priorities
-2. **Create pycharm_tools.py** - Implement Phase 1
-3. **Test with real PyCharm** - Verify MCP connection works
-4. **Iterate** - Add diagnostic adapter if needed
+1. **Create pycharm_tools.py** - Implement Phase 1
+1. **Test with real PyCharm** - Verify MCP connection works
+1. **Iterate** - Add diagnostic adapter if needed
 
----
+______________________________________________________________________
 
 ## Related Documents
 
-- [Crackerjack Architecture](/Users/les/Projects/crackerjack/docs/ARCHITECTURE.md)
-- [PyCharm MCP Integration Service](/Users/les/Projects/crackerjack/crackerjack/services/pycharm_mcp_integration.py)
-- [Tool Adapter Base](/Users/les/Projects/crackerjack/crackerjack/adapters/_tool_adapter_base.py)
+- [Bodai Architecture](architecture.md)
+- Crackerjack PyCharm MCP Integration Service (in `crackerjack/crackerjack/services/pycharm_mcp_integration.py`)
+- Crackerjack Tool Adapter Base (in `crackerjack/crackerjack/adapters/_tool_adapter_base.py`)

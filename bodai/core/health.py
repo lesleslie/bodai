@@ -1,11 +1,16 @@
 """Health check functionality for ecosystem components."""
 
+from __future__ import annotations
+
 import socket
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from enum import StrEnum
+from typing import TYPE_CHECKING
 
 from bodai.core.config import load_ecosystem
-from bodai.models.ecosystem import Component
+
+if TYPE_CHECKING:
+    from bodai.models.ecosystem import Component
 
 
 class HealthStatus(StrEnum):
