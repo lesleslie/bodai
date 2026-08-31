@@ -59,7 +59,7 @@ def launch_shell() -> None:
     from IPython import start_ipython
     from IPython.terminal.interactiveshell import TerminalInteractiveShell
 
-    TerminalInteractiveShell.autoindent = True  # type: ignore[assignment]
+    TerminalInteractiveShell.autoindent = True  # ty: ignore[invalid-assignment]
 
     start_ipython(argv=[], user_ns=user_ns)
 
