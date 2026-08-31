@@ -240,20 +240,26 @@ def status() -> None:
 @app.command()
 def dashboard() -> None:
     """Launch TUI health dashboard."""
-    from bodai.tui.dashboard import BodaiDashboard
-
     console.print("[cyan]Launching dashboard...[/cyan]")
-    tui_app = BodaiDashboard()
-    tui_app.run()
+    try:
+        from bodai.tui.dashboard import BodaiDashboard
+
+        tui_app = BodaiDashboard()
+        tui_app.run()
+    except ImportError:
+        console.print("[red]TUI not yet implemented[/red]")
 
 
 @app.command()
 def shell() -> None:
     """Launch IPython admin shell."""
-    from bodai.admin.shell import launch_shell
-
     console.print("[cyan]Launching IPython shell...[/cyan]")
-    launch_shell()
+    try:
+        from bodai.admin.shell import launch_shell
+
+        launch_shell()
+    except ImportError:
+        console.print("[red]Shell not yet implemented[/red]")
 
 
 @config_app.command("show")

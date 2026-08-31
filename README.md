@@ -56,7 +56,7 @@ The Bodai ecosystem consists of six interconnected components, each with a disti
 | [Crackerjack](#crackerjack---the-inspector) | Inspector | 8676 | [lesleslie/crackerjack](https://github.com/lesleslie/crackerjack) | Quality gates & CI/CD validation |
 | [Oneiric](#oneiric---the-foundation) | Foundation | N/A | [lesleslie/oneiric](https://github.com/lesleslie/oneiric) | Component resolution, lifecycle management, adapter system, action kits, domain bridges, runtime orchestration, remote delivery |
 
----
+______________________________________________________________________
 
 ### Mahavishnu - The Orchestrator
 
@@ -122,7 +122,7 @@ The platform foundation library that provides explainable component resolution, 
 - Used by Crackerjack for runtime orchestration and health snapshots
 - Used by Akosha for universal storage abstraction and adapter resolution
 
----
+______________________________________________________________________
 
 ## Installation
 

@@ -8,28 +8,23 @@ The Bodai ecosystem uses ports in the 8676-8699 range, providing a dedicated nam
 
 | Port | Component | Role | Status |
 |------|-----------|------|--------|
-| 8675 | Prefect API | Workflow backend uvicorn | Active |
 | 8676 | Crackerjack | Inspector | Active |
 | 8677 | - | Reserved | Available |
-| 8678 | Session-Buddy | Builder (MCP) | Active |
+| 8678 | Session-Buddy | Builder | Active |
 | 8679 | - | Reserved | Available |
 | 8680 | Mahavishnu | Orchestrator | Active |
 | 8681 | - | Reserved (Oneiric) | See Note |
 | 8682 | Akosha | Seer | Active |
-| 8683 | Dhara | Curator | Active |
-| 8693 | Bodai Crow | Browser/automation MCP | Active |
-| 8684-8692, 8694-8699 | - | Reserved | Available |
-| 8765 | Session-Buddy WebSocket | Real-time metrics | Active |
+| 8683 | Druva | Curator | Active |
+| 8684-8699 | - | Reserved | Available |
 
-## MCP Server Ports (3030-3049)
+## MCP Server Ports (3032-3047)
 
-External MCP servers integrated with the Bodai ecosystem use the 3030-3049 range.
+External MCP servers integrated with the Bodai ecosystem use the 3032-3047 range.
 
 | Port | Server | Description | Status |
 |------|--------|-------------|--------|
-| 3030 | Grafana MCP | Grafana dashboards plugin | Active |
-| 3031 | Excalidraw | Diagram collaboration | Active |
-| 3032 | - | Reserved | Available |
+| 3032 | Excalidraw | Diagram collaboration | Active |
 | 3033 | Mermaid | Mermaid diagram generation | Active |
 | 3034 | Raindropio | Bookmark management | Active |
 | 3035 | Grafana | Grafana integration | Active |
@@ -45,20 +40,6 @@ External MCP servers integrated with the Bodai ecosystem use the 3030-3049 range
 | 3045 | Neo4j | Neo4j graph database | Active |
 | 3046 | Synxis CRS | CRS reservation system | Active |
 | 3047 | Synxis PMS | PMS property management | Active |
-| 3048 | LangSmith | Tracing / observability | Active |
-| 3049 | CSS | CSS analysis and documentation | Active |
-
-## Internal Bodai Observability Surfaces (WebSocket Push Channels)
-
-| Port | Channel | Purpose | Component |
-|------|---------|---------|-----------|
-| 8471 | Bifrost | LLM gateway (`bifrost-http-0`) | Bifrost |
-| 8686 | Crackerjack Test WS | Test execution events | Crackerjack |
-| 8690 | Mahavishnu WS | Workflow events (`workflow:{workflow_id}`, `pool:{pool_id}`, `worker:{worker_id}`, `global`) | Mahavishnu |
-| 8691 | Mahavishnu Pool WS | Pool status events | Mahavishnu |
-| 8692 | Akosha Pattern WS | Pattern detection | Akosha |
-| 8699 | web_reader | Webpage ingestion MCP | web_reader |
-| 8765 | Session-Buddy WS | Real-time skill metrics (peer process to Session-Buddy MCP on 8678) | Session-Buddy |
 
 ### Port 8681 Note
 

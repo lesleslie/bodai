@@ -17,6 +17,24 @@ Bodai (The Orb) is a meta-project for the Bodai ecosystem. It provides configura
 | Dhara | Curator | 8683 |
 | Session-Buddy | Builder | 8678 |
 | Crackerjack | Inspector | 8676 |
+| Oneiric | Foundation | N/A (library) |
+
+## Memory Architecture
+
+Bodai is the meta-project; the memory architecture for the entire ecosystem lives in this repo's `docs/memory/` directory.
+
+**Start here**: `/Users/les/Projects/bodai/docs/memory/INDEX.md` — routing decision tree, cross-system data flow, contract bug index, cross-cutting patterns, common tasks.
+
+**Per-component deep dives** (storage inventory, MCP write/read surface, integration contracts, sample queries, mermaid diagrams):
+
+- Session-Buddy (`session-buddy/docs/architecture/MEMORY_ARCHITECTURE.md`) — Builder / Memory
+- Akosha (`akosha/docs/architecture/MEMORY_ARCHITECTURE.md`) — Seer / Intelligence
+- Dhara (`dhara/docs/architecture/MEMORY_ARCHITECTURE.md`) — Curator / State
+- Crackerjack (`crackerjack/docs/architecture/MEMORY_ARCHITECTURE.md`) — Inspector / Quality
+- Oneiric (`oneiric/docs/architecture/MEMORY_ARCHITECTURE.md`) — Foundation (library-first, no MCP)
+- Mahavishnu (`mahavishnu/docs/architecture/MEMORY_ARCHITECTURE.md`) — Orchestrator
+
+**For Claude Code memory routing rules** (where to write `user` vs `project` vs `reference`), see `/Users/les/Projects/mahavishnu/CLAUDE.md` Memory Routing section — Claude Code is launched from the Mahavishnu directory 99% of the time, so that's the canonical entry point.
 
 ## Development Commands
 

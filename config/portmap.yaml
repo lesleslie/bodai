@@ -1,7 +1,5 @@
 # Bodai Ecosystem Port Allocation
 # MCP servers: 8676-8699 (core), 3030-3049 (MCP integrations)
-# Adjacent infrastructure (8675, 8765) is tracked here so port audits catch
-# collisions across the whole Bodai host, not just MCP servers.
 
 mcp_core_range:
   start: 8676
@@ -12,20 +10,15 @@ mcp_integration_range:
   end: 3049
 
 allocations:
-  # Infrastructure (adjacent to MCP core range; tracked for collision audits)
-  8675: prefect             # Prefect API uvicorn (workflow backend)
-  8676: crackerjack         # Inspector
-  8678: session-buddy       # Builder (MCP server)
-  8680: mahavishnu          # Orchestrator
-  8681: reserved-oneiric    # Oneiric MCP absorbed into Dhara; port reserved
-  8682: akosha              # Seer
-  8683: dhara               # Curator (formerly "Druva" in this file)
-  8693: bodai-crow          # Browser/automation MCP bridge
-  8765: session-buddy-ws    # Session-Buddy WebSocket (real-time metrics)
-
-  # Reserved (within MCP core range)
-  8684: reserved            # (previously listed "fastblocks" — not a Bodai component)
-  8685: reserved            # (previously listed "mdinject" — not a Bodai component)
+  # Core MCP servers (8676-8699)
+  8676: crackerjack    # Inspector
+  8678: session-buddy  # Builder
+  8680: mahavishnu     # Orchestrator
+  8681: available      # (Oneiric MCP absorbed into Druva)
+  8682: akosha         # Seer
+  8683: druva         # Curator
+  8684: fastblocks    # Composer
+  8685: mdinject      # Doctor
 
   # MCP Integration servers (3030-3049)
   3030: grafana-mcp        # Grafana dashboards (external plugin)
@@ -48,15 +41,6 @@ allocations:
   3048: langsmith-mcp      # LangSmith tracing/observability
   3049: css-mcp            # CSS analysis and documentation
 
-  # Internal Bodai observability surfaces (WebSocket push channels)
-  8471: bifrost            # Bifrost LLM gateway (bifrost-http-0)
-  8686: crackerjack-ws     # Crackerjack Test Execution WebSocket
-  8690: mahavishnu-ws      # Mahavishnu workflow events WebSocket
-  8691: mahavishnu-pool-ws # Mahavishnu Pool status WebSocket
-  8692: akosha-ws          # Akosha pattern detection WebSocket
-  8699: web_reader         # web_reader webpage ingestion MCP
-  8765: session-buddy-ws   # Session-Buddy WebSocket (peer process; runs alongside 8678)
-
 reserved:
-  8684, 8693-8698: future expansion (core)
+  8684-8699: future expansion (core)
   3050-3059: future expansion (integrations)
