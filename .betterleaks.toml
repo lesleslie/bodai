@@ -1,0 +1,47 @@
+# Betterleaks configuration for the bodai repo.
+#
+# Crackerjack's BetterleaksAdapter runs `betterleaks git <repo>` against the
+# working tree. betterleaks scans the filesystem and does NOT honor .gitignore,
+# so .crackerjack/uv/cache/ (a third-party dep cache populated by `uv sync`)
+# keeps appearing in scans. The path allowlist below is the supported way
+# to scope the scan.
+#
+# This file is auto-discovered by betterleaks from the git root
+# (precedence: --config flag > env var > .betterleaks.toml at target).
+# See docs/plans/ for the per-component precedent.
+
+title = "Bodai Betterleaks Configuration"
+
+[allowlist]
+description = "Tooling artifacts and third-party dep caches that betterleaks should skip"
+paths = [
+    # Crackerjack runtime: uv package cache (third-party tarballs we don't own)
+    '''\.crackerjack/uv/cache/''',
+
+    # Crackerjack oneiric state cache (SQLite checkpoint db, runtime only)
+    '''\.crackerjack/oneiric_cache/''',
+
+    # Crackerjack logs and scratch dirs
+    '''\.crackerjack/logs/''',
+
+    # Crackerjack scan reports themselves (would self-trigger on prior findings)
+    '''\.cache/betterleaks-report\.json''',
+    '''\.cache/gitleaks-report\.json''',
+
+    # Coverage artifacts (test fixtures with literal hardcoded creds)
+    '''htmlcov/''',
+    '''\.coverage$''',
+    '''coverage\.json$''',
+
+    # Standard Python build/cache outputs
+    '''__pycache__/''',
+    '''\.venv/''',
+    '''\.mypy_cache/''',
+    '''\.ruff_cache/''',
+
+    # Lychee link-checker cache
+    '''\.lycheecache$''',
+
+    # pyscn / complexity cache
+    '''\.pyscn/''',
+]
