@@ -14,7 +14,7 @@
 
 Surface counts below count documented table entries, not normalized FastMCP introspection. Combined entries such as `store_conversation / store_conversation_checkpoint` can represent multiple callable names. Profiles also differ: Crackerjack is always-on, while other MCP servers gate some tools.
 
----
+______________________________________________________________________
 
 ## 1. Ecosystem at a Glance
 
@@ -73,7 +73,7 @@ flowchart TB
 | Configuration and provider lifecycle | Oneiric | Dhara adapter catalog and tracked-settings snapshots |
 | Workflow execution and routing | Mahavishnu | Dhara workflow results/progress; Akosha routing analytics |
 
----
+______________________________________________________________________
 
 ## 2. Memory Routing Decision Tree
 
@@ -150,7 +150,7 @@ sequenceDiagram
 | Save a resumable library workflow checkpoint | Oneiric | Calling component's workflow runtime | It is local runtime infrastructure, not ecosystem memory. |
 | Store a code graph | Mahavishnu owns generation | SB persists recall snapshot; Akosha indexes cross-repo view | Generation, durable recall, and semantic indexing are distinct. |
 
----
+______________________________________________________________________
 
 ## 3. Per-Component Deep Dives — Link Index
 
@@ -216,7 +216,7 @@ Oneiric is the library foundation for layered settings, candidate resolution, li
 - Integration contracts: **2** (§5.1–§5.2).
 - User-facing surface: `load_settings`, `Resolver.resolve/explain`, `DomainBridge.use`, `LifecycleManager`, `WorkflowCheckpointStore`, and CLI commands `oneiric list`, `explain`, `swap`, `pause`, `drain`, `remote-sync`, `start`, `stop`.
 
----
+______________________________________________________________________
 
 ## 4. Contract Bug Index — The 28 Integration Contracts
 
@@ -302,7 +302,7 @@ Severity uses **Critical / High / Medium / Low** according to data loss, securit
 
 **Total indexed: 28 contracts** — Session-Buddy 3, Akosha 4, Dhara 4, Mahavishnu 5, Crackerjack 10, Oneiric 2.
 
----
+______________________________________________________________________
 
 ## 5. Cross-Cutting Patterns
 
@@ -332,9 +332,9 @@ Dhara defines SQL substrate tables in migration files, but runtime HTTP routes s
 Consequences:
 
 1. Schema exists in two forms with different keys and integrity semantics.
-2. Running migrations does not migrate the live authority.
-3. Tests can pass against DDL while production uses the object graph.
-4. Parent linkage, uniqueness, and audit guarantees are documentation-only.
+1. Running migrations does not migrate the live authority.
+1. Tests can pass against DDL while production uses the object graph.
+1. Parent linkage, uniqueness, and audit guarantees are documentation-only.
 
 **Fix pattern:** choose one runtime authority, invoke its migration runner during application initialization, dual-write only behind a measured migration flag, compare identities, then cut over reads before deleting the inline representation.
 
@@ -354,10 +354,10 @@ Use capability-neutral headings in global templates:
 The closed learning loop spans ownership boundaries:
 
 1. Session-Buddy captures and promotes memory, then distills patterns.
-2. Akosha evaluates semantic similarity, trends, anomalies, and fitness.
-3. Crackerjack contributes concrete quality/fix evidence and consumes distilled skill health.
-4. Dhara stores shared failure/fitness series and durable snapshots.
-5. Mahavishnu schedules the work and routes resulting evidence.
+1. Akosha evaluates semantic similarity, trends, anomalies, and fitness.
+1. Crackerjack contributes concrete quality/fix evidence and consumes distilled skill health.
+1. Dhara stores shared failure/fitness series and durable snapshots.
+1. Mahavishnu schedules the work and routes resulting evidence.
 
 ```mermaid
 sequenceDiagram
@@ -420,79 +420,79 @@ Mahavishnu dead letters, Oneiric pending snapshots, Bodai event queues, and tran
 
 **Recommendation:** define a versioned Bodai dead-letter envelope and expose list/replay/ack metrics consistently, even if each component retains its own local directory.
 
----
+______________________________________________________________________
 
 ## 6. Common Tasks (How-To Index)
 
 ### Store a reflection and recall it later
 
 1. Write through `mcp__session-buddy__store_reflection` with project and tags.
-2. Recall with `quick_search` or `search_by_concept`.
-3. Use Akosha only for a replicated cross-system semantic view.
+1. Recall with `quick_search` or `search_by_concept`.
+1. Use Akosha only for a replicated cross-system semantic view.
 
 See [Session-Buddy §2](../../../session-buddy/docs/architecture/MEMORY_ARCHITECTURE.md#2-mcp-write-surface), [Session-Buddy §3](../../../session-buddy/docs/architecture/MEMORY_ARCHITECTURE.md#3-mcp-read-surface), and [Akosha §3](../../../akosha/docs/architecture/MEMORY_ARCHITECTURE.md#3-mcp-read-surface).
 
 ### Persist a workflow result for replay
 
 1. Dispatch via Mahavishnu with a validated/generated `workflow_id`.
-2. Mahavishnu persists the terminal envelope to Dhara `workflow-results/{id}/`.
-3. Poll `workflow_result`; if persistence failed, inspect Mahavishnu's async dead-letter path.
+1. Mahavishnu persists the terminal envelope to Dhara `workflow-results/{id}/`.
+1. Poll `workflow_result`; if persistence failed, inspect Mahavishnu's async dead-letter path.
 
 See [Mahavishnu §1](../../../mahavishnu/docs/architecture/MEMORY_ARCHITECTURE.md#1-storage-inventory), [Mahavishnu §5.1–5.2](../../../mahavishnu/docs/architecture/MEMORY_ARCHITECTURE.md#5-integration-contract), and [Dhara §1](../../../dhara/docs/architecture/MEMORY_ARCHITECTURE.md#1-storage-inventory).
 
 ### Run a quality gate and capture the result
 
 1. Call `mcp__crackerjack__execute_crackerjack`; do not use the stage stub.
-2. Poll `get_job_progress(job_id)`.
-3. Crackerjack records fix evidence; failures fan out to SB reflections and Dhara metrics.
+1. Poll `get_job_progress(job_id)`.
+1. Crackerjack records fix evidence; failures fan out to SB reflections and Dhara metrics.
 
 See [Crackerjack §2](../../../crackerjack/docs/architecture/MEMORY_ARCHITECTURE.md#2-mcp-write-surface), [Crackerjack §5.3](../../../crackerjack/docs/architecture/MEMORY_ARCHITECTURE.md#contract-53--crackerjack_run-does-not-exist-as-a-single-mcp-tool), and [Session-Buddy §2](../../../session-buddy/docs/architecture/MEMORY_ARCHITECTURE.md#2-mcp-write-surface).
 
 ### Diagnose a “tool not found” error
 
 1. Confirm component and exact tool name.
-2. Call `discover_tools` where supported and inspect the active profile.
-3. For Crackerjack, compare against `create_mcp_server` registration and this index's alias warning.
-4. Check whether the tool is profile-gated, runtime-gated, missing, or a stale slash-command alias.
+1. Call `discover_tools` where supported and inspect the active profile.
+1. For Crackerjack, compare against `create_mcp_server` registration and this index's alias warning.
+1. Check whether the tool is profile-gated, runtime-gated, missing, or a stale slash-command alias.
 
 See [§5.1](#51-tool-profile-and-registration-schema-drift), [§5.2](#52-slash-command-versus-mcp-tool-alias-drift), [Mahavishnu §5](../../../mahavishnu/docs/architecture/MEMORY_ARCHITECTURE.md#5-integration-contract), and [Crackerjack §5.3/5.5](../../../crackerjack/docs/architecture/MEMORY_ARCHITECTURE.md#5-integration-contract).
 
 ### Add a new MCP tool
 
 1. Implement and register the tool in the component's canonical server factory.
-2. Add it to every applicable profile and discovery/version manifest.
-3. Add an identity-based round-trip test and exact profile inventory test.
-4. Update the per-repo architecture document; update this index only when routing or cross-cutting behavior changes.
+1. Add it to every applicable profile and discovery/version manifest.
+1. Add an identity-based round-trip test and exact profile inventory test.
+1. Update the per-repo architecture document; update this index only when routing or cross-cutting behavior changes.
 
 See [§5.1](#51-tool-profile-and-registration-schema-drift) and the target component's §2, §3, and §5.
 
 ### Publish or activate an adapter
 
 1. Publish catalog metadata to Dhara `store_adapter`.
-2. Resolve and activate through Oneiric's `Resolver` / `DomainBridge` / `LifecycleManager`.
-3. Treat Dhara catalog history and Oneiric local lifecycle snapshot as different authorities.
+1. Resolve and activate through Oneiric's `Resolver` / `DomainBridge` / `LifecycleManager`.
+1. Treat Dhara catalog history and Oneiric local lifecycle snapshot as different authorities.
 
 See [Dhara §2](../../../dhara/docs/architecture/MEMORY_ARCHITECTURE.md#2-mcp-write-surface), [Oneiric §2](../../../oneiric/docs/architecture/MEMORY_ARCHITECTURE.md#2-programmatic-write-surface), and [Oneiric §3](../../../oneiric/docs/architecture/MEMORY_ARCHITECTURE.md#3-programmatic-read-surface).
 
 ### Investigate a repeated quality failure
 
 1. Start with Crackerjack's `issue_fingerprint` and fix-attempt evidence.
-2. Query Dhara's `fix-failures` series for recurrence.
-3. Ask Akosha for changepoint/trend classification.
-4. Search SB for prior reflections or distilled skills.
+1. Query Dhara's `fix-failures` series for recurrence.
+1. Ask Akosha for changepoint/trend classification.
+1. Search SB for prior reflections or distilled skills.
 
 See [Crackerjack §1](../../../crackerjack/docs/architecture/MEMORY_ARCHITECTURE.md#1-storage-inventory), [Dhara §3](../../../dhara/docs/architecture/MEMORY_ARCHITECTURE.md#3-mcp-read-surface), [Akosha §3](../../../akosha/docs/architecture/MEMORY_ARCHITECTURE.md#3-mcp-read-surface), and [Session-Buddy §3](../../../session-buddy/docs/architecture/MEMORY_ARCHITECTURE.md#3-mcp-read-surface).
 
 ### Change configuration safely
 
 1. Identify the owning component and Oneiric `project_name`.
-2. Apply the correct precedence layer; keep secrets in environment/provider storage.
-3. Restart components that do not hot-reload.
-4. Verify the resolved provider/lifecycle state, not just the YAML file.
+1. Apply the correct precedence layer; keep secrets in environment/provider storage.
+1. Restart components that do not hot-reload.
+1. Verify the resolved provider/lifecycle state, not just the YAML file.
 
 See [Oneiric §5.1](../../../oneiric/docs/architecture/MEMORY_ARCHITECTURE.md#contract-51--load_settings-layer-precedence-xdg-local-wins-over-project-local-env-wins-over-xdg-local-explicit-path-wins-over-everything) and the component's Operational Notes.
 
----
+______________________________________________________________________
 
 ## 7. Operational Concerns
 
@@ -525,14 +525,14 @@ See [Oneiric §5.1](../../../oneiric/docs/architecture/MEMORY_ARCHITECTURE.md#co
 ### Missing-memory escalation order
 
 1. **Identify the authority.** Use the routing table; do not begin at a replica.
-2. **Check the owning process/library health.** Confirm MCP port or Oneiric host process.
-3. **Verify exact write response and identity.** Capture reflection ID, workflow ID, fingerprint, or adapter ID.
-4. **Read directly from the owner's canonical surface.** Avoid semantic indexes and dashboards initially.
-5. **Check profile and alias registration.** A missing tool can look like missing data.
-6. **Check replication/dead-letter status.** Inspect Mahavishnu async dead letters, Oneiric pending snapshots, event queue state, and component logs.
-7. **Check derived stores.** Akosha embedding mode/hot-store restart, Dhara TTL/retention, SB tier promotion/pruning, Crackerjack SQLite schema/locks.
-8. **Check contract regressions.** Prioritize SB 5.1/5.3, Akosha 5.1/5.2, Dhara 5.1/5.2, Mahavishnu 5.1/5.2, and Crackerjack 5.1–5.3.
-9. **Restore only the authority.** Rebuild replicas/indexes from source after recovery.
+1. **Check the owning process/library health.** Confirm MCP port or Oneiric host process.
+1. **Verify exact write response and identity.** Capture reflection ID, workflow ID, fingerprint, or adapter ID.
+1. **Read directly from the owner's canonical surface.** Avoid semantic indexes and dashboards initially.
+1. **Check profile and alias registration.** A missing tool can look like missing data.
+1. **Check replication/dead-letter status.** Inspect Mahavishnu async dead letters, Oneiric pending snapshots, event queue state, and component logs.
+1. **Check derived stores.** Akosha embedding mode/hot-store restart, Dhara TTL/retention, SB tier promotion/pruning, Crackerjack SQLite schema/locks.
+1. **Check contract regressions.** Prioritize SB 5.1/5.3, Akosha 5.1/5.2, Dhara 5.1/5.2, Mahavishnu 5.1/5.2, and Crackerjack 5.1–5.3.
+1. **Restore only the authority.** Rebuild replicas/indexes from source after recovery.
 
 ### Backup and recovery paths
 
@@ -553,7 +553,7 @@ See [Oneiric §5.1](../../../oneiric/docs/architecture/MEMORY_ARCHITECTURE.md#co
 - Re-run exact round-trip regression tests after restoration.
 - Preserve security constraints during replay: workflow-ID validation, ACL checks, auth, and secret redaction.
 
----
+______________________________________________________________________
 
 ## Source Documents
 

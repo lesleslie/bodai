@@ -112,12 +112,12 @@ ______________________________________________________________________
 When a user issues a high-level command to the Bodai Orb (for example, "sweep the workflow `nightly-audit` across all Bodai repos"):
 
 1. **Mahavishnu** receives the command and resolves which worker pool to use.
-2. **Oneiric** resolves the adapter for the sweep target (priority, stack context, etc.).
-3. **Dhara** persists the sweep's state so it can be checkpointed and resumed.
-4. **Akosha** answers any "have we seen this before?" lookups the workflow needs.
-5. **Session-Buddy** records the start of the sweep, agent selections, and any errors.
-6. **Crackerjack** validates each affected repo before and after the workflow runs.
-7. Results flow back to the user, with Session-Buddy retaining the full context.
+1. **Oneiric** resolves the adapter for the sweep target (priority, stack context, etc.).
+1. **Dhara** persists the sweep's state so it can be checkpointed and resumed.
+1. **Akosha** answers any "have we seen this before?" lookups the workflow needs.
+1. **Session-Buddy** records the start of the sweep, agent selections, and any errors.
+1. **Crackerjack** validates each affected repo before and after the workflow runs.
+1. Results flow back to the user, with Session-Buddy retaining the full context.
 
 This flow is the canonical pattern. Individual workflows can skip steps they don't need.
 
@@ -180,9 +180,9 @@ ______________________________________________________________________
 If you maintain a tool or service that wants to participate in the Bodai Orb:
 
 1. **Register an adapter with Oneiric** so the resolver knows about your service.
-2. **Store any persistent state in Dhara** so other components can recover it.
-3. **Emit events to the shared bus** (via Oneiric's event domain) so Mahavishnu can react.
-4. **Capture decision context in Session-Buddy** so future sessions benefit.
-5. **Validate with Crackerjack** before shipping.
+1. **Store any persistent state in Dhara** so other components can recover it.
+1. **Emit events to the shared bus** (via Oneiric's event domain) so Mahavishnu can react.
+1. **Capture decision context in Session-Buddy** so future sessions benefit.
+1. **Validate with Crackerjack** before shipping.
 
 You don't have to do all five — pick the ones that fit your service. The Orb is opt-in by design.
