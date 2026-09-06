@@ -14,11 +14,13 @@ allocations:
   8676: crackerjack    # Inspector
   8678: session-buddy  # Builder
   8680: mahavishnu     # Orchestrator
-  8681: available      # (Oneiric MCP absorbed into Druva)
+  8681: available      # (Oneiric MCP absorbed into Dhara)
   8682: akosha         # Seer
-  8683: druva         # Curator
-  8684: fastblocks    # Composer
-  8685: mdinject      # Doctor
+  8683: dhara          # Curator
+  8684: crackerjack    # Crackerjack dashboard_port (was fastblocks, now correct)
+  8685: crackerjack    # Crackerjack zuban_port (was mdinject, now correct)
+  8686: available      # (reserved — see reserved: block)
+  8696: crackerjack    # Crackerjack mcp_websocket_port
 
   # MCP Integration servers (3030-3049)
   3030: grafana-mcp        # Grafana dashboards (external plugin)
@@ -39,7 +41,22 @@ allocations:
   3046: synxis-crs-mcp     # SynXis Central Reservation System
   3047: synxis-pms-mcp     # SynXis Property Management System
   3048: langsmith-mcp      # LangSmith tracing/observability
-  3049: css-mcp            # CSS analysis and documentation
+  3049: available         # Reserved (css-mcp actually binds 3050)
+
+  # Additional MCP integrations (3050-3059)
+  3050: css-mcp           # CSS analysis and documentation (was 3049)
+  3051: penpot-api-mcp    # Penpot design platform API
+  3052: spline-mcp        # Spline.design 3D scene orchestration (was 3050)
+  3053: available         # Reserved
+  3054: archive-org-mcp   # Internet Archive Wayback and catalog (Plan 0a)
+
+  # Out-of-range but actively bound ports (tracked for collision safety)
+  3000: session-buddy    # Session-Buddy non-MCP server_port (distinct from MCP 8678)
+  3002: akosha           # Akosha MCP port (distinct from api_port 8682)
+  8679: mdinject         # Markdown injection and content healing
+  8765: session-buddy    # Session-Buddy WebSocket
+  9090: akosha           # Akosha Prometheus metrics exporter
+  1883: oneiric          # Oneiric MQTT broker (standard port)
 
 reserved:
   8684-8699: future expansion (core)
