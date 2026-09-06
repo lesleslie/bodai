@@ -21,12 +21,12 @@ components:
     status: production
     description: Cross-system intelligence and memory aggregation
 
-  druva:
-    name: druva
+  dhara:
+    name: dhara
     role: curator
     port: 8683
-    repo: ~/Projects/druva
-    start_command: ["python", "-m", "druva.mcp.server"]
+    repo: ~/Projects/dhara
+    start_command: ["python", "-m", "dhara.mcp.server"]
     status: production
     description: Persistent object storage with ACID properties
 

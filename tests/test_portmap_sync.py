@@ -86,6 +86,26 @@ class TestPortmapMatchesReality:
         assert unregistered == {}, f"declared but not in portmap: {unregistered}"
 
 
+class TestEcosystemComponentPaths:
+    """Every declared component must point at a directory that exists."""
+
+    def test_no_dangling_component_repo(self) -> None:
+        components = _load(ECOSYSTEM_PATH).get("components", {})
+        dangling = {
+            name: spec["repo"]
+            for name, spec in components.items()
+            if "repo" in spec
+            and not Path(str(spec["repo"]).replace("~", str(Path.home()))).is_dir()
+        }
+        assert dangling == {}, f"components with missing repos: {dangling}"
+
+    def test_dhara_replaces_druva(self) -> None:
+        components = _load(ECOSYSTEM_PATH).get("components", {})
+        assert "druva" not in components, "druva was renamed to dhara"
+        assert "dhara" in components
+        assert components["dhara"]["port"] == 8683
+
+
 NEW_SERVER_PORTS = {
     3054: "archive-org-mcp",
     3055: "medium-mcp",
