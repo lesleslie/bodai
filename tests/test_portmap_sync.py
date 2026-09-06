@@ -84,3 +84,39 @@ class TestPortmapMatchesReality:
             if port not in allocations
         }
         assert unregistered == {}, f"declared but not in portmap: {unregistered}"
+
+
+NEW_SERVER_PORTS = {
+    3054: "archive-org-mcp",
+    3055: "medium-mcp",
+    3056: "scapy-mcp",
+}
+
+
+class TestNewServerPorts:
+    """The three new MCP servers must have registered, non-colliding ports."""
+
+    @pytest.mark.parametrize(("port", "name"), sorted(NEW_SERVER_PORTS.items()))
+    def test_new_server_port_allocated(self, port: int, name: str) -> None:
+        assert _portmap_allocations().get(port) == name
+
+    def test_new_server_ports_are_unique(self) -> None:
+        allocations = _portmap_allocations()
+        for port, name in NEW_SERVER_PORTS.items():
+            others = {p: n for p, n in allocations.items() if p != port and n == name}
+            assert others == {}, f"{name} also allocated at {others}"
+
+    def test_reserved_range_excludes_allocated_ports(self) -> None:
+        """A port cannot be both allocated and reserved for future expansion."""
+        reserved = _load(PORTMAP_PATH).get("reserved", {})
+        allocated = set(_portmap_allocations())
+        overlaps: dict[str, list[int]] = {}
+        for key in reserved:
+            match = re.fullmatch(r"(\d{4})-(\d{4})", str(key))
+            if not match:
+                continue
+            low, high = int(match.group(1)), int(match.group(2))
+            hits = sorted(p for p in allocated if low <= p <= high)
+            if hits:
+                overlaps[str(key)] = hits
+        assert overlaps == {}, f"reserved ranges overlap allocations: {overlaps}"

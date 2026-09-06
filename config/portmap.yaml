@@ -49,6 +49,8 @@ allocations:
   3052: spline-mcp        # Spline.design 3D scene orchestration (was 3050)
   3053: available         # Reserved
   3054: archive-org-mcp   # Internet Archive Wayback and catalog (Plan 0a)
+  3055: medium-mcp        # Medium content via the unofficial medium2 API
+  3056: scapy-mcp         # Scapy packet crafting, dissection, capture
 
   # Out-of-range but actively bound ports (tracked for collision safety)
   3000: session-buddy    # Session-Buddy non-MCP server_port (distinct from MCP 8678)
@@ -59,5 +61,5 @@ allocations:
   1883: oneiric          # Oneiric MQTT broker (standard port)
 
 reserved:
-  8684-8699: future expansion (core)
-  3050-3059: future expansion (integrations)
+  8697-8699: future expansion (core)
+  3057-3059: future expansion (integrations)
