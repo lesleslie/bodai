@@ -86,6 +86,13 @@ class TestPortmapMatchesReality:
         assert unregistered == {}, f"declared but not in portmap: {unregistered}"
 
 
+NEW_SERVER_PORTS = {
+    3054: "archive-org-mcp",
+    3055: "medium-mcp",
+    3056: "scapy-mcp",
+}
+
+
 class TestEcosystemComponentPaths:
     """Every declared component must point at a directory that exists."""
 
@@ -111,12 +118,11 @@ class TestEcosystemComponentPaths:
         components = _load(ECOSYSTEM_PATH).get("components", {})
         assert "n8n-mcp" not in components
 
-
-NEW_SERVER_PORTS = {
-    3054: "archive-org-mcp",
-    3055: "medium-mcp",
-    3056: "scapy-mcp",
-}
+    @pytest.mark.parametrize(("port", "name"), sorted(NEW_SERVER_PORTS.items()))
+    def test_new_server_component_declared(self, port: int, name: str) -> None:
+        components = _load(ECOSYSTEM_PATH).get("components", {})
+        assert name in components
+        assert components[name]["port"] == port
 
 
 class TestNewServerPorts:

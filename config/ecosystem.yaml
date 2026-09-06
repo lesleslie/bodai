@@ -219,3 +219,30 @@ components:
     start_command: ["python", "-m", "css_mcp.mcp.server"]
     status: development
     description: CSS analysis and documentation via MCP
+
+  archive-org-mcp:
+    name: archive-org-mcp
+    role: tool
+    port: 3054
+    repo: ~/Projects/archive-org-mcp
+    start_command: ["python", "-m", "archive_org_mcp.server"]
+    status: development
+    description: Internet Archive Wayback and catalog access via MCP
+
+  medium-mcp:
+    name: medium-mcp
+    role: tool
+    port: 3055
+    repo: ~/Projects/medium-mcp
+    start_command: ["python", "-m", "medium_mcp.server"]
+    status: development
+    description: Medium content access via the unofficial medium2 API
+
+  scapy-mcp:
+    name: scapy-mcp
+    role: tool
+    port: 3056
+    repo: ~/Projects/scapy-mcp
+    start_command: ["python", "-m", "scapy_mcp.server"]
+    status: development
+    description: Scapy packet crafting, dissection, capture, and PCAP I/O via MCP
