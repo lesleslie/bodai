@@ -7,6 +7,7 @@ manifest: neither `mahavishnu/settings/ecosystem.yaml`,
 ## Per-repo facts
 
 ### flowscape
+
 - Contents: `.gitignore`, `.python-version`, `dist`, `LICENSE`, `pyproject.toml`, `README.md`, `src/`
 - pyproject: `name = "flowscape"`
 - git: no
@@ -16,6 +17,7 @@ manifest: neither `mahavishnu/settings/ecosystem.yaml`,
   component that does not exist.
 
 ### bodai-plugins
+
 - Contents: `.claude/`, `.claude-plugin/`, `.git/`, `.gitignore`, `.pytest_cache/`, `.superpowers/`, `.venv/`, `bodai_plugins/`, `CHANGELOG.md`, `dist/`
 - pyproject: `name = "bodai-plugins"`
 - git: yes
@@ -25,6 +27,7 @@ manifest: neither `mahavishnu/settings/ecosystem.yaml`,
   it would mean inventing a non-existent port.
 
 ### peanutbutterpub
+
 - Contents: `.envrc`, `.git/`, `.gitignore`, `.idea/`, `.pdm-python/`, `.python-version/`, `.venv/`, `classicday_pbpub_mail.yml`, `create_routes.py`, `pyproject.toml`
 - pyproject: `name = "peanutbutterpub"`
 - git: yes
@@ -34,6 +37,7 @@ manifest: neither `mahavishnu/settings/ecosystem.yaml`,
   Bodai control plane.
 
 ### mdinject-pypi-placeholder
+
 - Contents: `.gitignore`, `.python-version`, `dist/`, `LICENSE/`, `pyproject.toml`, `README.md`, `src/`
 - pyproject: `name = "mdinject"`
 - git: no

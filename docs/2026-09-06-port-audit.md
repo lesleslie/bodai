@@ -6,7 +6,7 @@ which audited `settings/*.yaml` only.
 
 ## Raw scans
 
-### settings/*.yaml
+### settings/\*.yaml
 
 ```
 akosha                   settings  api_port: 8682
@@ -302,8 +302,7 @@ servers.
 - `akosha` `mcp_port: 3002` is an MCP port distinct from `api_port: 8682`. The
   registry only recorded 8682. The widened audit caught this — `portmap.yaml`
   must list both.
-- `crackerjack` claims three ports: `mcp_http_port: 8676`, `dashboard_port:
-  8684`, `zuban_port: 8685`. The registry assigned 8684/8685 to fastblocks /
+- `crackerjack` claims three ports: `mcp_http_port: 8676`, `dashboard_port: 8684`, `zuban_port: 8685`. The registry assigned 8684/8685 to fastblocks /
   mdinject; crackerjack is the real claimant.
 - `n8n` plist (port 3044) is a defunct launchd entry from before the repo was
   removed; keep the plist out of the audit's claim list (it does not match a
