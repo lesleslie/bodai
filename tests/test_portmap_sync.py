@@ -105,6 +105,12 @@ class TestEcosystemComponentPaths:
         assert "dhara" in components
         assert components["dhara"]["port"] == 8683
 
+    def test_n8n_mcp_is_not_an_active_component(self) -> None:
+        """~/Projects/n8n-mcp does not exist. The entry is commented out
+        pending a consumer audit rather than deleted."""
+        components = _load(ECOSYSTEM_PATH).get("components", {})
+        assert "n8n-mcp" not in components
+
 
 NEW_SERVER_PORTS = {
     3054: "archive-org-mcp",

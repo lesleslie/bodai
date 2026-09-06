@@ -104,14 +104,21 @@ components:
     status: development
     description: Unofficial Porkbun domain management via MCP
 
-  n8n-mcp:
-    name: n8n-mcp
-    role: tool
-    port: 3044
-    repo: ~/Projects/n8n-mcp
-    start_command: ["python", "-m", "n8n_mcp.mcp.server"]
-    status: development
-    description: n8n workflow automation via MCP
+  # DISABLED 2026-09-06 (Plan 0b Task 5): ~/Projects/n8n-mcp does not exist.
+  # Commented rather than deleted pending the consumer audit recorded below.
+  # Consumers found: bodai/config/storage-map.yaml (entry under "n8n"); launchd
+  # plist ~/Library/LaunchAgents/com.mcp.n8n.plist (the plist targets the
+  # missing repo and is currently dead but left in place). No references in
+  # mahavishnu Python/YAML, mahavishnu .mcp.json, or ~/.claude/settings.json.
+  # Delete this block once the audit above stays empty across one release.
+  # n8n-mcp:
+  #   name: n8n-mcp
+  #   role: tool
+  #   port: 3044
+  #   repo: ~/Projects/n8n-mcp
+  #   start_command: ["python", "-m", "n8n_mcp.mcp.server"]
+  #   status: development
+  #   description: n8n workflow automation via MCP
 
   neo4j-mcp:
     name: neo4j-mcp
