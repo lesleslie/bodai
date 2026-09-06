@@ -152,3 +152,46 @@ class TestNewServerPorts:
             if hits:
                 overlaps[str(key)] = hits
         assert overlaps == {}, f"reserved ranges overlap allocations: {overlaps}"
+
+
+def _ecosystem_ports() -> dict[int, str]:
+    components = _load(ECOSYSTEM_PATH).get("components", {})
+    return {
+        int(spec["port"]): name
+        for name, spec in components.items()
+        if "port" in spec
+    }
+
+
+class TestThreeSourceAgreement:
+    """portmap.yaml, bodai ecosystem.yaml, and repo settings must agree."""
+
+    def test_ecosystem_ports_match_portmap(self) -> None:
+        allocations = _portmap_allocations()
+        mismatches = {
+            port: {"ecosystem": name, "portmap": allocations.get(port, "<unallocated>")}
+            for port, name in _ecosystem_ports().items()
+            if allocations.get(port) != name
+        }
+        assert mismatches == {}, f"ecosystem.yaml disagrees with portmap: {mismatches}"
+
+    def test_no_port_claimed_by_two_components(self) -> None:
+        components = _load(ECOSYSTEM_PATH).get("components", {})
+        seen: dict[int, list[str]] = {}
+        for name, spec in components.items():
+            if "port" in spec:
+                seen.setdefault(int(spec["port"]), []).append(name)
+        collisions = {p: sorted(n) for p, n in seen.items() if len(n) > 1}
+        assert collisions == {}, f"two components share a port: {collisions}"
+
+    def test_repo_settings_match_ecosystem_where_both_declare(self) -> None:
+        """The third source. A repo binding a port its component entry
+        disagrees with will fail at launch, not at config load."""
+        ecosystem = _ecosystem_ports()
+        declared = _repo_declared_ports()
+        conflicts = {
+            port: {"ecosystem": ecosystem[port], "declared_by": sorted(repos)}
+            for port, repos in declared.items()
+            if port in ecosystem and ecosystem[port] not in repos
+        }
+        assert conflicts == {}, f"repo settings conflict with ecosystem: {conflicts}"

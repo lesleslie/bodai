@@ -52,7 +52,6 @@ components:
   fastblocks:
     name: fastblocks
     role: composer
-    port: 8684
     repo: ~/Projects/fastblocks
     start_command: ["python", "-m", "fastblocks.mcp.server"]
     status: production
@@ -69,7 +68,7 @@ components:
   mdinject:
     name: mdinject
     role: doctor
-    port: 8685
+    port: 8679
     repo: ~/Projects/mdinject
     start_command: ["python", "-m", "mdinject.mcp.server"]
     status: production
@@ -132,7 +131,7 @@ components:
   spline-mcp:
     name: spline-mcp
     role: tool
-    port: 3050
+    port: 3052
     repo: ~/Projects/spline-mcp
     start_command: ["python", "-m", "spline_mcp.mcp.server"]
     status: development
@@ -214,7 +213,7 @@ components:
   css-mcp:
     name: css-mcp
     role: tool
-    port: 3049
+    port: 3050
     repo: ~/Projects/css-mcp
     start_command: ["python", "-m", "css_mcp.mcp.server"]
     status: development
