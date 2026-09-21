@@ -1,5 +1,5 @@
 # Bodai Ecosystem Port Allocation
-# MCP servers: 8676-8699 (core), 3030-3049 (MCP integrations)
+# MCP servers: 8676-8699 (core), 3030-3069 (MCP integrations)
 
 mcp_core_range:
   start: 8676
@@ -7,7 +7,7 @@ mcp_core_range:
 
 mcp_integration_range:
   start: 3030
-  end: 3049
+  end: 3069
 
 allocations:
   # Core MCP servers (8676-8699)
@@ -19,14 +19,14 @@ allocations:
   8683: dhara          # Curator
   8684: crackerjack    # Crackerjack dashboard_port (was fastblocks, now correct)
   8685: crackerjack    # Crackerjack zuban_port (was mdinject, now correct)
-  8686: available      # (reserved — see reserved: block)
+  8686: available      # Available (core range; reserved block removed 2026-09-21)
   8696: crackerjack    # Crackerjack mcp_websocket_port
 
   # MCP Integration servers (3030-3049)
   3030: grafana-mcp        # Grafana dashboards (external plugin)
   3031: excalidraw-mcp     # Excalidraw diagram collaboration
   3032: available          # Reserved
-  3033: mermaid-mcp        # Mermaid diagrams (external)
+  3033: retired            # Was mermaid-mcp; uninstalled 2026-09-09
   3034: raindropio-mcp     # Raindrop.io bookmark management
   3035: grafana            # Grafana server (main instance)
   3036: chart-antv         # Chart visualization (external)
@@ -44,7 +44,7 @@ allocations:
   3048: langsmith-mcp      # LangSmith tracing/observability
   3049: available         # Reserved (css-mcp actually binds 3050)
 
-  # Additional MCP integrations (3050-3059)
+  # Additional MCP integrations (3050-3069)
   3050: css-mcp           # CSS analysis and documentation (was 3049)
   3051: penpot-api-mcp    # Penpot design platform API
   3052: spline-mcp        # Spline.design 3D scene orchestration (was 3050)
@@ -52,6 +52,11 @@ allocations:
   3054: archive-org-mcp   # Internet Archive Wayback and catalog (Plan 0a)
   3055: medium-mcp        # Medium content via the unofficial medium2 API
   3056: scapy-mcp         # Scapy packet crafting, dissection, capture
+  3057: chat-bridge-mcp   # 2026-09-21 — Cross-app bridge (Claude Desktop ↔ ChatGPT Desktop via CDP)
+  3058: available         # 2026-09-21 — No longer reserved
+  3059: available         # 2026-09-21 — No longer reserved
+  3060: available         # 2026-09-21 — First slot in the extended integration range
+  3061: cmux-mcp          # 2026-09-21 — Terminal automation (programmatic cmux instance control)
 
   # Out-of-range but actively bound ports (tracked for collision safety)
   3000: session-buddy    # Session-Buddy non-MCP server_port (distinct from MCP 8678)
@@ -61,6 +66,7 @@ allocations:
   9090: akosha           # Akosha Prometheus metrics exporter
   1883: oneiric          # Oneiric MQTT broker (standard port)
 
-reserved:
-  8697-8699: future expansion (core)
-  3057-3059: future expansion (integrations)
+# Reserved block removed 2026-09-21: user confirmed 3057-3059 and 8697-8699 are
+# no longer held aside. Future ports are allocated from the open slots listed
+# under the integrations block (or requested via PR when core-range additions
+# are needed).

@@ -18,28 +18,44 @@ The Bodai ecosystem uses ports in the 8676-8699 range, providing a dedicated nam
 | 8683 | Dhara | Curator | Active |
 | 8684-8699 | - | Reserved | Available |
 
-## MCP Server Ports (3032-3047)
+## MCP Server Ports (3030-3069)
 
-External MCP servers integrated with the Bodai ecosystem use the 3032-3047 range.
+External MCP servers integrated with the Bodai ecosystem use the 3030-3069 range. The canonical source for these allocations is `config/portmap.yaml`; this table is the human-readable mirror and should be kept in sync.
 
 | Port | Server | Description | Status |
 |------|--------|-------------|--------|
-| 3032 | Excalidraw | Diagram collaboration | Active |
-| 3033 | Mermaid | Mermaid diagram generation | Active |
-| 3034 | Raindropio | Bookmark management | Active |
-| 3035 | Grafana | Grafana integration | Active |
+| 3030 | Grafana MCP | Grafana dashboards (external plugin) | Active |
+| 3031 | Excalidraw MCP | Excalidraw diagram collaboration | Active |
+| 3032 | - | Available slot (reserved) | Available |
+| 3033 | - | (Was Mermaid MCP; uninstalled 2026-09-09) | Retired |
+| 3034 | Raindropio MCP | Bookmark management | Active |
+| 3035 | Grafana | Grafana server (main instance) | Active |
 | 3036 | Chart-antv | Chart visualization | Active |
-| 3037 | Opera Cloud | OPERA Cloud PMS integration | Active |
-| 3038 | Unifi | Network management | Active |
-| 3039 | Mailgun | Email service | Active |
-| 3040 | Graphics | Graphics/image processing | Active |
+| 3037 | Opera Cloud MCP | OPERA Cloud PMS integration | Active |
+| 3038 | Unifi MCP | Network management | Active |
+| 3039 | Mailgun MCP | Email service | Active |
+| 3040 | Graphics MCP | Graphics/image processing | Active |
 | 3041 | - | Reserved | Available |
-| 3042 | Porkbun DNS | DNS record management | Active |
-| 3043 | Porkbun Domain | Domain management | Active |
-| 3044 | n8n | n8n workflow integration | Active |
-| 3045 | Neo4j | Neo4j graph database | Active |
-| 3046 | Synxis CRS | CRS reservation system | Active |
-| 3047 | Synxis PMS | PMS property management | Active |
+| 3042 | Porkbun DNS MCP | DNS record management | Active |
+| 3043 | Porkbun Domain MCP | Domain management | Active |
+| 3044 | - | (Was n8n MCP; disabled 2026-09-06) | Disabled |
+| 3045 | Neo4j MCP | Neo4j graph database | Active |
+| 3046 | Synxis CRS MCP | CRS reservation system | Active |
+| 3047 | Synxis PMS MCP | PMS property management | Active |
+| 3048 | Langsmith MCP | LangSmith tracing/observability | Active |
+| 3049 | - | Reserved (css MCP actually binds 3050) | Available |
+| 3050 | CSS MCP | CSS analysis and documentation | Active |
+| 3051 | Penpot API MCP | Penpot design platform API | Active |
+| 3052 | Spline MCP | Spline.design 3D scene orchestration | Active |
+| 3053 | - | Reserved | Available |
+| 3054 | Archive.org MCP | Internet Archive Wayback and catalog | Active |
+| 3055 | Medium MCP | Medium content via unofficial medium2 API | Active |
+| 3056 | Scapy MCP | Packet crafting, dissection, capture | Active |
+| 3057 | Chat-Bridge MCP | Cross-app bridge (Claude Desktop ↔ ChatGPT Desktop via CDP) | Active |
+| 3058 | - | Available (no longer reserved as of 2026-09-21) | Available |
+| 3059 | - | Available (no longer reserved as of 2026-09-21) | Available |
+| 3060 | - | Available (first slot in extended integration range) | Available |
+| 3061 | Cmux MCP | Terminal automation (programmatic cmux instance control) | Active |
 
 ### Port 8681 Note
 
