@@ -59,7 +59,14 @@ allocations:
   3061: cmux-mcp          # 2026-09-21 — Terminal automation (programmatic cmux instance control)
 
   # Out-of-range but actively bound ports (tracked for collision safety)
-  3000: session-buddy    # Session-Buddy non-MCP server_port (distinct from MCP 8678)
+  # 3000: was session-buddy non-MCP server_port — removed 2026-09-21. The
+  #       `server_port: 3000` override in settings/session-buddy.yaml was
+  #       a dead config field: no production code reads `.server_port`
+  #       (the MCP listener uses `http_port`, default 8678), and the bare
+  #       `SessionMgmtSettings()` schema default is also 8678, not 3000.
+  #       Freeing 3000 removes a phantom reservation that could collide
+  #       with any new dev server (CRA/Rails/Jekyll/Grafana legacy/etc.)
+  #       that defaults to 3000.
   3002: akosha           # Akosha MCP port (distinct from api_port 8682)
   8679: mdinject         # Markdown injection and content healing
   8765: session-buddy    # Session-Buddy WebSocket
