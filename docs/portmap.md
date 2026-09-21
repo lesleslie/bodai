@@ -13,7 +13,7 @@ The Bodai ecosystem uses ports in the 8676-8699 range, providing a dedicated nam
 | 8678 | Session-Buddy | Builder | Active |
 | 8679 | - | Reserved | Available |
 | 8680 | Mahavishnu | Orchestrator | Active |
-| 8681 | - | Reserved (Oneiric) | See Note |
+| 8681 | Oneiric | Foundation (FastMCP server, 14 tools) | Active |
 | 8682 | Akosha | Seer | Active |
 | 8683 | Dhara | Curator | Active |
 | 8684-8699 | - | Reserved | Available |
@@ -56,15 +56,6 @@ External MCP servers integrated with the Bodai ecosystem use the 3030-3069 range
 | 3059 | - | Available (no longer reserved as of 2026-09-21) | Available |
 | 3060 | - | Available (first slot in extended integration range) | Available |
 | 3061 | Cmux MCP | Terminal automation (programmatic cmux instance control) | Active |
-
-### Port 8681 Note
-
-Port 8681 is reserved for historical consistency. Oneiric was originally planned as a network service but was absorbed into Dhara as a library component. The port remains reserved to:
-
-- Prevent accidental allocation
-- Maintain consistent port spacing
-- Allow for potential future use
-- Avoid confusion with existing documentation
 
 ## Port Range Rationale
 
