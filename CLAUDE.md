@@ -19,6 +19,17 @@ Bodai (The Orb) is a meta-project for the Bodai ecosystem. It provides configura
 | Crackerjack | Inspector | 8676 |
 | Oneiric | Foundation | N/A (library) |
 
+## Dev Workflow
+
+Bodai ecosystem repos follow the **trunk-based agent-review workflow**:
+ephemeral branches, AI-ensemble review, `crackerjack run -v` merge
+gate, squash-merge, auto-push `main`. Canonical spec:
+`~/Projects/mahavishnu/docs/specs/2026-10-03-agent-reviewed-trunk-based-dev.md`;
+canonical decision:
+`~/Projects/mahavishnu/.claude/decisions/2026-10-03-trunk-based-agent-review.md`.
+
+This meta-project follows the same workflow.
+
 ## Memory Architecture
 
 Bodai is the meta-project; the memory architecture for the entire ecosystem lives in this repo's `docs/memory/` directory.
