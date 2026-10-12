@@ -21,6 +21,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+shell = [
+    "ipython>=8.0.0",
+    "textual>=0.40.0",
+]
 dev = [
     "pytest>=7.0.0",
     "pytest-asyncio>=0.21.0",
@@ -88,7 +92,7 @@ ignore = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/*" = ["D", "S101", "PLR2004", "T20"]
+"tests/*" = ["D", "S101", "PLR2004", "T20", "PLC0415"]  # Lazy imports for fixtures/monkeypatch seams
 "bodai/cli.py" = ["PLC0415"]  # Lazy imports for optional dependencies
 "bodai/admin/shell.py" = ["PLC0415"]  # Lazy imports for IPython
 

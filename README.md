@@ -145,6 +145,66 @@ Bodai provides a unified CLI for managing the ecosystem:
 | `bodai config show` | Display current configuration |
 | `bodai config validate` | Validate configuration files |
 
+## Shell
+
+`bodai shell` opens an IPython REPL pre-loaded with the Bodai
+ecosystem context. The shell is the most direct way to inspect and
+poke at the running components from the terminal:
+
+```bash
+bodai shell
+```
+
+The following names are pre-loaded in the IPython namespace:
+
+- **Config objects**: `ecosystem`, `portmap`, `storage_map`.
+- **Config loaders**: `load_ecosystem()`, `load_portmap()`,
+  `load_storage_map()`.
+- **Health probes**: `check_all()` (returns per-component health),
+  `check_component("mahavishnu")` (probes a single component).
+- **Models**: `Component`, `Ecosystem`.
+- **Per-component variables**: every registered component name
+  (e.g. `mahavishnu`, `akosha`, `session-buddy`, `crackerjack`) is
+  bound to its `Component` instance — `mahavishnu.port` /
+  `akosha.health_url()` etc. work directly from the prompt.
+
+The shell requires `ipython`; if the import fails the CLI prints
+the installer hint and exits 1 (no silent fallback):
+
+```bash
+uv pip install 'bodai[shell]'   # installs the ipython + textual extras
+```
+
+See [`.claude/decisions/2026-08-25-bodai-tui-contract.md`](https://github.com/lesleslie/mahavishnu/blob/main/.claude/decisions/2026-08-25-bodai-tui-contract.md)
+for the AdminShell reuse pattern that bodai builds on.
+
+## TUI Dashboard
+
+`bodai dashboard` opens a Textual TUI showing every registered
+ecosystem component in a single grid. It is the cross-component
+aggregator surface — see [`.claude/decisions/2026-08-25-bodai-tui-contract.md`](https://github.com/lesleslie/mahavishnu/blob/main/.claude/decisions/2026-08-25-bodai-tui-contract.md).
+
+```bash
+bodai dashboard
+```
+
+- Press `r` to reload all component health data.
+- Press `q` to quit.
+- The grid refreshes when you press `r`; it does not auto-poll (the
+  underlying `check_all()` is a one-shot snapshot today — auto-refresh
+  is a Plan B future).
+
+The dashboard requires `textual`; if the import fails the CLI
+prints the installer hint and exits 1:
+
+```bash
+uv pip install 'bodai[shell]'   # installs the ipython + textual extras
+```
+
+The `bodai dashboard` surface complements `mahavishnu monitor watch`
+(component-internal vs cross-component split — see the TUI contract
+decision doc).
+
 ## Architecture
 
 For detailed architecture documentation, see [docs/architecture.md](docs/architecture.md).

@@ -27,7 +27,6 @@ ComponentWidget {
 
 Header {
     background: $primary;
-    color: $text-on-primary;
 }
 
 Footer {

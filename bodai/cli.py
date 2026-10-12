@@ -243,11 +243,13 @@ def dashboard() -> None:
     console.print("[cyan]Launching dashboard...[/cyan]")
     try:
         from bodai.tui.dashboard import BodaiDashboard
-
-        tui_app = BodaiDashboard()
-        tui_app.run()
-    except ImportError:
-        console.print("[red]TUI not yet implemented[/red]")
+    except ImportError as e:
+        # NOTE: render the install hint outside Rich markup — Rich would
+        # otherwise strip ``bodai[shell]`` as an unknown style tag.
+        _print_shell_install_hint(e)
+        raise typer.Exit(1) from e
+    tui_app = BodaiDashboard()
+    tui_app.run()
 
 
 @app.command()
@@ -256,10 +258,23 @@ def shell() -> None:
     console.print("[cyan]Launching IPython shell...[/cyan]")
     try:
         from bodai.admin.shell import launch_shell
+    except ImportError as e:
+        _print_shell_install_hint(e)
+        raise typer.Exit(1) from e
+    launch_shell()
 
-        launch_shell()
-    except ImportError:
-        console.print("[red]Shell not yet implemented[/red]")
+
+def _print_shell_install_hint(error: ImportError) -> None:
+    """Print the friendly installer hint for missing shell/TUI extras.
+
+    Bodai's ``[shell]`` extra bundles ``ipython`` + ``textual`` so a fresh
+    install has everything the ``shell`` and ``dashboard`` subcommands need.
+    """
+    console.print("[red]Bodai TUI/Shell not installed.[/red]")
+    console.print(
+        "[bold]Install with: uv pip install 'bodai' (with shell extra)[/bold]"
+    )
+    console.print(f"(import error: {error})")
 
 
 @config_app.command("show")
